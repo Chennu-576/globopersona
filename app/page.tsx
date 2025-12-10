@@ -3426,754 +3426,1922 @@
 
 
 
-"use client";
-
-import { motion, Variants, useScroll, useTransform } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import {
-  Rocket,
-  Users,
-  LineChart,
-  Smartphone,
-  Globe2,
-  Brush,
-  Workflow,
-  Bot,
-  MailCheck,
-  ShieldCheck,
-} from "lucide-react";
-
-const darkBlue = "#244082,";
-const accent = "#38bdf8";
-
-// Variants (TS-safe)
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 32 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
-const fadeIn: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
-const stagger: Variants = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.15, delayChildren: 0.05 },
-  },
-};
-
-const aboutTabs = [
-  {
-    key: "satisfaction",
-    label: "Customer Satisfaction",
-    title: "Highly ranked for customer satisfaction",
-    body: "Our commitment to customer satisfaction is at the core of everything we do. Engagements are built around clear outcomes, transparency, and long‑term support.",
-  },
-  {
-    key: "cost",
-    label: "Cost‑Effective",
-    title: "World‑class yet cost‑effective",
-    body: "Excellence without the enterprise price tag. Solutions are designed to be lean, efficient, and focused on maximising your return on investment.",
-  },
-  {
-    key: "complete",
-    label: "All‑in‑One",
-    title: "Complete solutions under one roof",
-    body: "From strategy to design, development, automation, and email, Globo Persona brings every essential capability into a single, integrated partner.[web:2][web:43]",
-  },
-  {
-    key: "culture",
-    label: "Culture & Craft",
-    title: "Culture, craft, and technical excellence",
-    body: "Every journey begins with understanding your needs, crafting experiences that resonate with your audience, and leveraging modern technology to drive results.[web:2]",
-  },
-];
-
-const featureItems = [
-  "Targeted Audience Reach",
-  "Cost Efficiency",
-  "Trackable Performance",
-  "Interactive Engagement",
-  "Multi‑Platform Presence",
-  "Marketing Automation",
-  "Flexibility & Adaptability",
-  "Global Outreach",
-  "Enhanced User Experience",
-  "Social Influence",
-  "Data Security & Compliance",
-  "Content Strategy",
-];
-
-export default function HomePage() {
-  return (
-    <main className="min-h-screen bg-slate-950 text-slate-50">
-      {/* BACKGROUND */}
-      <motion.div
-        initial="hidden"
-        animate="show"
-        variants={fadeIn}
-        className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-      >
-        <div className="absolute -top-40 left-[-8rem] h-96 w-96 rounded-full bg-[rgba(23,64,129,0.6)] blur-3xl" />
-        <div className="absolute right-[-6rem] top-24 h-80 w-80 rounded-full bg-[rgba(56,189,248,0.3)] blur-3xl" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.06),transparent_55%)]" />
-      </motion.div>
-
-      <div className="mx-auto flex max-w-6xl flex-col gap-20 px-4 py-10 md:px-6 md:py-16">
-        {/* 1. HERO / BANNER – polished simple split */}
-        <section className="relative grid gap-10 md:grid-cols-[1.4fr,1fr] md:items-center">
-          {/* left content */}
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            animate="show"
-            className="space-y-7"
-          >
-            <motion.p
-              variants={fadeUp}
-              className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-300/80"
-            >
-              Digital growth partner
-            </motion.p>
-
-            <motion.h1
-              variants={fadeUp}
-              className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl"
-            >
-              We Don&apos;t Run <span className="text-[#fdc134]">Ads.</span>
-              <br />
-              We Build <span className="text-[#244082]">Growth Engines.</span>
-            </motion.h1>
-
-            <motion.p
-              variants={fadeUp}
-              className="max-w-xl text-sm leading-relaxed text-slate-200/85"
-            >
-              Globo Persona crafts unique digital experiences that help your
-              business grow, stand out, and convert the right audiences across
-              the web.
-            </motion.p>
-
-            <motion.div
-              variants={fadeUp}
-              className="flex flex-wrap items-center gap-4"
-            >
-              {/* primary button with angled hover overlay */}
-              <button
-                className="relative overflow-hidden rounded-full bg-[#244082] px-7 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[rgba(36,64,130,0.5)] transition-transform duration-200 hover:-translate-y-0.5"
-              >
-                <span className="relative z-10">Connect With Us</span>
-                <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-tr from-[#fdc134] via-[#244082] to-white opacity-80 transition-transform duration-300 ease-out hover:translate-x-0" />
-              </button>
-
-              {/* secondary outline button */}
-              <button
-                className="rounded-full border border-slate-500 bg-transparent px-7 py-2.5 text-sm font-semibold text-slate-100 transition-colors duration-200 hover:border-[#244082] hover:bg-white/10"
-              >
-                View our work
-              </button>
-            </motion.div>
-          </motion.div>
-
-         {/* right side globe – similar to reference */}
-<motion.div
-  variants={fadeIn}
-  initial="hidden"
-  animate="show"
-  className="relative flex items-center justify-center"
->
-  <motion.div
-    className="relative h-64 w-64 md:h-80 md:w-80 rounded-full overflow-hidden"
-    animate={{ rotate: 360 }}
-    transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-  >
-    {/* outer glow + rim */}
-    <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,#1e293b_0%,#020617_55%,#020617_100%)]" />
-    <div className="absolute inset-[1px] rounded-full border border-[rgba(56,189,248,0.7)] shadow-[0_0_70px_rgba(56,189,248,0.9)]" />
-
-    {/* dotted world silhouette */}
-    <div className="absolute inset-6 rounded-full overflow-hidden">
-      {/* blue dot field */}
-      <div className="h-full w-full bg-[radial-gradient(circle,#1d4ed8_1px,transparent_1px)] [background-size:4px_4px] opacity-90" />
-      {/* dark land mask at bottom half */}
-      <div className="absolute bottom-0 left-1/2 h-[70%] w-[140%] -translate-x-1/2 rounded-t-[999px] bg-gradient-to-t from-[#020617] via-[#020617] to-transparent" />
-    </div>
-
-    {/* subtle latitude/longitude glow */}
-    <div className="pointer-events-none absolute inset-x-6 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-[rgba(148,163,184,0.7)] to-transparent" />
-    <div className="pointer-events-none absolute inset-y-6 left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[rgba(148,163,184,0.7)] to-transparent" />
-  </motion.div>
-</motion.div>
- </section>
-
-        {/* 2. ABOUT – tabbed 4‑title interaction (unique layout) */}
-        <AboutSection />
-
-        {/* 3. SERVICES – parallax‑style horizontal stacked cards */}
-        {/* 3. SERVICES – stacked cards */}
-        <ServicesParallaxSection />
-
-
-        {/* 4. FEATURES – 12 small titles in a dense grid */}
-        <FeaturesSection />
-
-        {/* 5. FAQ – interaction like accordions */}
-        <FAQSection />
-
-        {/* 6. CTA – strong final panel */}
-        <CTASection />
-      </div>
-
-      <style jsx global>{`
-        :root {
-          --brand-blue: ${darkBlue};
-          --accent: ${accent};
-        }
-      `}</style>
-    </main>
-  );
-}
-
-/* -------------------- ABOUT SECTION -------------------- */
-
-
-function AboutSection() {
-  const [active, setActive] = React.useState<string>("satisfaction");
-  const current = aboutTabs.find((t) => t.key === active)!;
-
-  // simple icons per tab
-  const tabIcons: Record<string, React.ReactNode> = {
-    satisfaction: <Users className="h-3.5 w-3.5" />,
-    cost: <LineChart className="h-3.5 w-3.5" />,
-    complete: <Globe2 className="h-3.5 w-3.5" />,
-    culture: <Brush className="h-3.5 w-3.5" />,
-  };
-
-  return (
-    <section className="space-y-6">
-      <motion.div
-        variants={stagger}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.35 }}
-        className="space-y-3"
-      >
-        <motion.p
-          variants={fadeUp}
-          className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-300/80"
-        >
-          About Globo Persona
-        </motion.p>
-        <motion.h2
-          variants={fadeUp}
-          className="text-2xl font-semibold tracking-tight text-white md:text-3xl"
-        >
-          World‑class digital marketing, made accessible.
-        </motion.h2>
-        <motion.p
-          variants={fadeUp}
-          className="max-w-3xl text-sm leading-relaxed text-slate-200/85"
-        >
-          Welcome to GloboPersona, your premier destination for comprehensive
-          digital marketing solutions. Every engagement is grounded in
-          understanding your needs, your audience, and the outcomes that matter
-          most.[web:2]
-        </motion.p>
-      </motion.div>
-
-      <div className="grid gap-6 md:grid-cols-[0.9fr,1.3fr] md:items-stretch">
-        {/* LEFT: tabs list with icons */}
-        <motion.div
-          variants={fadeIn}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.4 }}
-          className="flex h-full flex-col gap-2 rounded-3xl border border-slate-800 bg-slate-900/80 p-3 text-[11px]"
-        >
-          {aboutTabs.map((tab) => (
-            <button
-              key={tab.key}
-              onClick={() => setActive(tab.key)}
-              className={`flex items-center justify-between rounded-2xl px-3 py-3 text-left transition ${
-                active === tab.key
-                  ? "bg-[#244082] text-slate-50 shadow-sm"
-                  : "bg-slate-900/40 text-slate-300 hover:bg-slate-900"
-              }`}
-            >
-              <span className="flex items-center gap-2">
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-900/60 text-[rgba(248,250,252,0.9)]">
-                  {tabIcons[tab.key]}
-                </span>
-                {tab.label}
-              </span>
-              <span className="text-[10px] text-slate-400">
-                {active === tab.key ? "●" : "○"}
-              </span>
-            </button>
-          ))}
-        </motion.div>
-
-        {/* RIGHT: detail card with white bg + blue text */}
-{/* RIGHT: detail card – dark bg, highlighted title */}
-<motion.div
-  key={current.key}
-  initial={{ opacity: 0, y: 18 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: false, amount: 0.4 }}
-  transition={{ duration: 0.4 }}
-  className="flex h-full flex-col justify-center rounded-3xl border border-slate-800 bg-slate-900/90 p-6 shadow-[0_18px_45px_rgba(0,0,0,0.6)]"
->
-  <h3 className="inline-flex items-center gap-2 rounded-full bg-[rgba(36,64,130,0.25)] px-5 py-2 text-sm font-semibold text-slate-50">
-    <span className="h-1.5 w-1.5 rounded-full bg-[#fdc134]" />
-    {current.title}
-  </h3>
-  <p className="mt-3 text-12px] leading-relaxed text-slate-200/90">
-    {current.body}
-  </p>
-</motion.div>
-
-
-      </div>
-    </section>
-  );
-}
-
-
-
-const gpServices = [
-  {
-    title: "App Development",
-    subtitle: "Engaging mobile experiences",
-    body:
-      "Custom mobile apps that improve customer engagement, streamline processes, and create a direct line to your audience across devices.[web:2]",
-    img: "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    title: "Web Development",
-    subtitle: "High‑performance websites",
-    body:
-      "Responsive, visually appealing, SEO‑friendly websites that convert visitors into loyal customers.[web:2]",
-    img: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    title: "Graphic Design & Branding",
-    subtitle: "Memorable brand identity",
-    body:
-      "Logos, brand systems, and creative assets that keep your business instantly recognisable in any channel.[web:2]",
-    img: "https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    title: "Digital Marketing",
-    subtitle: "Full‑funnel growth",
-    body:
-      "Integrated SEO, content, social, and paid programmes to grow traffic and revenue.[web:2][web:43]",
-    img: "https://images.pexels.com/photos/1559651/pexels-photo-1559651.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    title: "Account‑Based Marketing",
-    subtitle: "Win key accounts",
-    body:
-      "ABM strategies focused on high‑value B2B accounts with aligned sales and marketing.[web:2]",
-    img: "https://images.pexels.com/photos/1181468/pexels-photo-1181468.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    title: "Automations",
-    subtitle: "Always‑on workflows",
-    body:
-      "Custom automation solutions that remove repetitive work, reduce errors, and maximise productivity.[web:2][web:47]",
-    img: "https://images.pexels.com/photos/1181438/pexels-photo-1181438.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    title: "Custom Chatbots",
-    subtitle: "Instant support 24/7",
-    body:
-      "Chatbots tailored to your business that answer questions, qualify leads, and collect insights.[web:2][web:43]",
-    img: "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    title: "Custom Mini Softwares",
-    subtitle: "Bespoke micro‑solutions",
-    body:
-      "Plugins, widgets, and lightweight apps that extend your website or existing stack.[web:2]",
-    img: "https://images.pexels.com/photos/3861964/pexels-photo-3861964.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-  {
-    title: "Email Marketing",
-    subtitle: "Nurture & retain",
-    body:
-      "Targeted email campaigns and automation journeys that nurture leads and drive retention.[web:2][web:46]",
-    img: "https://images.pexels.com/photos/261949/pexels-photo-261949.jpeg?auto=compress&cs=tinysrgb&w=800",
-  },
-];
-
-function ServicesParallaxSection() {
-  const sectionRef = React.useRef<HTMLDivElement | null>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-
-  return (
-    <section className="space-y-8">
-      <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-300/80">
-            Our services
-          </p>
-          <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
-            9 services, stacked as you scroll.
-          </h2>
-        </div>
-        <p className="max-w-md text-[11px] text-slate-300/90">
-          Cards stay in place while the next one scrolls over it, creating a
-          layered vertical story of Globo Persona&apos;s capabilities.[web:1][web:2]
-        </p>
-      </div>
-
-      <div ref={sectionRef} className="relative h-[900vh]">
-        {gpServices.map((service, index) => (
-          <StickyServiceCard
-            key={service.title}
-            index={index}
-            total={gpServices.length}
-            service={service}
-            progress={scrollYProgress}
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-type StickyServiceCardProps = {
-  index: number;
-  total: number;
-  service: (typeof gpServices)[number];
-  progress: any;
-};
-
-function StickyServiceCard({
-  index,
-  total,
-  service,
-  progress,
-}: StickyServiceCardProps) {
-  const step = 1 / total;
-  const start = index * step;
-  const end = start + step;
-
-  const targetScale = 0.9 + (index / total) * 0.08;
-  const scale = useTransform(progress, [start, end], [1, targetScale]);
-  const translateY = useTransform(
-    progress,
-    [start, end],
-    [index * 16, index * -8]
-  );
-
-  return (
-    <motion.div
-      style={{ scale, y: translateY }}
-      className="sticky top-16 mx-auto flex max-w-4xl justify-center"
-    >
-      <article className="grid h-[420px] w-full grid-cols-1 overflow-hidden rounded-3xl border border-slate-200 bg-white text-slate-900 shadow-xl md:h-[420px] md:grid-cols-[1.3fr,1fr]">
-        <div className="col-span-1 h-3 w-full rounded-t-3xl bg-[#244082] md:col-span-2" />
-
-        <div className="flex flex-col justify-between px-6 pb-6 pt-4">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#244082]">
-              {service.subtitle}
-            </p>
-            <h3 className="mt-1 text-lg font-semibold text-[#213b52]">
-              {service.title}
-            </h3>
-            <p className="mt-2 text-[11px] leading-relaxed text-slate-700">
-              {service.body}
-            </p>
-          </div>
-          <span className="mt-3 text-[11px] font-semibold text-[#244082]">
-            Learn more →
-          </span>
-        </div>
-
-        <div className="relative hidden overflow-hidden rounded-l-3xl rounded-tr-3xl bg-slate-100 md:block">
-          <motion.div
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${service.img})` }}
-            initial={{ scale: 1.15 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true, amount: 0.7 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          />
-        </div>
-      </article>
-    </motion.div>
-  );
-}
-
-/* -------------------- FEATURES -------------------- */
-
-function FeaturesSection() {
-  const [reverse, setReverse] = React.useState(false);
-
-  // every 60s direction flip
-  React.useEffect(() => {
-    const id = setInterval(() => setReverse((r) => !r), 60000);
-    return () => clearInterval(id);
-  }, []);
-
-  const featureCards = [
-    "Targeted Audience Reach",
-    "Cost Efficiency",
-    "Trackable Performance",
-    "Interactive Engagement",
-    "Multi‑Platform Presence",
-    "Marketing Automation",
-    "Flexibility & Adaptability",
-    "Global Outreach",
-    "Enhanced User Experience",
-    "Social Influence",
-    "Data Security & Compliance",
-    "Content Strategy",
-  ];
-
-  const topRow = featureCards.slice(0, 6);
-  const bottomRow = featureCards.slice(6, 12);
-  const allTop = topRow.concat(topRow);
-  const allBottom = bottomRow.concat(bottomRow);
-
-  const xFrom = reverse ? "-50%" : "0%";
-  const xTo = reverse ? "0%" : "-50%";
-
-  return (
-    <section className="py-14">
-      <div className="grid gap-10 md:grid-cols-2 md:items-start">
-        {/* LEFT 50% – text block */}
-        <div className="space-y-4">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-300/80">
-            Real‑world impact
-          </p>
-          <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
-            Client success stories built on strong features.
-          </h2>
-          <p className="max-w-md text-sm leading-relaxed text-slate-200/85">
-            See how organisations like yours transform operations and customer
-            experiences using Globo Persona&apos;s capabilities—from automation
-            and analytics to omni‑channel engagement.[web:2]
-          </p>
-
-          <button className="inline-flex items-center gap-2 rounded-full border border-slate-500 bg-transparent px-5 py-2 text-[11px] font-semibold text-slate-100 transition-colors duration-200 hover:border-[#244082] hover:bg-white/5">
-            Explore client stories
-            <span className="text-xs">↗</span>
-          </button>
-        </div>
-
-        {/* RIGHT 50% – scrolling feature cards */}
-        <div className="space-y-4">
-          {/* Top row */}
-          <div className="relative overflow-hidden rounded-2xl bg-[#020617] p-2">
-            <motion.div
-              className="flex w-max gap-4"
-              animate={{ x: [xFrom, xTo] }}
-              transition={{ duration: 30, ease: "linear", repeat: Infinity }}
-            >
-              {allTop.map((item, i) => (
-                <div
-                  key={`top-${i}`}
-                  className="flex h-24 min-w-[220px] md:h-28 md:min-w-[260px] items-center rounded-2xl bg-[#244082] px-4 text-left text-slate-50 shadow-[0_18px_40px_rgba(0,0,0,0.7)]"
-                >
-                  <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
-                    <span className="h-2 w-2 rounded-full bg-white" />
-                  </div>
-                  <p className="text-sm font-semibold leading-snug">
-                    {item}
-                  </p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Bottom row */}
-          <div className="relative overflow-hidden rounded-2xl bg-[#020617] p-2">
-            <motion.div
-              className="flex w-max gap-4"
-              animate={{ x: [xFrom, xTo] }}
-              transition={{ duration: 30, ease: "linear", repeat: Infinity }}
-            >
-              {allBottom.map((item, i) => (
-                <div
-                  key={`bottom-${i}`}
-                  className="flex h-24 min-w-[220px] md:h-28 md:min-w-[260px] items-center rounded-2xl bg-[#244082] px-4 text-left text-slate-50 shadow-[0_18px_40px_rgba(0,0,0,0.7)]"
-                >
-                  <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
-                    <span className="h-2 w-2 rounded-full bg-white" />
-                  </div>
-                  <p className="text-sm font-semibold leading-snug">
-                    {item}
-                  </p>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-
-
-/* -------------------- FAQ -------------------- */
-
-const faqItems = [
-  {
-    q: "What services does Globo Persona offer?",
-    a: "Globo Persona offers app development, web development, marketing automation, custom chatbot development, email campaign management, and additional digital services to enhance your presence and drive growth.[web:2][web:43]",
-  },
-  {
-    q: "How do your app development services help?",
-    a: "Custom mobile apps improve engagement, streamline processes, and provide a platform for direct communication with your audience across devices.[web:2][web:43]",
-  },
-  {
-    q: "What makes your web development stand out?",
-    a: "Websites are responsive, visually appealing, and highly functional, with UX, SEO optimisation, and integrations designed to support business goals.[web:2][web:45]",
-  },
-  {
-    q: "How do you implement marketing automation?",
-    a: "Advanced software automates email campaigns, social media posting, and lead generation, enabling efficient, personalised communication at scale.[web:2][web:47]",
-  },
-  {
-    q: "Can you build custom chatbots?",
-    a: "Yes. Chatbots are tailored to your business needs, offering instant responses, handling routine tasks, and gathering valuable customer insights.[web:2][web:43]",
-  },
-];
-
-function FAQSection() {
-  return (
-    <section className="space-y-6">
-      <div>
-        <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-300/80">
-          Frequently asked questions
-        </p>
-        <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-          Clear answers before we get started.
-        </h2>
-      </div>
-
-      <div className="space-y-3">
-        {faqItems.map((item) => (
-          <details
-            key={item.q}
-            className="group rounded-2xl border border-slate-800 bg-slate-900/80 p-4"
-          >
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold">
-              {item.q}
-              <span className="text-xs text-slate-400 group-open:hidden">
-                +
-              </span>
-              <span className="hidden text-xs text-slate-400 group-open:block">
-                −
-              </span>
-            </summary>
-            <p className="mt-2 text-[11px] leading-relaxed text-slate-300/90">
-              {item.a}
-            </p>
-          </details>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* -------------------- CTA -------------------- */
-
-function CTASection() {
-  const tags = [
-    "Digital Marketing",
-    "Business Automation",
-    "AI Development",
-    "Performance Marketing",
-    "Account‑Based Marketing",
-    "Custom Chatbots",
-    "Web Development",
-    "App Development",
-    "Email Marketing",
-  ];
-
-  return (
-    <section className="py-10">
-      <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[40px] border border-[#1c2f63] bg-[#244082] p-10 shadow-[0_40px_120px_rgba(0,0,0,0.8)]">
-        {/* soft background lights */}
-        <div className="pointer-events-none absolute inset-0 opacity-70 mix-blend-screen">
-          <div className="absolute -left-10 top-0 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,#ffffff,transparent_60%)] blur-3xl" />
-          <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,#fdc134,transparent_60%)] blur-3xl" />
-        </div>
-
-        <div className="relative z-10 flex flex-col items-center gap-6 text-center text-white">
-          <div className="space-y-2">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/80">
-              Automate your growth
-            </p>
-            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-              Transform your business with{" "}
-              <span className="text-[#fdc134]">cutting‑edge solutions</span>.
-            </h2>
-            <p className="text-[11px] text-white/85">
-              Book a call today and start automating your marketing, sales, and
-              customer journeys with Globo Persona.
-            </p>
-          </div>
-
-          {/* horizontal scrolling tags */}
-          <div className="relative w-full overflow-hidden">
-            <div className="pointer-events-none absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-[#244082] via-[#244082] to-transparent" />
-            <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-[#244082] via-[#244082] to-transparent" />
-
-            <div className="flex w-max animate-[scrollTags_20s_linear_infinite] gap-3">
-              {tags.concat(tags).map((tag, i) => (
-                <div
-                  key={i}
-                  className="rounded-full border border-white/20 bg-black/35 px-4 py-1 text-[11px] text-slate-50 shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
-                >
-                  {tag}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* primary CTA button */}
-          <button className="mt-2 rounded-full bg-white px-8 py-2.5 text-sm font-semibold text-[#244082] shadow-[0_18px_45px_rgba(0,0,0,0.6)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-slate-100">
-            Book a free call
-          </button>
-        </div>
-      </div>
+// "use client";
+
+// import { motion, Variants, useScroll, useTransform } from "framer-motion";
+// import { Button } from "@/components/ui/button";
+// import {
+//   Rocket,
+//   Users,
+//   LineChart,
+//   Smartphone,
+//   Globe2,
+//   Brush,
+//   Workflow,
+//   Bot,
+//   MailCheck,
+//   ShieldCheck,
+// } from "lucide-react";
+
+// const darkBlue = "#244082,";
+// const accent = "#38bdf8";
+
+// // Variants (TS-safe)
+// const fadeUp: Variants = {
+//   hidden: { opacity: 0, y: 32 },
+//   show: {
+//     opacity: 1,
+//     y: 0,
+//     transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+//   },
+// };
+
+// const fadeIn: Variants = {
+//   hidden: { opacity: 0 },
+//   show: {
+//     opacity: 1,
+//     transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+//   },
+// };
+
+// const stagger: Variants = {
+//   hidden: {},
+//   show: {
+//     transition: { staggerChildren: 0.15, delayChildren: 0.05 },
+//   },
+// };
+
+// const aboutTabs = [
+//   {
+//     key: "satisfaction",
+//     label: "Customer Satisfaction",
+//     title: "Highly ranked for customer satisfaction",
+//     body: "Our commitment to customer satisfaction is at the core of everything we do. Engagements are built around clear outcomes, transparency, and long‑term support.",
+//   },
+//   {
+//     key: "cost",
+//     label: "Cost‑Effective",
+//     title: "World‑class yet cost‑effective",
+//     body: "Excellence without the enterprise price tag. Solutions are designed to be lean, efficient, and focused on maximising your return on investment.",
+//   },
+//   {
+//     key: "complete",
+//     label: "All‑in‑One",
+//     title: "Complete solutions under one roof",
+//     body: "From strategy to design, development, automation, and email, Globo Persona brings every essential capability into a single, integrated partner.[web:2][web:43]",
+//   },
+//   {
+//     key: "culture",
+//     label: "Culture & Craft",
+//     title: "Culture, craft, and technical excellence",
+//     body: "Every journey begins with understanding your needs, crafting experiences that resonate with your audience, and leveraging modern technology to drive results.[web:2]",
+//   },
+// ];
+
+// const featureItems = [
+//   "Targeted Audience Reach",
+//   "Cost Efficiency",
+//   "Trackable Performance",
+//   "Interactive Engagement",
+//   "Multi‑Platform Presence",
+//   "Marketing Automation",
+//   "Flexibility & Adaptability",
+//   "Global Outreach",
+//   "Enhanced User Experience",
+//   "Social Influence",
+//   "Data Security & Compliance",
+//   "Content Strategy",
+// ];
+
+// export default function HomePage() {
+//   return (
+//     <main className="min-h-screen bg-slate-950 text-slate-50">
+//       {/* BACKGROUND */}
+//       <motion.div
+//         initial="hidden"
+//         animate="show"
+//         variants={fadeIn}
+//         className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
+//       >
+//         <div className="absolute -top-40 left-[-8rem] h-96 w-96 rounded-full bg-[rgba(23,64,129,0.6)] blur-3xl" />
+//         <div className="absolute right-[-6rem] top-24 h-80 w-80 rounded-full bg-[rgba(56,189,248,0.3)] blur-3xl" />
+//         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.06),transparent_55%)]" />
+//       </motion.div>
+
+//       <div className="mx-auto flex max-w-6xl flex-col gap-20 px-4 py-10 md:px-6 md:py-16">
+//         {/* 1. HERO / BANNER – polished simple split */}
+//         <section className="relative grid gap-10 md:grid-cols-[1.4fr,1fr] md:items-center">
+//           {/* left content */}
+//           <motion.div
+//             variants={stagger}
+//             initial="hidden"
+//             animate="show"
+//             className="space-y-7"
+//           >
+//             <motion.p
+//               variants={fadeUp}
+//               className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-300/80"
+//             >
+//               Digital growth partner
+//             </motion.p>
+
+//             <motion.h1
+//               variants={fadeUp}
+//               className="text-balance text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl"
+//             >
+//               We Don&apos;t Run <span className="text-[#fdc134]">Ads.</span>
+//               <br />
+//               We Build <span className="text-[#244082]">Growth Engines.</span>
+//             </motion.h1>
+
+//             <motion.p
+//               variants={fadeUp}
+//               className="max-w-xl text-sm leading-relaxed text-slate-200/85"
+//             >
+//               Globo Persona crafts unique digital experiences that help your
+//               business grow, stand out, and convert the right audiences across
+//               the web.
+//             </motion.p>
+
+//             <motion.div
+//               variants={fadeUp}
+//               className="flex flex-wrap items-center gap-4"
+//             >
+//               {/* primary button with angled hover overlay */}
+//               <button
+//                 className="relative overflow-hidden rounded-full bg-[#244082] px-7 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[rgba(36,64,130,0.5)] transition-transform duration-200 hover:-translate-y-0.5"
+//               >
+//                 <span className="relative z-10">Connect With Us</span>
+//                 <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-tr from-[#fdc134] via-[#244082] to-white opacity-80 transition-transform duration-300 ease-out hover:translate-x-0" />
+//               </button>
+
+//               {/* secondary outline button */}
+//               <button
+//                 className="rounded-full border border-slate-500 bg-transparent px-7 py-2.5 text-sm font-semibold text-slate-100 transition-colors duration-200 hover:border-[#244082] hover:bg-white/10"
+//               >
+//                 View our work
+//               </button>
+//             </motion.div>
+//           </motion.div>
+
+//          {/* right side globe – similar to reference */}
+// <motion.div
+//   variants={fadeIn}
+//   initial="hidden"
+//   animate="show"
+//   className="relative flex items-center justify-center"
+// >
+//   <motion.div
+//     className="relative h-64 w-64 md:h-80 md:w-80 rounded-full overflow-hidden"
+//     animate={{ rotate: 360 }}
+//     transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+//   >
+//     {/* outer glow + rim */}
+//     <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,#1e293b_0%,#020617_55%,#020617_100%)]" />
+//     <div className="absolute inset-[1px] rounded-full border border-[rgba(56,189,248,0.7)] shadow-[0_0_70px_rgba(56,189,248,0.9)]" />
+
+//     {/* dotted world silhouette */}
+//     <div className="absolute inset-6 rounded-full overflow-hidden">
+//       {/* blue dot field */}
+//       <div className="h-full w-full bg-[radial-gradient(circle,#1d4ed8_1px,transparent_1px)] [background-size:4px_4px] opacity-90" />
+//       {/* dark land mask at bottom half */}
+//       <div className="absolute bottom-0 left-1/2 h-[70%] w-[140%] -translate-x-1/2 rounded-t-[999px] bg-gradient-to-t from-[#020617] via-[#020617] to-transparent" />
+//     </div>
+
+//     {/* subtle latitude/longitude glow */}
+//     <div className="pointer-events-none absolute inset-x-6 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-[rgba(148,163,184,0.7)] to-transparent" />
+//     <div className="pointer-events-none absolute inset-y-6 left-1/2 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[rgba(148,163,184,0.7)] to-transparent" />
+//   </motion.div>
+// </motion.div>
+//  </section>
+
+//         {/* 2. ABOUT – tabbed 4‑title interaction (unique layout) */}
+//         <AboutSection />
+
+//         {/* 3. SERVICES – parallax‑style horizontal stacked cards */}
+//         {/* 3. SERVICES – stacked cards */}
+//         <ServicesParallaxSection />
+
+
+//         {/* 4. FEATURES – 12 small titles in a dense grid */}
+//         <FeaturesSection />
+
+//         {/* 5. FAQ – interaction like accordions */}
+//         <FAQSection />
+
+//         {/* 6. CTA – strong final panel */}
+//         <CTASection />
+//       </div>
+
+//       <style jsx global>{`
+//         :root {
+//           --brand-blue: ${darkBlue};
+//           --accent: ${accent};
+//         }
+//       `}</style>
+//     </main>
+//   );
+// }
+
+// /* -------------------- ABOUT SECTION -------------------- */
+
+
+// function AboutSection() {
+//   const [active, setActive] = React.useState<string>("satisfaction");
+//   const current = aboutTabs.find((t) => t.key === active)!;
+
+//   // simple icons per tab
+//   const tabIcons: Record<string, React.ReactNode> = {
+//     satisfaction: <Users className="h-3.5 w-3.5" />,
+//     cost: <LineChart className="h-3.5 w-3.5" />,
+//     complete: <Globe2 className="h-3.5 w-3.5" />,
+//     culture: <Brush className="h-3.5 w-3.5" />,
+//   };
+
+//   return (
+//     <section className="space-y-6">
+//       <motion.div
+//         variants={stagger}
+//         initial="hidden"
+//         whileInView="show"
+//         viewport={{ once: true, amount: 0.35 }}
+//         className="space-y-3"
+//       >
+//         <motion.p
+//           variants={fadeUp}
+//           className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-300/80"
+//         >
+//           About Globo Persona
+//         </motion.p>
+//         <motion.h2
+//           variants={fadeUp}
+//           className="text-2xl font-semibold tracking-tight text-white md:text-3xl"
+//         >
+//           World‑class digital marketing, made accessible.
+//         </motion.h2>
+//         <motion.p
+//           variants={fadeUp}
+//           className="max-w-3xl text-sm leading-relaxed text-slate-200/85"
+//         >
+//           Welcome to GloboPersona, your premier destination for comprehensive
+//           digital marketing solutions. Every engagement is grounded in
+//           understanding your needs, your audience, and the outcomes that matter
+//           most.[web:2]
+//         </motion.p>
+//       </motion.div>
+
+//       <div className="grid gap-6 md:grid-cols-[0.9fr,1.3fr] md:items-stretch">
+//         {/* LEFT: tabs list with icons */}
+//         <motion.div
+//           variants={fadeIn}
+//           initial="hidden"
+//           whileInView="show"
+//           viewport={{ once: true, amount: 0.4 }}
+//           className="flex h-full flex-col gap-2 rounded-3xl border border-slate-800 bg-slate-900/80 p-3 text-[11px]"
+//         >
+//           {aboutTabs.map((tab) => (
+//             <button
+//               key={tab.key}
+//               onClick={() => setActive(tab.key)}
+//               className={`flex items-center justify-between rounded-2xl px-3 py-3 text-left transition ${
+//                 active === tab.key
+//                   ? "bg-[#244082] text-slate-50 shadow-sm"
+//                   : "bg-slate-900/40 text-slate-300 hover:bg-slate-900"
+//               }`}
+//             >
+//               <span className="flex items-center gap-2">
+//                 <span className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-900/60 text-[rgba(248,250,252,0.9)]">
+//                   {tabIcons[tab.key]}
+//                 </span>
+//                 {tab.label}
+//               </span>
+//               <span className="text-[10px] text-slate-400">
+//                 {active === tab.key ? "●" : "○"}
+//               </span>
+//             </button>
+//           ))}
+//         </motion.div>
+
+//         {/* RIGHT: detail card with white bg + blue text */}
+// {/* RIGHT: detail card – dark bg, highlighted title */}
+// <motion.div
+//   key={current.key}
+//   initial={{ opacity: 0, y: 18 }}
+//   whileInView={{ opacity: 1, y: 0 }}
+//   viewport={{ once: false, amount: 0.4 }}
+//   transition={{ duration: 0.4 }}
+//   className="flex h-full flex-col justify-center rounded-3xl border border-slate-800 bg-slate-900/90 p-6 shadow-[0_18px_45px_rgba(0,0,0,0.6)]"
+// >
+//   <h3 className="inline-flex items-center gap-2 rounded-full bg-[rgba(36,64,130,0.25)] px-5 py-2 text-sm font-semibold text-slate-50">
+//     <span className="h-1.5 w-1.5 rounded-full bg-[#fdc134]" />
+//     {current.title}
+//   </h3>
+//   <p className="mt-3 text-12px] leading-relaxed text-slate-200/90">
+//     {current.body}
+//   </p>
+// </motion.div>
+
+
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
+// const gpServices = [
+//   {
+//     title: "App Development",
+//     subtitle: "Engaging mobile experiences",
+//     body:
+//       "Custom mobile apps that improve customer engagement, streamline processes, and create a direct line to your audience across devices.[web:2]",
+//     img: "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=800",
+//   },
+//   {
+//     title: "Web Development",
+//     subtitle: "High‑performance websites",
+//     body:
+//       "Responsive, visually appealing, SEO‑friendly websites that convert visitors into loyal customers.[web:2]",
+//     img: "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=800",
+//   },
+//   {
+//     title: "Graphic Design & Branding",
+//     subtitle: "Memorable brand identity",
+//     body:
+//       "Logos, brand systems, and creative assets that keep your business instantly recognisable in any channel.[web:2]",
+//     img: "https://images.pexels.com/photos/1939485/pexels-photo-1939485.jpeg?auto=compress&cs=tinysrgb&w=800",
+//   },
+//   {
+//     title: "Digital Marketing",
+//     subtitle: "Full‑funnel growth",
+//     body:
+//       "Integrated SEO, content, social, and paid programmes to grow traffic and revenue.[web:2][web:43]",
+//     img: "https://images.pexels.com/photos/1559651/pexels-photo-1559651.jpeg?auto=compress&cs=tinysrgb&w=800",
+//   },
+//   {
+//     title: "Account‑Based Marketing",
+//     subtitle: "Win key accounts",
+//     body:
+//       "ABM strategies focused on high‑value B2B accounts with aligned sales and marketing.[web:2]",
+//     img: "https://images.pexels.com/photos/1181468/pexels-photo-1181468.jpeg?auto=compress&cs=tinysrgb&w=800",
+//   },
+//   {
+//     title: "Automations",
+//     subtitle: "Always‑on workflows",
+//     body:
+//       "Custom automation solutions that remove repetitive work, reduce errors, and maximise productivity.[web:2][web:47]",
+//     img: "https://images.pexels.com/photos/1181438/pexels-photo-1181438.jpeg?auto=compress&cs=tinysrgb&w=800",
+//   },
+//   {
+//     title: "Custom Chatbots",
+//     subtitle: "Instant support 24/7",
+//     body:
+//       "Chatbots tailored to your business that answer questions, qualify leads, and collect insights.[web:2][web:43]",
+//     img: "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=800",
+//   },
+//   {
+//     title: "Custom Mini Softwares",
+//     subtitle: "Bespoke micro‑solutions",
+//     body:
+//       "Plugins, widgets, and lightweight apps that extend your website or existing stack.[web:2]",
+//     img: "https://images.pexels.com/photos/3861964/pexels-photo-3861964.jpeg?auto=compress&cs=tinysrgb&w=800",
+//   },
+//   {
+//     title: "Email Marketing",
+//     subtitle: "Nurture & retain",
+//     body:
+//       "Targeted email campaigns and automation journeys that nurture leads and drive retention.[web:2][web:46]",
+//     img: "https://images.pexels.com/photos/261949/pexels-photo-261949.jpeg?auto=compress&cs=tinysrgb&w=800",
+//   },
+// ];
+
+// function ServicesParallaxSection() {
+//   const sectionRef = React.useRef<HTMLDivElement | null>(null);
+
+//   const { scrollYProgress } = useScroll({
+//     target: sectionRef,
+//     offset: ["start start", "end end"],
+//   });
+
+//   return (
+//     <section className="space-y-8">
+//       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+//         <div>
+//           <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-300/80">
+//             Our services
+//           </p>
+//           <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
+//             9 services, stacked as you scroll.
+//           </h2>
+//         </div>
+//         <p className="max-w-md text-[11px] text-slate-300/90">
+//           Cards stay in place while the next one scrolls over it, creating a
+//           layered vertical story of Globo Persona&apos;s capabilities.[web:1][web:2]
+//         </p>
+//       </div>
+
+//       <div ref={sectionRef} className="relative h-[900vh]">
+//         {gpServices.map((service, index) => (
+//           <StickyServiceCard
+//             key={service.title}
+//             index={index}
+//             total={gpServices.length}
+//             service={service}
+//             progress={scrollYProgress}
+//           />
+//         ))}
+//       </div>
+//     </section>
+//   );
+// }
+
+// type StickyServiceCardProps = {
+//   index: number;
+//   total: number;
+//   service: (typeof gpServices)[number];
+//   progress: any;
+// };
+
+// function StickyServiceCard({
+//   index,
+//   total,
+//   service,
+//   progress,
+// }: StickyServiceCardProps) {
+//   const step = 1 / total;
+//   const start = index * step;
+//   const end = start + step;
+
+//   const targetScale = 0.9 + (index / total) * 0.08;
+//   const scale = useTransform(progress, [start, end], [1, targetScale]);
+//   const translateY = useTransform(
+//     progress,
+//     [start, end],
+//     [index * 16, index * -8]
+//   );
+
+//   return (
+//     <motion.div
+//       style={{ scale, y: translateY }}
+//       className="sticky top-16 mx-auto flex max-w-4xl justify-center"
+//     >
+//       <article className="grid h-[420px] w-full grid-cols-1 overflow-hidden rounded-3xl border border-slate-200 bg-white text-slate-900 shadow-xl md:h-[420px] md:grid-cols-[1.3fr,1fr]">
+//         <div className="col-span-1 h-3 w-full rounded-t-3xl bg-[#244082] md:col-span-2" />
+
+//         <div className="flex flex-col justify-between px-6 pb-6 pt-4">
+//           <div>
+//             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#244082]">
+//               {service.subtitle}
+//             </p>
+//             <h3 className="mt-1 text-lg font-semibold text-[#213b52]">
+//               {service.title}
+//             </h3>
+//             <p className="mt-2 text-[11px] leading-relaxed text-slate-700">
+//               {service.body}
+//             </p>
+//           </div>
+//           <span className="mt-3 text-[11px] font-semibold text-[#244082]">
+//             Learn more →
+//           </span>
+//         </div>
+
+//         <div className="relative hidden overflow-hidden rounded-l-3xl rounded-tr-3xl bg-slate-100 md:block">
+//           <motion.div
+//             className="absolute inset-0 bg-cover bg-center"
+//             style={{ backgroundImage: `url(${service.img})` }}
+//             initial={{ scale: 1.15 }}
+//             whileInView={{ scale: 1 }}
+//             viewport={{ once: true, amount: 0.7 }}
+//             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+//           />
+//         </div>
+//       </article>
+//     </motion.div>
+//   );
+// }
+
+// /* -------------------- FEATURES -------------------- */
+
+// function FeaturesSection() {
+//   const [reverse, setReverse] = React.useState(false);
+
+//   // every 60s direction flip
+//   React.useEffect(() => {
+//     const id = setInterval(() => setReverse((r) => !r), 60000);
+//     return () => clearInterval(id);
+//   }, []);
+
+//   const featureCards = [
+//     "Targeted Audience Reach",
+//     "Cost Efficiency",
+//     "Trackable Performance",
+//     "Interactive Engagement",
+//     "Multi‑Platform Presence",
+//     "Marketing Automation",
+//     "Flexibility & Adaptability",
+//     "Global Outreach",
+//     "Enhanced User Experience",
+//     "Social Influence",
+//     "Data Security & Compliance",
+//     "Content Strategy",
+//   ];
+
+//   const topRow = featureCards.slice(0, 6);
+//   const bottomRow = featureCards.slice(6, 12);
+//   const allTop = topRow.concat(topRow);
+//   const allBottom = bottomRow.concat(bottomRow);
+
+//   const xFrom = reverse ? "-50%" : "0%";
+//   const xTo = reverse ? "0%" : "-50%";
+
+//   return (
+//     <section className="py-14">
+//       <div className="grid gap-10 md:grid-cols-2 md:items-start">
+//         {/* LEFT 50% – text block */}
+//         <div className="space-y-4">
+//           <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-300/80">
+//             Real‑world impact
+//           </p>
+//           <h2 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">
+//             Client success stories built on strong features.
+//           </h2>
+//           <p className="max-w-md text-sm leading-relaxed text-slate-200/85">
+//             See how organisations like yours transform operations and customer
+//             experiences using Globo Persona&apos;s capabilities—from automation
+//             and analytics to omni‑channel engagement.[web:2]
+//           </p>
+
+//           <button className="inline-flex items-center gap-2 rounded-full border border-slate-500 bg-transparent px-5 py-2 text-[11px] font-semibold text-slate-100 transition-colors duration-200 hover:border-[#244082] hover:bg-white/5">
+//             Explore client stories
+//             <span className="text-xs">↗</span>
+//           </button>
+//         </div>
+
+//         {/* RIGHT 50% – scrolling feature cards */}
+//         <div className="space-y-4">
+//           {/* Top row */}
+//           <div className="relative overflow-hidden rounded-2xl bg-[#020617] p-2">
+//             <motion.div
+//               className="flex w-max gap-4"
+//               animate={{ x: [xFrom, xTo] }}
+//               transition={{ duration: 30, ease: "linear", repeat: Infinity }}
+//             >
+//               {allTop.map((item, i) => (
+//                 <div
+//                   key={`top-${i}`}
+//                   className="flex h-24 min-w-[220px] md:h-28 md:min-w-[260px] items-center rounded-2xl bg-[#244082] px-4 text-left text-slate-50 shadow-[0_18px_40px_rgba(0,0,0,0.7)]"
+//                 >
+//                   <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
+//                     <span className="h-2 w-2 rounded-full bg-white" />
+//                   </div>
+//                   <p className="text-sm font-semibold leading-snug">
+//                     {item}
+//                   </p>
+//                 </div>
+//               ))}
+//             </motion.div>
+//           </div>
+
+//           {/* Bottom row */}
+//           <div className="relative overflow-hidden rounded-2xl bg-[#020617] p-2">
+//             <motion.div
+//               className="flex w-max gap-4"
+//               animate={{ x: [xFrom, xTo] }}
+//               transition={{ duration: 30, ease: "linear", repeat: Infinity }}
+//             >
+//               {allBottom.map((item, i) => (
+//                 <div
+//                   key={`bottom-${i}`}
+//                   className="flex h-24 min-w-[220px] md:h-28 md:min-w-[260px] items-center rounded-2xl bg-[#244082] px-4 text-left text-slate-50 shadow-[0_18px_40px_rgba(0,0,0,0.7)]"
+//                 >
+//                   <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/10">
+//                     <span className="h-2 w-2 rounded-full bg-white" />
+//                   </div>
+//                   <p className="text-sm font-semibold leading-snug">
+//                     {item}
+//                   </p>
+//                 </div>
+//               ))}
+//             </motion.div>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+
+
+// /* -------------------- FAQ -------------------- */
+
+// const faqItems = [
+//   {
+//     q: "What services does Globo Persona offer?",
+//     a: "Globo Persona offers app development, web development, marketing automation, custom chatbot development, email campaign management, and additional digital services to enhance your presence and drive growth.[web:2][web:43]",
+//   },
+//   {
+//     q: "How do your app development services help?",
+//     a: "Custom mobile apps improve engagement, streamline processes, and provide a platform for direct communication with your audience across devices.[web:2][web:43]",
+//   },
+//   {
+//     q: "What makes your web development stand out?",
+//     a: "Websites are responsive, visually appealing, and highly functional, with UX, SEO optimisation, and integrations designed to support business goals.[web:2][web:45]",
+//   },
+//   {
+//     q: "How do you implement marketing automation?",
+//     a: "Advanced software automates email campaigns, social media posting, and lead generation, enabling efficient, personalised communication at scale.[web:2][web:47]",
+//   },
+//   {
+//     q: "Can you build custom chatbots?",
+//     a: "Yes. Chatbots are tailored to your business needs, offering instant responses, handling routine tasks, and gathering valuable customer insights.[web:2][web:43]",
+//   },
+// ];
+
+// function FAQSection() {
+//   return (
+//     <section className="space-y-6">
+//       <div>
+//         <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-300/80">
+//           Frequently asked questions
+//         </p>
+//         <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+//           Clear answers before we get started.
+//         </h2>
+//       </div>
+
+//       <div className="space-y-3">
+//         {faqItems.map((item) => (
+//           <details
+//             key={item.q}
+//             className="group rounded-2xl border border-slate-800 bg-slate-900/80 p-4"
+//           >
+//             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm font-semibold">
+//               {item.q}
+//               <span className="text-xs text-slate-400 group-open:hidden">
+//                 +
+//               </span>
+//               <span className="hidden text-xs text-slate-400 group-open:block">
+//                 −
+//               </span>
+//             </summary>
+//             <p className="mt-2 text-[11px] leading-relaxed text-slate-300/90">
+//               {item.a}
+//             </p>
+//           </details>
+//         ))}
+//       </div>
+//     </section>
+//   );
+// }
+
+// /* -------------------- CTA -------------------- */
+
+// function CTASection() {
+//   const tags = [
+//     "Digital Marketing",
+//     "Business Automation",
+//     "AI Development",
+//     "Performance Marketing",
+//     "Account‑Based Marketing",
+//     "Custom Chatbots",
+//     "Web Development",
+//     "App Development",
+//     "Email Marketing",
+//   ];
+
+//   return (
+//     <section className="py-10">
+//       <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[40px] border border-[#1c2f63] bg-[#244082] p-10 shadow-[0_40px_120px_rgba(0,0,0,0.8)]">
+//         {/* soft background lights */}
+//         <div className="pointer-events-none absolute inset-0 opacity-70 mix-blend-screen">
+//           <div className="absolute -left-10 top-0 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,#ffffff,transparent_60%)] blur-3xl" />
+//           <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,#fdc134,transparent_60%)] blur-3xl" />
+//         </div>
+
+//         <div className="relative z-10 flex flex-col items-center gap-6 text-center text-white">
+//           <div className="space-y-2">
+//             <p className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/80">
+//               Automate your growth
+//             </p>
+//             <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
+//               Transform your business with{" "}
+//               <span className="text-[#fdc134]">cutting‑edge solutions</span>.
+//             </h2>
+//             <p className="text-[11px] text-white/85">
+//               Book a call today and start automating your marketing, sales, and
+//               customer journeys with Globo Persona.
+//             </p>
+//           </div>
+
+//           {/* horizontal scrolling tags */}
+//           <div className="relative w-full overflow-hidden">
+//             <div className="pointer-events-none absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-[#244082] via-[#244082] to-transparent" />
+//             <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-[#244082] via-[#244082] to-transparent" />
+
+//             <div className="flex w-max animate-[scrollTags_20s_linear_infinite] gap-3">
+//               {tags.concat(tags).map((tag, i) => (
+//                 <div
+//                   key={i}
+//                   className="rounded-full border border-white/20 bg-black/35 px-4 py-1 text-[11px] text-slate-50 shadow-[0_8px_20px_rgba(0,0,0,0.6)]"
+//                 >
+//                   {tag}
+//                 </div>
+//               ))}
+//             </div>
+//           </div>
+
+//           {/* primary CTA button */}
+//           <button className="mt-2 rounded-full bg-white px-8 py-2.5 text-sm font-semibold text-[#244082] shadow-[0_18px_45px_rgba(0,0,0,0.6)] transition-transform duration-200 hover:-translate-y-0.5 hover:bg-slate-100">
+//             Book a free call
+//           </button>
+//         </div>
+//       </div>
 
     
 
-      <style jsx>{`
-        @keyframes scrollTags {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
-    </section>
-  );
+//       <style jsx>{`
+//         @keyframes scrollTags {
+//           0% {
+//             transform: translateX(0);
+//           }
+//           100% {
+//             transform: translateX(-50%);
+//           }
+//         }
+//       `}</style>
+//     </section>
+//   );
+// }
+
+
+// /* to use React in this file */
+// import * as React from "react";
+
+
+// app/page.tsx
+// 'use client'
+
+// import { motion } from 'framer-motion'
+// import { useState, useEffect } from 'react'
+// import { 
+//   ArrowRight, 
+//   Sparkles, 
+//   Shield, 
+//   Zap, 
+//   Code, 
+//   Cloud, 
+//   Database, 
+//   Cpu, 
+//   Settings, 
+//   Building2, 
+// CreditCard, 
+//   Heart, 
+//   Car, 
+//   ShoppingBag, 
+//   Factory, 
+//   Users, 
+//   Globe, 
+//   Award, 
+//   TrendingUp,
+//   MessageSquare,
+//   Calendar,
+//   CheckCircle,
+//   ChevronRight,
+//   Star,
+//   Clock,
+//   Target,
+//   BarChart3,
+//   Lock,
+//   Server
+// } from 'lucide-react'
+
+// export default function HomePage() {
+//   const [stats, setStats] = useState([
+//     { value: 0, target: 500, label: 'Happy Clients', suffix: '+', color: 'text-blue-500', icon: <Users /> },
+//     { value: 0, target: 25, label: 'Countries Served', suffix: '+', color: 'text-green-500', icon: <Globe /> },
+//     { value: 0, target: 98, label: 'Client Retention', suffix: '%', color: 'text-yellow-500', icon: <Award /> },
+//     { value: 0, target: 47, label: 'Avg. ROI Increase', suffix: '%', color: 'text-cyan-500', icon: <TrendingUp /> },
+//   ])
+
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setStats(prev => prev.map(stat => ({
+//         ...stat,
+//         value: stat.value < stat.target 
+//           ? Math.min(stat.value + Math.ceil(stat.target / 50), stat.target)
+//           : stat.target
+//       })))
+//     }, 30)
+
+//     return () => clearInterval(interval)
+//   }, [])
+
+//   const services = [
+//     {
+//       icon: <Code className="w-6 h-6" />,
+//       title: "Custom Software Development",
+//       description: "Tailor-made applications built with cutting-edge frameworks and best practices.",
+//       features: ["Web & Mobile Apps", "Enterprise Solutions", "API Development"],
+//       gradient: "from-blue-500 to-cyan-500",
+//       delay: 0.1
+//     },
+//     {
+//       icon: <Cloud className="w-6 h-6" />,
+//       title: "Cloud & DevOps",
+//       description: "Scalable cloud infrastructure with automated CI/CD pipelines and monitoring.",
+//       features: ["AWS/Azure/GCP", "Kubernetes", "24/7 Support"],
+//       gradient: "from-purple-500 to-pink-500",
+//       delay: 0.2
+//     },
+//     {
+//       icon: <Shield className="w-6 h-6" />,
+//       title: "Cybersecurity",
+//       description: "End-to-end security solutions to protect your digital assets and data.",
+//       features: ["Penetration Testing", "SOC Implementation", "Compliance"],
+//       gradient: "from-green-500 to-emerald-500",
+//       delay: 0.3
+//     },
+//     {
+//       icon: <Database className="w-6 h-6" />,
+//       title: "Data Analytics & AI",
+//       description: "Transform raw data into actionable insights with AI-powered analytics.",
+//       features: ["Predictive Analytics", "Machine Learning", "BI Dashboards"],
+//       gradient: "from-orange-500 to-red-500",
+//       delay: 0.4
+//     },
+//     {
+//       icon: <Cpu className="w-6 h-6" />,
+//       title: "IT Consulting",
+//       description: "Strategic technology advisory to optimize your IT infrastructure and processes.",
+//       features: ["Digital Transformation", "Tech Stack Audit", "Roadmap Planning"],
+//       gradient: "from-indigo-500 to-purple-500",
+//       delay: 0.5
+//     },
+//     {
+//       icon: <Settings className="w-6 h-6" />,
+//       title: "Managed Services",
+//       description: "Proactive IT management to ensure maximum uptime and performance.",
+//       features: ["24/7 Monitoring", "Incident Response", "Regular Updates"],
+//       gradient: "from-cyan-500 to-blue-500",
+//       delay: 0.6
+//     }
+//   ]
+
+//   const industries = [
+//     { icon: <Building2 />, name: "Enterprise", count: 150, color: "bg-blue-500" },
+//     { icon: < CreditCard/>, name: "Finance & Banking", count: 89, color: "bg-green-500" },
+//     { icon: <Heart />, name: "Healthcare", count: 67, color: "bg-red-500" },
+//     { icon: <Car />, name: "Automotive", count: 42, color: "bg-orange-500" },
+//     { icon: <ShoppingBag />, name: "Retail & E-commerce", count: 134, color: "bg-purple-500" },
+//     { icon: <Factory />, name: "Manufacturing", count: 76, color: "bg-cyan-500" },
+//   ]
+
+//   const testimonials = [
+//     {
+//       name: "Michael Rodriguez",
+//       role: "CTO at TechCorp",
+//       content: "Their data-driven approach transformed our analytics pipeline. Efficiency increased by 65%.",
+//       rating: 5,
+//       delay: 0.1
+//     },
+//     {
+//       name: "Sarah Chen",
+//       role: "Director at HealthPlus",
+//       content: "The cybersecurity implementation was seamless. Our compliance audit passed with flying colors.",
+//       rating: 5,
+//       delay: 0.2
+//     },
+//     {
+//       name: "David Park",
+//       role: "VP Operations at RetailPro",
+//       content: "Cloud migration completed 2 weeks ahead of schedule with zero downtime. Outstanding work.",
+//       rating: 5,
+//       delay: 0.3
+//     }
+//   ]
+
+//   return (
+//     <main className="min-h-screen bg-gradient-to-b from-gray-950 to-black text-white">
+      
+//       {/* ========== HERO SECTION ========== */}
+//       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-4">
+//         {/* Background Effects */}
+//         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-cyan-500/5" />
+//         <motion.div 
+//           animate={{ y: [0, -20, 0] }}
+//           transition={{ repeat: Infinity, duration: 6 }}
+//           className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+//         />
+//         <motion.div 
+//           animate={{ y: [0, 20, 0] }}
+//           transition={{ repeat: Infinity, duration: 7, delay: 0.5 }}
+//           className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
+//         />
+        
+//         <div className="container mx-auto max-w-7xl relative z-10">
+//           <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+//             {/* Left Content */}
+//             <motion.div
+//               initial={{ opacity: 0, y: 20 }}
+//               animate={{ opacity: 1, y: 0 }}
+//               transition={{ duration: 0.8 }}
+//             >
+//               <motion.div 
+//                 initial={{ opacity: 0, x: -20 }}
+//                 animate={{ opacity: 1, x: 0 }}
+//                 transition={{ delay: 0.2 }}
+//                 className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-2 mb-8"
+//               >
+//                 <Sparkles className="w-4 h-4" />
+//                 <span className="text-sm font-medium">Trusted by 500+ Global Companies</span>
+//               </motion.div>
+
+//               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+//                 <span className="block text-white">Transform Your</span>
+//                 <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-600 bg-clip-text text-transparent">
+//                   Digital Future
+//                 </span>
+//               </h1>
+
+//               <p className="text-xl text-gray-300 mb-10 max-w-2xl leading-relaxed">
+//                 We engineer <span className="text-cyan-400 font-semibold">data-driven solutions</span> that scale exponentially. 
+//                 From concept to deployment, we deliver excellence with cutting-edge technology.
+//               </p>
+
+//               <div className="flex flex-col sm:flex-row gap-4 mb-12">
+//                 <motion.button
+//                   whileHover={{ scale: 1.05 }}
+//                   whileTap={{ scale: 0.95 }}
+//                   className="group bg-gradient-to-r from-blue-500 to-cyan-500 text-black font-semibold px-8 py-4 rounded-xl text-lg flex items-center justify-center gap-2 hover:shadow-xl hover:shadow-blue-500/25 transition-all"
+//                 >
+//                   Start Free Consultation
+//                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+//                 </motion.button>
+                
+//                 <motion.button
+//                   whileHover={{ scale: 1.05 }}
+//                   whileTap={{ scale: 0.95 }}
+//                   className="group border border-gray-700 hover:border-cyan-500 bg-gray-900/50 backdrop-blur-sm px-8 py-4 rounded-xl text-lg flex items-center justify-center gap-2 hover:bg-gray-800/50 transition-all"
+//                 >
+//                   <Zap className="w-5 h-5" />
+//                   View Case Studies
+//                 </motion.button>
+//               </div>
+
+//               {/* Trust Indicators */}
+//               <div className="flex flex-wrap items-center gap-8">
+//                 <div className="flex items-center gap-4">
+//                   <div className="flex -space-x-3">
+//                     {[1,2,3,4].map((i) => (
+//                       <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 border-2 border-gray-900" />
+//                     ))}
+//                   </div>
+//                   <div>
+//                     <p className="text-gray-400 text-sm">Rated 4.9/5 by</p>
+//                     <p className="font-semibold">200+ Industry Leaders</p>
+//                   </div>
+//                 </div>
+                
+//                 <div className="hidden md:flex items-center gap-4">
+//                   <div className="flex gap-1">
+//                     {[1,2,3,4,5].map((i) => (
+//                       <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />
+//                     ))}
+//                   </div>
+//                   <span className="text-gray-300">On Clutch</span>
+//                 </div>
+//               </div>
+//             </motion.div>
+
+//             {/* Right Visual */}
+//             <motion.div
+//               initial={{ opacity: 0, scale: 0.9 }}
+//               animate={{ opacity: 1, scale: 1 }}
+//               transition={{ duration: 0.8, delay: 0.3 }}
+//               className="relative"
+//             >
+//               <div className="relative bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-2">
+//                 {/* Dashboard Mockup */}
+//                 <div className="bg-gray-900 rounded-xl p-6">
+//                   <div className="flex justify-between items-center mb-6">
+//                     <div>
+//                       <h3 className="font-semibold text-lg">Analytics Dashboard</h3>
+//                       <p className="text-gray-400 text-sm">Real-time performance metrics</p>
+//                     </div>
+//                     <span className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-medium">
+//                       Live
+//                     </span>
+//                   </div>
+                  
+//                   {/* Chart */}
+//                   <div className="h-48 bg-gradient-to-br from-blue-900/30 to-cyan-900/30 rounded-lg mb-6 relative overflow-hidden">
+//                     <div className="absolute inset-0 flex items-center justify-center">
+//                       <div className="text-center">
+//                         <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+//                           +47%
+//                         </div>
+//                         <div className="text-cyan-400 font-medium">Revenue Growth</div>
+//                       </div>
+//                     </div>
+//                   </div>
+                  
+//                   {/* Stats Grid */}
+//                   <div className="grid grid-cols-3 gap-4">
+//                     {[
+//                       { label: 'Active Users', value: '12.5K', change: '+24%' },
+//                       { label: 'Monthly Revenue', value: '$2.1M', change: '+47%' },
+//                       { label: 'System Uptime', value: '99.9%', change: '+0.5%' }
+//                     ].map((stat, i) => (
+//                       <div key={i} className="bg-gray-800/50 rounded-lg p-4">
+//                         <div className="text-2xl font-bold">{stat.value}</div>
+//                         <div className="text-gray-400 text-sm">{stat.label}</div>
+//                         <div className="text-green-400 text-sm font-medium mt-1">{stat.change}</div>
+//                       </div>
+//                     ))}
+//                   </div>
+//                 </div>
+                
+//                 {/* Floating Elements */}
+//                 <motion.div
+//                   animate={{ y: [0, -10, 0] }}
+//                   transition={{ repeat: Infinity, duration: 3 }}
+//                   className="absolute -top-4 -right-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-black px-4 py-2 rounded-lg font-bold shadow-xl"
+//                 >
+//                   ⚡ Real-time
+//                 </motion.div>
+                
+//                 <motion.div
+//                   animate={{ y: [0, 10, 0] }}
+//                   transition={{ repeat: Infinity, duration: 3, delay: 1 }}
+//                   className="absolute -bottom-4 -left-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg font-bold shadow-xl"
+//                 >
+//                   🔒 Secure
+//                 </motion.div>
+//               </div>
+//             </motion.div>
+//           </div>
+//         </div>
+
+//         {/* Scroll Indicator */}
+//         <motion.div
+//           animate={{ y: [0, 10, 0] }}
+//           transition={{ repeat: Infinity, duration: 2 }}
+//           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden md:block"
+//         >
+//           <div className="text-gray-500 text-sm flex flex-col items-center">
+//             <span>Scroll to explore</span>
+//             <div className="w-6 h-10 border-2 border-gray-700 rounded-full mt-2 flex justify-center">
+//               <div className="w-1 h-3 bg-cyan-500 rounded-full mt-2" />
+//             </div>
+//           </div>
+//         </motion.div>
+//       </section>
+
+//       {/* ========== SERVICES SECTION ========== */}
+//       <section className="py-24 px-4">
+//         <div className="container mx-auto max-w-7xl">
+//           {/* Section Header */}
+//           <motion.div
+//             initial={{ opacity: 0, y: 20 }}
+//             whileInView={{ opacity: 1, y: 0 }}
+//             viewport={{ once: true }}
+//             className="text-center max-w-3xl mx-auto mb-16"
+//           >
+//             <span className="inline-block bg-cyan-500/10 text-cyan-400 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+//               OUR EXPERTISE
+//             </span>
+//             <h2 className="text-4xl md:text-5xl font-bold mb-6">
+//               Comprehensive <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Digital Solutions</span>
+//             </h2>
+//             <p className="text-xl text-gray-400">
+//               We deliver end-to-end technology services that drive innovation and growth
+//             </p>
+//           </motion.div>
+
+//           {/* Services Grid */}
+//           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+//             {services.map((service, index) => (
+//               <motion.div
+//                 key={index}
+//                 initial={{ opacity: 0, y: 20 }}
+//                 whileInView={{ opacity: 1, y: 0 }}
+//                 viewport={{ once: true }}
+//                 transition={{ delay: service.delay }}
+//                 whileHover={{ y: -10 }}
+//                 className="group"
+//               >
+//                 <div className="h-full bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/10 transition-all duration-300">
+//                   {/* Icon */}
+//                   <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${service.gradient} flex items-center justify-center text-white mb-6`}>
+//                     {service.icon}
+//                   </div>
+
+//                   {/* Title & Description */}
+//                   <h3 className="text-2xl font-bold mb-4 group-hover:text-cyan-400 transition-colors">
+//                     {service.title}
+//                   </h3>
+//                   <p className="text-gray-400 mb-6 leading-relaxed">
+//                     {service.description}
+//                   </p>
+
+//                   {/* Features */}
+//                   <ul className="space-y-3 mb-8">
+//                     {service.features.map((feature, i) => (
+//                       <li key={i} className="flex items-center text-gray-300">
+//                         <CheckCircle className="w-5 h-5 text-cyan-500 mr-3" />
+//                         {feature}
+//                       </li>
+//                     ))}
+//                   </ul>
+
+//                   {/* CTA */}
+//                   <button className="w-full border border-gray-700 hover:border-cyan-500 text-gray-400 hover:text-cyan-400 py-3 rounded-lg flex items-center justify-center gap-2 group-hover:bg-cyan-500/5 transition-all">
+//                     <span>Learn More</span>
+//                     <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+//                   </button>
+//                 </div>
+//               </motion.div>
+//             ))}
+//           </div>
+
+//           {/* CTA Button */}
+//           <motion.div
+//             initial={{ opacity: 0, y: 20 }}
+//             whileInView={{ opacity: 1, y: 0 }}
+//             viewport={{ once: true }}
+//             className="text-center mt-16"
+//           >
+//             <button className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-black font-semibold px-10 py-4 rounded-xl text-lg transition-all hover:shadow-xl hover:shadow-cyan-500/25">
+//               View All Services
+//             </button>
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* ========== INDUSTRIES SECTION ========== */}
+//       <section className="py-24 px-4 bg-gradient-to-b from-gray-900/50 to-black">
+//         <div className="container mx-auto max-w-7xl">
+//           <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+//             {/* Left Content */}
+//             <motion.div
+//               initial={{ opacity: 0, x: -20 }}
+//               whileInView={{ opacity: 1, x: 0 }}
+//               viewport={{ once: true }}
+//             >
+//               <span className="inline-block bg-blue-500/10 text-blue-400 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+//                 INDUSTRY EXPERTISE
+//               </span>
+//               <h2 className="text-4xl md:text-5xl font-bold mb-6">
+//                 Serving <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Diverse</span> Industries
+//               </h2>
+//               <p className="text-xl text-gray-400 mb-8">
+//                 We understand the unique challenges of each sector and deliver tailored solutions that drive results.
+//               </p>
+              
+//               <div className="space-y-6">
+//                 <div className="flex items-center">
+//                   <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mr-4">
+//                     <Target className="w-6 h-6 text-blue-400" />
+//                   </div>
+//                   <div>
+//                     <h4 className="font-semibold text-lg">Industry-Specific Solutions</h4>
+//                     <p className="text-gray-400">Customized approaches for each vertical</p>
+//                   </div>
+//                 </div>
+                
+//                 <div className="flex items-center">
+//                   <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center mr-4">
+//                     <Shield className="w-6 h-6 text-green-400" />
+//                   </div>
+//                   <div>
+//                     <h4 className="font-semibold text-lg">Compliance Ready</h4>
+//                     <p className="text-gray-400">Meeting industry regulations and standards</p>
+//                   </div>
+//                 </div>
+
+//                 <div className="flex items-center">
+//                   <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center mr-4">
+//                     <BarChart3 className="w-6 h-6 text-purple-400" />
+//                   </div>
+//                   <div>
+//                     <h4 className="font-semibold text-lg">Performance Optimized</h4>
+//                     <p className="text-gray-400">Maximum efficiency and scalability</p>
+//                   </div>
+//                 </div>
+//               </div>
+//             </motion.div>
+
+//             {/* Right Grid */}
+//             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+//               {industries.map((industry, index) => (
+//                 <motion.div
+//                   key={index}
+//                   initial={{ opacity: 0, scale: 0.9 }}
+//                   whileInView={{ opacity: 1, scale: 1 }}
+//                   viewport={{ once: true }}
+//                   transition={{ delay: index * 0.1 }}
+//                   whileHover={{ y: -10 }}
+//                 >
+//                   <div className="group bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-blue-500/50 rounded-xl p-6 text-center transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/10">
+//                     <div className={`w-16 h-16 rounded-2xl ${industry.color.replace('bg-', 'bg-')}/10 group-hover:bg-opacity-20 flex items-center justify-center mx-auto mb-4 transition-all`}>
+//                       <div className={`${industry.color.replace('bg-', 'text-')} text-2xl`}>
+//                         {industry.icon}
+//                       </div>
+//                     </div>
+                    
+//                     <h3 className="text-lg font-semibold mb-2">{industry.name}</h3>
+                    
+//                     <div className="text-3xl font-bold mb-2">{industry.count}+</div>
+                    
+//                     <p className="text-sm text-gray-400 mb-4">Projects Delivered</p>
+                    
+//                     {/* Progress Bar */}
+//                     <div className="h-1.5 bg-gray-800 rounded-full overflow-hidden">
+//                       <motion.div
+//                         initial={{ width: 0 }}
+//                         whileInView={{ width: `${Math.min(100, (industry.count / 150) * 100)}%` }}
+//                         viewport={{ once: true }}
+//                         transition={{ duration: 1, delay: 0.5 }}
+//                         className={`h-full ${industry.color} rounded-full`}
+//                       />
+//                     </div>
+//                   </div>
+//                 </motion.div>
+//               ))}
+//             </div>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* ========== STATS SECTION ========== */}
+//       <section className="py-20 px-4">
+//         <div className="container mx-auto max-w-7xl">
+//           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+//             {stats.map((stat, index) => (
+//               <motion.div
+//                 key={index}
+//                 initial={{ opacity: 0, y: 20 }}
+//                 whileInView={{ opacity: 1, y: 0 }}
+//                 viewport={{ once: true }}
+//                 transition={{ delay: index * 0.1 }}
+//                 className="text-center group"
+//               >
+//                 <div className="w-20 h-20 rounded-2xl bg-gray-900/50 border border-gray-800 group-hover:border-cyan-500/50 flex items-center justify-center mx-auto mb-6 transition-all duration-300">
+//                   <div className={`${stat.color} text-3xl`}>
+//                     {stat.icon}
+//                   </div>
+//                 </div>
+                
+//                 <div className="text-5xl font-bold mb-2">
+//                   {stat.value}
+//                   <span className={stat.color}>{stat.suffix}</span>
+//                 </div>
+                
+//                 <p className="text-gray-400 text-lg">{stat.label}</p>
+                
+//                 <div className="w-0 group-hover:w-16 h-0.5 bg-gradient-to-r from-transparent via-cyan-500 to-transparent mx-auto mt-4 transition-all duration-500" />
+//               </motion.div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* ========== TESTIMONIALS SECTION ========== */}
+//       <section className="py-24 px-4 bg-gradient-to-b from-black to-gray-950">
+//         <div className="container mx-auto max-w-7xl">
+//           <motion.div
+//             initial={{ opacity: 0, y: 20 }}
+//             whileInView={{ opacity: 1, y: 0 }}
+//             viewport={{ once: true }}
+//             className="text-center max-w-3xl mx-auto mb-16"
+//           >
+//             <span className="inline-block bg-purple-500/10 text-purple-400 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+//               CLIENT SUCCESS
+//             </span>
+//             <h2 className="text-4xl md:text-5xl font-bold mb-6">
+//               Trusted by <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Industry Leaders</span>
+//             </h2>
+//             <p className="text-xl text-gray-400">
+//               See what our clients say about working with us
+//             </p>
+//           </motion.div>
+
+//           <div className="grid md:grid-cols-3 gap-8">
+//             {testimonials.map((testimonial, index) => (
+//               <motion.div
+//                 key={index}
+//                 initial={{ opacity: 0, y: 20 }}
+//                 whileInView={{ opacity: 1, y: 0 }}
+//                 viewport={{ once: true }}
+//                 transition={{ delay: testimonial.delay }}
+//                 className="group"
+//               >
+//                 <div className="h-full bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300">
+//                   {/* Rating */}
+//                   <div className="flex gap-1 mb-6">
+//                     {[...Array(testimonial.rating)].map((_, i) => (
+//                       <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />
+//                     ))}
+//                   </div>
+                  
+//                   {/* Content */}
+//                   <p className="text-gray-300 text-lg italic mb-8">
+//                     "{testimonial.content}"
+//                   </p>
+                  
+//                   {/* Author */}
+//                   <div className="flex items-center gap-4">
+//                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500" />
+//                     <div>
+//                       <h4 className="font-semibold">{testimonial.name}</h4>
+//                       <p className="text-gray-400 text-sm">{testimonial.role}</p>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </motion.div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* ========== CTA SECTION ========== */}
+//       <section className="py-24 px-4 relative overflow-hidden">
+//         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-cyan-500/5" />
+//         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-96 bg-cyan-500/10 rounded-full blur-3xl" />
+        
+//         <div className="container mx-auto max-w-4xl relative z-10">
+//           <motion.div
+//             initial={{ opacity: 0, y: 20 }}
+//             whileInView={{ opacity: 1, y: 0 }}
+//             viewport={{ once: true }}
+//             className="text-center mb-12"
+//           >
+//             <span className="inline-block bg-gradient-to-r from-blue-500/10 to-cyan-500/10 text-cyan-400 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+//               GET STARTED
+//             </span>
+//             <h2 className="text-4xl md:text-5xl font-bold mb-6">
+//               Ready to <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Transform</span> Your Business?
+//             </h2>
+//             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+//               Schedule a free consultation with our experts and discover how we can drive your digital success.
+//             </p>
+//           </motion.div>
+
+//           <motion.div
+//             initial={{ opacity: 0, y: 20 }}
+//             whileInView={{ opacity: 1, y: 0 }}
+//             viewport={{ once: true }}
+//             transition={{ delay: 0.2 }}
+//           >
+//             <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 md:p-12 shadow-2xl">
+//               <div className="grid md:grid-cols-3 gap-6 mb-8">
+//                 <div className="space-y-3">
+//                   <div className="flex items-center text-gray-400">
+//                     <MessageSquare className="w-5 h-5 mr-2" />
+//                     <span>Quick Response</span>
+//                   </div>
+//                   <div className="font-semibold">Within 2 Hours</div>
+//                 </div>
+                
+//                 <div className="space-y-3">
+//                   <div className="flex items-center text-gray-400">
+//                     <Calendar className="w-5 h-5 mr-2" />
+//                     <span>Flexible Scheduling</span>
+//                   </div>
+//                   <div className="font-semibold">Online or On-site</div>
+//                 </div>
+                
+//                 <div className="space-y-3">
+//                   <div className="flex items-center text-gray-400">
+//                     <div className="w-5 h-5 rounded-full bg-cyan-500 mr-2" />
+//                     <span>No Commitment</span>
+//                   </div>
+//                   <div className="font-semibold">Free First Consultation</div>
+//                 </div>
+//               </div>
+
+//               <form className="space-y-6">
+//                 <div className="grid md:grid-cols-2 gap-6">
+//                   <input
+//                     type="text"
+//                     placeholder="Your Name"
+//                     className="bg-gray-900 border border-gray-700 hover:border-cyan-500 focus:border-cyan-500 rounded-lg px-4 py-3 focus:outline-none transition-colors"
+//                   />
+//                   <input
+//                     type="email"
+//                     placeholder="Email Address"
+//                     className="bg-gray-900 border border-gray-700 hover:border-cyan-500 focus:border-cyan-500 rounded-lg px-4 py-3 focus:outline-none transition-colors"
+//                   />
+//                   <input
+//                     type="text"
+//                     placeholder="Company Name"
+//                     className="bg-gray-900 border border-gray-700 hover:border-cyan-500 focus:border-cyan-500 rounded-lg px-4 py-3 focus:outline-none transition-colors"
+//                   />
+//                   <input
+//                     type="tel"
+//                     placeholder="Phone Number"
+//                     className="bg-gray-900 border border-gray-700 hover:border-cyan-500 focus:border-cyan-500 rounded-lg px-4 py-3 focus:outline-none transition-colors"
+//                   />
+//                 </div>
+                
+//                 <div className="bg-gray-900 border border-gray-700 rounded-lg p-4">
+//                   <label className="text-gray-400 text-sm mb-2 block">
+//                     What services are you interested in?
+//                   </label>
+//                   <div className="flex flex-wrap gap-2">
+//                     {['Software Development', 'Cloud Services', 'Cybersecurity', 'Data Analytics', 'IT Consulting'].map((service) => (
+//                       <button
+//                         key={service}
+//                         type="button"
+//                         className="px-4 py-2 rounded-full border border-gray-700 text-gray-400 hover:border-cyan-500 hover:text-cyan-400 transition-all text-sm"
+//                       >
+//                         {service}
+//                       </button>
+//                     ))}
+//                   </div>
+//                 </div>
+
+//                 <div className="flex flex-col sm:flex-row gap-4 items-center justify-between pt-6">
+//                   <div className="text-gray-400 text-sm">
+//                     By submitting, you agree to our Privacy Policy
+//                   </div>
+//                   <motion.button
+//                     whileHover={{ scale: 1.05 }}
+//                     whileTap={{ scale: 0.95 }}
+//                     className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-black font-semibold px-10 py-4 rounded-xl text-lg flex items-center gap-2 hover:shadow-xl hover:shadow-cyan-500/25 transition-all"
+//                   >
+//                     Schedule Free Consultation
+//                     <ArrowRight className="w-5 h-5" />
+//                   </motion.button>
+//                 </div>
+//               </form>
+//             </div>
+//           </motion.div>
+//         </div>
+//       </section>
+
+      
+//     </main>
+//   )
+// }
+
+
+// app/page.tsx - FULL 3D EXPERIENCE (FIXED TYPESCRIPT)
+'use client'
+
+import { useState, useEffect, useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { OrbitControls, Float, Stars, Text3D, Center, Environment } from '@react-three/drei'
+import * as THREE from 'three'
+
+// ========== 3D FLOATING ICONS ==========
+function FloatingIcons() {
+  const meshRef = useRef<THREE.Group>(null)
+  
+  useFrame((state) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.y = state.clock.elapsedTime * 0.2
+      meshRef.current.children.forEach((child, i) => {
+        child.position.y = Math.sin(state.clock.elapsedTime * 0.5 + i) * 0.3
+      })
+    }
+  })
+
+  const shapes = [
+    { geometry: new THREE.BoxGeometry(0.8, 0.8, 0.8), color: '#00D1FF', position: [2, 0, 0] as [number, number, number] },
+    { geometry: new THREE.IcosahedronGeometry(0.6, 0), color: '#7B61FF', position: [0, 0, 2] as [number, number, number] },
+    { geometry: new THREE.OctahedronGeometry(0.7, 0), color: '#FF4D94', position: [-2, 0, 0] as [number, number, number] },
+    { geometry: new THREE.TorusKnotGeometry(0.5, 0.2, 100, 16), color: '#00E676', position: [0, 0, -2] as [number, number, number] },
+  ]
+
+  return (
+    <group ref={meshRef}>
+      {shapes.map((shape, i) => (
+        <Float key={i} speed={2} rotationIntensity={1} floatIntensity={2}>
+          <mesh geometry={shape.geometry} position={shape.position}>
+            <meshStandardMaterial
+              color={shape.color}
+              metalness={0.9}
+              roughness={0.1}
+              emissive={shape.color}
+              emissiveIntensity={0.3}
+            />
+          </mesh>
+        </Float>
+      ))}
+    </group>
+  )
+}
+
+// ========== 3D PARTICLES ==========
+function ParticleField() {
+  const { mouse } = useThree()
+  const particlesRef = useRef<THREE.Points>(null)
+  const count = 1000
+
+  const positions = new Float32Array(count * 3)
+  const colors = new Float32Array(count * 3)
+
+  for (let i = 0; i < count; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 20
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 20
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 20
+
+    colors[i * 3] = Math.random() * 0.5 + 0.5
+    colors[i * 3 + 1] = Math.random() * 0.5 + 0.5
+    colors[i * 3 + 2] = 1
+  }
+
+  useFrame((state) => {
+    if (particlesRef.current) {
+      particlesRef.current.rotation.x = state.clock.elapsedTime * 0.05
+      particlesRef.current.rotation.y = state.clock.elapsedTime * 0.05
+      
+      particlesRef.current.position.x += (mouse.x * 1 - particlesRef.current.position.x) * 0.01
+      particlesRef.current.position.y += (mouse.y * 1 - particlesRef.current.position.y) * 0.01
+    }
+  })
+
+  return (
+    <points ref={particlesRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={count}
+          array={positions}
+          itemSize={3}
+        />
+        <bufferAttribute
+          attach="attributes-color"
+          count={count}
+          array={colors}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.05}
+        vertexColors
+        transparent
+        opacity={0.6}
+        sizeAttenuation
+      />
+    </points>
+  )
+}
+
+// ========== 3D SCENE ==========
+function ThreeDScene() {
+  return (
+    <Canvas shadows camera={{ position: [0, 0, 8], fov: 50 }}>
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} intensity={1} color="#00D1FF" />
+      <pointLight position={[-10, -10, -10]} intensity={0.5} color="#7B61FF" />
+      
+      <FloatingIcons />
+      <ParticleField />
+      <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade />
+      
+      <Environment preset="city" />
+      <OrbitControls 
+        enableZoom={false}
+        enablePan={false}
+        autoRotate
+        autoRotateSpeed={0.5}
+        maxPolarAngle={Math.PI / 2}
+        minPolarAngle={Math.PI / 2}
+      />
+    </Canvas>
+  )
+}
+
+// ========== ANIMATED CARD (FIXED) ==========
+interface HolographicCardProps {
+  children: React.ReactNode;
+  delay?: number;
+}
+
+const HolographicCard: React.FC<HolographicCardProps> = ({ children, delay = 0 }) => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect()
+    const x = ((e.clientX - left) / width - 0.5) * 2
+    const y = ((e.clientY - top) / height - 0.5) * -2
+    setMousePosition({ x, y })
+  }
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.6, delay }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setMousePosition({ x: 0, y: 0 })}
+      className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-xl p-8"
+      style={{
+        transform: `perspective(1000px) rotateY(${mousePosition.x * 5}deg) rotateX(${mousePosition.y * 5}deg)`,
+        boxShadow: `
+          0 0 40px rgba(0, 209, 255, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1)
+        `,
+      }}
+    >
+      {/* Holographic Effect */}
+      <div 
+        className="absolute inset-0 opacity-30"
+        style={{
+          background: `radial-gradient(circle at ${50 + mousePosition.x * 25}% ${50 + mousePosition.y * 25}%, rgba(0, 209, 255, 0.3) 0%, transparent 50%)`,
+        }}
+      />
+      
+      {/* Animated Border */}
+      <div className="absolute inset-0 rounded-3xl p-[1px]">
+        <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent animate-gradient-x" />
+      </div>
+
+      {children}
+    </motion.div>
+  )
+}
+
+// ========== MAIN PAGE ==========
+interface ServiceItem {
+  icon: string;
+  title: string;
+  description: string;
+  color: string;
+}
+
+interface StatItem {
+  value: number;
+  target: number;
+  label: string;
+  suffix: string;
+  color: string;
+}
+
+export default function HomePage() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  })
+  
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
+
+  // Animated stats
+  const [stats, setStats] = useState<StatItem[]>([
+    { value: 0, target: 250, label: "Projects Delivered", suffix: "+", color: "#00D1FF" },
+    { value: 0, target: 98, label: "Client Satisfaction", suffix: "%", color: "#7B61FF" },
+    { value: 0, target: 47, label: "Growth Impact", suffix: "%", color: "#FF4D94" },
+    { value: 0, target: 24, label: "Countries", suffix: "+", color: "#00E676" },
+  ])
+
+  useEffect(() => {
+    const intervals = stats.map((stat, index) => {
+      return setInterval(() => {
+        setStats(prev => prev.map((s, i) => 
+          i === index && s.value < s.target 
+            ? { ...s, value: s.value + Math.ceil(s.target / 100) }
+            : s
+        ))
+      }, 30)
+    })
+    
+    return () => intervals.forEach(clearInterval)
+  }, [stats])
+
+  // Services
+  const services: ServiceItem[] = [
+    { icon: "🤖", title: "AI Solutions", description: "Intelligent automation and machine learning", color: "from-purple-500 to-pink-500" },
+    { icon: "☁️", title: "Cloud Native", description: "Scalable cloud infrastructure", color: "from-cyan-500 to-blue-500" },
+    { icon: "🛡️", title: "Cybersecurity", description: "Enterprise-grade protection", color: "from-green-500 to-emerald-500" },
+    { icon: "🔗", title: "Web3", description: "Blockchain and decentralization", color: "from-orange-500 to-red-500" },
+    { icon: "📊", title: "Data Analytics", description: "Actionable business insights", color: "from-indigo-500 to-purple-500" },
+    { icon: "🚀", title: "Innovation", description: "Future-proof digital transformation", color: "from-pink-500 to-rose-500" },
+  ]
+
+  return (
+    <div ref={containerRef} className="relative min-h-screen overflow-hidden">
+      
+      {/* 3D Background Canvas */}
+      <div className="fixed inset-0 z-0 opacity-30">
+        <ThreeDScene />
+      </div>
+
+      {/* Gradient Overlay */}
+      <motion.div 
+        className="fixed inset-0 z-0"
+        style={{ y: backgroundY }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-950/80 via-black/80 to-gray-900/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-cyan-500/10 via-transparent to-transparent" />
+      </motion.div>
+
+      {/* Content */}
+      <div className="relative z-10">
+        
+        {/* HERO SECTION */}
+        <section className="min-h-screen flex items-center justify-center px-4 pt-20">
+          <div className="container mx-auto max-w-7xl">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              
+              {/* Left Content */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1 }}
+                className="relative"
+              >
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                  className="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-white/10 rounded-full px-6 py-3 mb-8 backdrop-blur-sm"
+                >
+                  <span className="text-sm font-medium">🚀 Next-Gen 3D Experiences</span>
+                  <div className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse" />
+                </motion.div>
+
+                <h1 className="text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-none">
+                  <span className="block text-white">IMMERSIVE</span>
+                  <span className="block bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    3D DIGITAL
+                  </span>
+                  <span className="block text-white">SOLUTIONS</span>
+                </h1>
+
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-2xl text-gray-300 mb-12 max-w-2xl leading-relaxed"
+                >
+                  We create breathtaking digital experiences with cutting-edge 3D technology and interactive design.
+                </motion.p>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="flex flex-col sm:flex-row gap-6 mb-16"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group relative bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold px-10 py-5 rounded-2xl text-xl flex items-center justify-center gap-3 overflow-hidden"
+                  >
+                    <span className="relative z-10">Launch Project</span>
+                    <span className="relative z-10 group-hover:translate-x-2 transition-transform">→</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </motion.button>
+                  
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="group border-2 border-white/20 hover:border-cyan-500/50 bg-black/30 backdrop-blur-sm px-10 py-5 rounded-2xl text-xl flex items-center justify-center gap-3 hover:bg-black/50 transition-all"
+                  >
+                    <span>Explore Demo</span>
+                    <span className="group-hover:text-cyan-400 transition-colors">👁️</span>
+                  </motion.button>
+                </motion.div>
+
+                {/* Animated Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                  {stats.map((stat, index) => (
+                    <div key={index} className="text-center">
+                      <div className="text-4xl font-bold mb-2" style={{ color: stat.color }}>
+                        {stat.value}
+                        <span className="text-2xl">{stat.suffix}</span>
+                      </div>
+                      <div className="text-gray-400 text-sm">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Right 3D Card */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative"
+              >
+                <HolographicCard delay={0.3}>
+                  <div className="relative z-10 text-center p-8">
+                    <div className="w-24 h-24 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                      <span className="text-4xl">🎯</span>
+                    </div>
+                    <h3 className="text-3xl font-bold mb-4">3D Interactive</h3>
+                    <p className="text-gray-400 mb-8">
+                      Move your mouse over this card to see 3D tilt effects
+                    </p>
+                    
+                    {/* Interactive Elements */}
+                    <div className="grid grid-cols-3 gap-4">
+                      {['🌐', '⚡', '🎨'].map((emoji, i) => (
+                        <motion.div
+                          key={i}
+                          whileHover={{ scale: 1.1, rotate: 5 }}
+                          className="w-16 h-16 bg-gradient-to-br from-gray-800 to-black rounded-2xl border border-white/10 flex items-center justify-center text-2xl mx-auto"
+                        >
+                          {emoji}
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </HolographicCard>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* SERVICES SECTION */}
+        <section className="py-32 px-4">
+          <div className="container mx-auto max-w-7xl">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center max-w-3xl mx-auto mb-20"
+            >
+              <span className="inline-block bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-white/10 px-6 py-3 rounded-full text-sm font-semibold mb-6 backdrop-blur-sm">
+                OUR 3D SERVICES
+              </span>
+              <h2 className="text-5xl md:text-6xl font-black mb-8">
+                <span className="text-white">Cutting-Edge </span>
+                <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                  Technology
+                </span>
+              </h2>
+              <p className="text-2xl text-gray-400">
+                Experience the future of digital innovation
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {services.map((service, index) => (
+                <HolographicCard key={index} delay={index * 0.1}>
+                  <div className="text-center">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center text-white text-2xl mb-6 mx-auto`}>
+                      {service.icon}
+                    </div>
+                    
+                    <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
+                    <p className="text-gray-400 mb-6">{service.description}</p>
+                    
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      className="group flex items-center justify-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors mx-auto"
+                    >
+                      <span>Learn More</span>
+                      <span className="group-hover:translate-x-2 transition-transform">→</span>
+                    </motion.button>
+                  </div>
+                </HolographicCard>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA SECTION */}
+        <section className="py-32 px-4">
+          <div className="container mx-auto max-w-4xl">
+            <HolographicCard>
+              <div className="text-center p-12">
+                <h2 className="text-4xl md:text-5xl font-black mb-8">
+                  <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Ready for 3D?
+                  </span>
+                </h2>
+                <p className="text-2xl text-gray-400 mb-12 max-w-2xl mx-auto">
+                  Let's create an immersive digital experience together.
+                </p>
+                
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-gradient-to-r from-cyan-500 to-purple-600 hover:from-cyan-600 hover:to-purple-700 text-black font-bold px-12 py-6 rounded-2xl text-2xl transition-all group"
+                >
+                  <span className="flex items-center justify-center gap-3">
+                    Start 3D Journey
+                    <span className="group-hover:translate-x-2 transition-transform">🚀</span>
+                  </span>
+                </motion.button>
+              </div>
+            </HolographicCard>
+          </div>
+        </section>
+      </div>
+    </div>
+  )
 }
 
 
-/* to use React in this file */
-import * as React from "react";
 
