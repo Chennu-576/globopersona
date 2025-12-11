@@ -4056,14 +4056,14 @@ export default function HomePage() {
   const services = [
     {
       image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
-      title: "Custom Software Development",
-      description: "Tailor-made applications built with cutting-edge frameworks and best practices.",
+      title: "Web Development",
+      description: "At Globo Persona, we specialize in creating high-performance, visually appealing websites that not only attract visitors but also convert them into loyal customers.",
       features: ["Web & Mobile Apps", "Enterprise Solutions", "API Development"],
     },
     {
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
-      title: "Cloud & DevOps",
-      description: "Scalable cloud infrastructure with automated CI/CD pipelines and monitoring.",
+      title: "Email Marketing",
+      description: "We offer comprehensive email marketing services tailored to your unique needs and objectives.",
       features: ["AWS / Azure / GCP", "Kubernetes", "24/7 Monitoring"],
     },
     {
@@ -4074,31 +4074,31 @@ export default function HomePage() {
     },
     {
       image: "https://images.unsplash.com/photo-1516534775068-bb6348260c8d?auto=format&fit=crop&w=800&q=80",
-      title: "Data Analytics & AI",
-      description: "Turn raw data into predictive, real‑time business intelligence with AI.",
+      title: "Automations",
+      description: "Automation is key to staying competitive and maximizing productivity. From repetitive tasks to complex workflows, custom automation solutions can help streamline your processes.",
       features: ["Predictive Analytics", "Machine Learning Models", "BI Dashboards"],
     },
     {
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
-      title: "IT Consulting",
-      description: "Strategic technology advisory to modernize and scale your digital backbone.",
+      title: "Account Based Marketing",
+      description: "(ABM) focuses on identifying and targeting high-value accounts with personalized campaigns designed to engage and convert. ",
       features: ["Digital Roadmaps", "Architecture Review", "Tech Stack Audit"],
     },
     {
       image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
-      title: "Managed Services",
-      description: "Proactive monitoring and support to keep your systems always‑on.",
+      title: "Graphic Design",
+      description: "At Globo Persona, we offer comprehensive graphic design and branding services that help you build a memorable and impactful brand presence.",
       features: ["24/7 Monitoring", "Incident Response", "Regular Updates"],
     }
   ]
 
   const industries = [
-    { icon: <Building2 />, name: "Enterprise", count: 150, color: "bg-blue-500" },
-    { icon: <CreditCard />, name: "Finance & Banking", count: 89, color: "bg-green-500" },
-    { icon: <Heart />, name: "Healthcare", count: 67, color: "bg-red-500" },
-    { icon: <Car />, name: "Automotive", count: 42, color: "bg-orange-500" },
-    { icon: <ShoppingBag />, name: "Retail & E-commerce", count: 134, color: "bg-purple-500" },
-    { icon: <Factory />, name: "Manufacturing", count: 76, color: "bg-cyan-500" },
+    { icon: <Building2 />, name: "email Marketing", count: 150, color: "bg-blue-500" },
+    { icon: <CreditCard />, name: "Sales", count: 89, color: "bg-green-500" },
+    { icon: <Heart />, name: "Lead Generation", count: 67, color: "bg-red-500" },
+    { icon: <Car />, name: "web development", count: 42, color: "bg-orange-500" },
+    { icon: <ShoppingBag />, name: "graphic design", count: 134, color: "bg-purple-500" },
+    { icon: <Factory />, name: "digital marketing", count: 76, color: "bg-cyan-500" },
   ]
 
   const testimonials = [
@@ -4169,8 +4169,7 @@ export default function HomePage() {
                   transition={{ delay: 0.3 }}
                   className="text-xl text-gray-300 mb-10 max-w-2xl leading-relaxed"
                 >
-                  We engineer <span className="text-cyan-400 font-semibold">data-driven solutions</span> that scale exponentially. 
-                  From concept to deployment, we deliver excellence with cutting-edge technology.
+                  Empowering businesses to thrive in the digital age. At <span className="text-cyan-400 font-semibold">Globo Persona</span> we're not just building websites or running campaigns; we're crafting digital experiences that drive success and inspire growth. Let's transform your digital presence together.
                 </motion.p>
 
                 <motion.div 
@@ -4184,7 +4183,7 @@ export default function HomePage() {
                     whileTap={{ scale: 0.95 }}
                     className="group bg-gradient-to-r from-blue-500 to-cyan-500 text-black font-semibold px-8 py-4 rounded-xl text-lg flex items-center justify-center gap-2 hover:shadow-xl hover:shadow-blue-500/25 transition-all"
                   >
-                    Start Free Consultation
+                    Get started
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </motion.button>
                   
@@ -4194,7 +4193,7 @@ export default function HomePage() {
                     className="group border border-gray-700 hover:border-cyan-500 bg-gray-900/50 backdrop-blur-sm px-8 py-4 rounded-xl text-lg flex items-center justify-center gap-2 hover:bg-gray-800/50 transition-all"
                   >
                     <Zap className="w-5 h-5" />
-                    View Case Studies
+                    Let's talk
                   </motion.button>
                 </motion.div>
 
@@ -4213,7 +4212,7 @@ export default function HomePage() {
                     </div>
                     <div>
                       <p className="text-gray-400 text-sm">Rated 4.9/5 by</p>
-                      <p className="font-semibold">200+ Industry Leaders</p>
+                      <p className="font-semibold">100+ clients</p>
                     </div>
                   </div>
                   
@@ -4394,13 +4393,13 @@ export default function HomePage() {
               {/* Left Content */}
               <div data-industries-section>
                 <span className="inline-block bg-blue-500/10 text-blue-400 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                  INDUSTRY EXPERTISE
+                  Features
                 </span>
                 <h2 data-industries-h2 className="text-4xl md:text-5xl font-bold mb-6">
                   Serving <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Diverse</span> Industries
                 </h2>
                 <p data-industries-p className="text-xl text-gray-400 mb-8">
-                  We understand the unique challenges of each sector and deliver tailored solutions that drive results.
+                  Understanding these features is essential for any business looking to thrive in the digital age.
                 </p>
                 
                 <div className="space-y-6">
@@ -4409,7 +4408,7 @@ export default function HomePage() {
                       <Target className="w-6 h-6 text-blue-400" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-lg">Industry-Specific Solutions</h4>
+                      <h4 className="font-semibold text-lg">Targeted Audience Reach</h4>
                       <p className="text-gray-400">Customized approaches for each vertical</p>
                     </div>
                   </div>
@@ -4419,7 +4418,7 @@ export default function HomePage() {
                       <Shield className="w-6 h-6 text-green-400" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-lg">Compliance Ready</h4>
+                      <h4 className="font-semibold text-lg">Marketing Automation</h4>
                       <p className="text-gray-400">Meeting industry regulations and standards</p>
                     </div>
                   </div>
@@ -4429,7 +4428,7 @@ export default function HomePage() {
                       <BarChart3 className="w-6 h-6 text-purple-400" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-lg">Performance Optimized</h4>
+                      <h4 className="font-semibold text-lg">Global Outreach</h4>
                       <p className="text-gray-400">Maximum efficiency and scalability</p>
                     </div>
                   </div>
