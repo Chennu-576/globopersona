@@ -4513,54 +4513,100 @@ export default function HomePage() {
 
         {/* ========== TESTIMONIALS SECTION ========== */}
         <section className="py-24 px-4 bg-gradient-to-b from-black to-gray-950">
-          <div className="container mx-auto max-w-7xl">
-            <div data-testimonials-section className="text-center max-w-3xl mx-auto mb-16">
-              <span className="inline-block bg-purple-500/10 text-purple-400 px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                CLIENT SUCCESS
+  <div className="container mx-auto max-w-7xl">
+    <div
+      data-testimonials-section
+      className="text-center max-w-3xl mx-auto mb-16"
+    >
+      <span className="inline-block bg-purple-500/10 text-purple-400 px-4 py-2 rounded-full text-sm font-semibold mb-4">
+        CLIENT SUCCESS
+      </span>
+      <h2
+        data-testimonials-h2
+        className="text-4xl md:text-5xl font-bold mb-6"
+      >
+        Trusted by{" "}
+        <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Industry Leaders
+        </span>
+      </h2>
+      <p data-testimonials-p className="text-xl text-gray-400">
+        See what our clients say about working with us
+      </p>
+    </div>
+
+    <div className="grid md:grid-cols-3 gap-8">
+      {testimonials.map((testimonial, index) => (
+        <motion.div
+    key={index}
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.3 }}
+    animate={{ y: [0, -8, 0] }}
+    transition={{
+      // entrance delay
+      delay: index * 0.12,
+      // total duration for float loop
+      duration: 4,
+      repeat: Infinity,
+      repeatType: "reverse",
+      ease: "easeInOut",
+    }}
+    className="relative"
+  >
+
+          {/* Subtle glow behind card */}
+          <div className="pointer-events-none absolute -inset-0.5 rounded-3xl bg-gradient-to-br from-purple-500/25 via-fuchsia-500/10 to-cyan-500/25 opacity-70 blur-2xl" />
+
+          {/* Floating Card */}
+          <div className="relative h-full bg-gradient-to-br from-white/8 via-white/5 to-white/10 border border-white/15 rounded-3xl px-6 py-7 backdrop-blur-xl shadow-[0_22px_80px_rgba(15,23,42,0.9)] flex flex-col transition-all duration-300 hover:-translate-y-3 hover:shadow-[0_26px_100px_rgba(168,85,247,0.65)] hover:border-purple-400/50">
+            {/* Rating row */}
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex gap-1">
+                {[...Array(testimonial.rating)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4 md:w-5 md:h-5 text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]"
+                    fill="currentColor"
+                  />
+                ))}
+              </div>
+              <span className="text-[11px] uppercase tracking-wide px-2.5 py-1 rounded-full bg-emerald-400/10 text-emerald-200 border border-emerald-400/30">
+                Top Rated
               </span>
-              <h2 data-testimonials-h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Trusted by <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Industry Leaders</span>
-              </h2>
-              <p data-testimonials-p className="text-xl text-gray-400">
-                See what our clients say about working with us
-              </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group h-full bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-8 hover:border-purple-500/50 transition-all duration-300"
-                >
-                  {/* Rating */}
-                  <div className="flex gap-1 mb-6">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />
-                    ))}
-                  </div>
-                  
-                  {/* Content */}
-                  <p className="text-gray-300 text-lg italic mb-8">
-                    "{testimonial.content}"
-                  </p>
-                  
-                  {/* Author */}
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500" />
-                    <div>
-                      <h4 className="font-semibold">{testimonial.name}</h4>
-                      <p className="text-gray-400 text-sm">{testimonial.role}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+            {/* Quote */}
+            <p className="text-gray-100 text-sm md:text-base lg:text-lg leading-relaxed mb-6">
+              <span className="text-purple-300 text-2xl align-top mr-1">“</span>
+              {testimonial.content}
+              <span className="text-purple-300 text-2xl align-bottom ml-1">”</span>
+            </p>
+
+            {/* Bottom – author */}
+            <div className="mt-auto flex items-center gap-4">
+              <div className="relative">
+                <div className="w-11 h-11 md:w-12 md:h-12 rounded-2xl bg-gradient-to-br from-purple-400 via-pink-500 to-blue-500 shadow-[0_0_20px_rgba(147,51,234,0.7)]" />
+                <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-gray-900 border border-emerald-400 flex items-center justify-center text-[10px] text-emerald-400">
+                  ★
+                </div>
+              </div>
+              <div>
+                <h4 className="font-semibold text-sm md:text-base text-gray-50">
+                  {testimonial.name}
+                </h4>
+                <p className="text-xs md:text-sm text-gray-400">
+                  {testimonial.role}
+                </p>
+              </div>
             </div>
           </div>
-        </section>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+
 
         {/* ========== CTA SECTION ========== */}
         <section className="py-24 px-4 relative overflow-hidden">
