@@ -527,6 +527,7 @@
 // }
 
 
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -559,6 +560,7 @@ const Services = () => {
         "Creating moments that matter for a B2B gifting and experience platform.",
       image:
         "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80",
+        link: "app/services/ai-analytics/page.tsx"
     },
     {
       company: "MEDDICC",
@@ -615,33 +617,7 @@ const Services = () => {
       window.removeEventListener('mouseleave', handleMouseLeave);
     };
   }, []);
-  // useEffect(() => {
-  //   // GSAP letter-by-letter animation for headings (same as home/about)
-  //   const headings = document.querySelectorAll('.gsap-heading');
-  //   headings.forEach((heading) => {
-  //     const text = heading.textContent;
-  //     heading.innerHTML = '';
-      
-  //     text.split('').forEach((char, i) => {
-  //       const span = document.createElement('span');
-  //       span.textContent = char;
-  //       span.style.opacity = '0';
-  //       heading.appendChild(span);
-        
-  //       gsap.to(span, {
-  //         opacity: 1,
-  //         duration: 0.05,
-  //         delay: i * 0.03,
-  //         scrollTrigger: {
-  //           trigger: heading,
-  //           start: 'top 80%',
-  //           toggleActions: 'play none none none',
-  //         },
-  //       });
-  //     });
-  //   });
-  // }, []);
-
+ 
   useEffect(() => {
   // GSAP letter-by-letter animation for headings
   const headings = document.querySelectorAll('.gsap-heading');
@@ -742,7 +718,7 @@ const Services = () => {
             Our Services
           </motion.h1>
           <motion.p 
-            className="text-xl md:text-2xl text-gray-300 mb-8"
+            className="text-xl md:text-xl text-gray-300 mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -752,102 +728,101 @@ const Services = () => {
         </div>
       </section>
 
-      <section className="min-h-screen py-20 px-4 md:px-8" style={{ backgroundColor: "#02050e" }}>
-        <div className="max-w-[1200px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
+     <section className="min-h-screen py-20 px-4 md:px-8 bg-white">
+  <div className="max-w-[1200px] mx-auto">
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      className="mb-14"
+    >
+      <h2 className="gsap-heading text-5xl font-bold text-gray-900 mb-3">what we offer</h2>
+      <p className="text-gray-700 max-w-3xl">
+        Creating meaningful digital experiences through innovative design & strategy.
+      </p>
+    </motion.div>
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
+      {/* LEFT COLUMN */}
+      <div className="space-y-16">
+        {[0, 2, 4].map((i) => (
+          <motion.div 
+            key={i} 
+            className="space-y-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
             viewport={{ once: true }}
-            className="mb-14"
           >
-            <h2 className="gsap-heading text-5xl font-bold text-white mb-3">what we offer</h2>
-            <p className="text-white/90 max-w-3xl">
-              Creating meaningful digital experiences through innovative design & strategy.
-            </p>
+            <div className="relative h-[250px] w-full rounded-lg overflow-hidden group">
+              <img 
+                src={portfolioProjects[i].image} 
+                alt={portfolioProjects[i].company}
+                className="w-[85%] h-full object-cover transition-transform duration-500 group-hover:scale-105 mx-auto"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300"></div>
+              
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileHover={{ opacity: 1, scale: 1 }}
+                className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white font-semibold text-sm hover:shadow-lg hover:shadow-cyan-500/50 transition-all">
+                  Learn More
+                </div>
+              </motion.button>
+            </div>
+
+            <h3 className="text-3xl font-bold text-gray-900">{portfolioProjects[i].company}</h3>
+            <div className="w-full h-[1px] bg-gray-300"></div>
+            <p className="text-gray-700">{portfolioProjects[i].description}</p>
           </motion.div>
+        ))}
+      </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
-            {/* LEFT COLUMN */}
-            <div className="space-y-16">
-              {[0, 2, 4].map((i) => (
-                <motion.div 
-                  key={i} 
-                  className="space-y-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="relative h-[250px] w-full rounded-lg overflow-hidden group">
-                    <img 
-                      src={portfolioProjects[i].image} 
-                      alt={portfolioProjects[i].company}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300"></div>
-                    
-                    <motion.button
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileHover={{ opacity: 1, scale: 1 }}
-                      className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    >
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white font-semibold text-sm hover:shadow-lg hover:shadow-cyan-500/50 transition-all">
-                        Learn More
-                      </div>
-                    </motion.button>
-                  </div>
-
-                  <h3 className="text-3xl font-bold text-white">{portfolioProjects[i].company}</h3>
-                  <div className="w-full h-[1px] bg-white/40"></div>
-                  <p className="text-white/80">{portfolioProjects[i].description}</p>
-                </motion.div>
-              ))}
+      {/* RIGHT COLUMN */}
+      <div className="space-y-16 pt-0 lg:pt-20">
+        {[1, 3, 5].map((i) => (
+          <motion.div 
+            key={i} 
+            className="space-y-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: (i - 1) * 0.1 }}
+            viewport={{ once: true }}
+          >
+            <div className="relative h-[250px] w-full rounded-lg overflow-hidden group">
+              <img 
+                src={portfolioProjects[i].image} 
+                alt={portfolioProjects[i].company}
+                className="w-[85%] h-full object-cover transition-transform duration-500 group-hover:scale-105 mx-auto"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300"></div>
+              
+              <motion.button
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileHover={{ opacity: 1, scale: 1 }}
+                className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white font-semibold text-sm hover:shadow-lg hover:shadow-cyan-500/50 transition-all">
+                  Learn More
+                </div>
+              </motion.button>
             </div>
 
-            {/* RIGHT COLUMN */}
-            <div className="space-y-16 pt-0 lg:pt-20">
-              {[1, 3, 5].map((i) => (
-                <motion.div 
-                  key={i} 
-                  className="space-y-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: (i - 1) * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="relative h-[250px] w-full rounded-lg overflow-hidden group">
-                    <img 
-                      src={portfolioProjects[i].image} 
-                      alt={portfolioProjects[i].company}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300"></div>
-                    
-                    <motion.button
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileHover={{ opacity: 1, scale: 1 }}
-                      className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    >
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 flex items-center justify-center text-white font-semibold text-sm hover:shadow-lg hover:shadow-cyan-500/50 transition-all">
-                        Learn More
-                      </div>
-                    </motion.button>
-                  </div>
-
-                  <h3 className="text-3xl font-bold text-white">{portfolioProjects[i].company}</h3>
-                  <div className="w-full h-[1px] bg-white/40"></div>
-                  <p className="text-white/80">{portfolioProjects[i].description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
+            <h3 className="text-3xl font-bold text-gray-900">{portfolioProjects[i].company}</h3>
+            <div className="w-full h-[1px] bg-gray-300"></div>
+            <p className="text-gray-700">{portfolioProjects[i].description}</p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* How We Work Process */}
-      <section className="py-20 px-4 md:px-8 bg-gray-900/50">
+      {/* <section className="py-20 px-4 md:px-8 bg-gray-900/50">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -897,7 +872,7 @@ const Services = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Why Choose Us */}
       <section className="py-20 px-4 md:px-8">
@@ -950,48 +925,10 @@ const Services = () => {
           </motion.div>
         </div>
       </section>  
-
-      {/* CTA Section */}
-      {/* <section className="py-20 px-4 md:px-8 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-cyan-600/20"></div>
-        
-        <div className="max-w-4xl mx-auto relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="gsap-heading text-4xl md:text-5xl font-bold mb-4">
-              Ready to Get Started?
-            </h2>
-            
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Let's discuss how our services can transform your business
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-lg font-semibold bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:shadow-lg hover:shadow-cyan-500/50 transition-all"
-              >
-                Schedule Consultation
-              </motion.button>
-              
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 rounded-lg font-semibold border-2 border-blue-500 text-blue-400 hover:bg-blue-500/10 transition-all"
-              >
-                View Case Studies
-              </motion.button>
-            </div>
-          </motion.div>
-        </div>
-      </section> */}
     </div>
   );
 };
 
 export default Services;
+
+

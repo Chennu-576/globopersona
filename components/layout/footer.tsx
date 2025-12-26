@@ -7,6 +7,8 @@ import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram } from 'luc
 const footerLinks = {
   company: [
     { name: 'About Us', href: '/about' },
+    { name: 'Services', href: '/services' },
+
     { name: 'Careers', href: '/careers' },
     { name: 'Contact', href: '/contact' },
   ],
@@ -46,7 +48,7 @@ export default function Footer() {
                 <span className="text-white font-bold text-xl">GP</span>
               </div>
               <span className="text-2xl font-bold text-white">
-                Globo<span className="text-[#fdc134]">Persona</span>
+                Globo Persona
               </span>
             </Link>
             <p className="text-gray-300 mb-4 max-w-md">
