@@ -9505,28 +9505,926 @@
 
 
 
+// 'use client';
+
+// import React, { useState, useEffect, useRef } from 'react';
+// import Image from 'next/image';
+// import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+// import { ChevronRight, Layers, Database, Lightbulb, Target, ArrowRight} from 'lucide-react';
+// import { gsap } from 'gsap';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// // Register GSAP plugins
+// gsap.registerPlugin(ScrollTrigger);
+
+// // Typing animation function
+// const animateTextTyping = (element: HTMLElement | null, duration: number = 2) => {
+//   if (!element) return;
+
+//   const text = element.textContent || '';
+//   element.textContent = '';
+
+//   let index = 0;
+//   const interval = (duration * 1000) / text.length;
+
+//   const type = () => {
+//     if (index < text.length) {
+//       element.textContent += text[index];
+//       index++;
+//       setTimeout(type, interval);
+//     }
+//   };
+
+//   type();
+// };
+
+// // ===== BUTTON COMPONENT =====
+// interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+//   size?: 'default' | 'sm' | 'lg' | 'icon';
+//   variant?: 'default' | 'outline' | 'secondary';
+// }
+
+// const Button = ({ children, className = '', size = 'default', variant = 'default', ...props }: ButtonProps) => {
+//   const sizeClasses: Record<string, string> = {
+//     default: 'h-10 px-6 py-2',
+//     sm: 'h-8 px-4 text-sm',
+//     lg: 'h-14 px-10 text-lg font-semibold',
+//     icon: 'h-10 w-10'
+//   }
+  
+//   const variantClasses: Record<string, string> = {
+//     default: 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl',
+//     outline: 'border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20',
+//     secondary: 'bg-gray-800 text-white hover:bg-gray-700',
+//   }
+  
+//   return (
+//     <button
+//       className={`inline-flex items-center justify-center whitespace-nowrap rounded-full font-medium transition-all duration-300 ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
+//       {...props}
+//     >
+//       {children}
+//     </button>
+//   )
+// }
+
+// // ============================================
+// // CUSTOM CURSOR COMPONENT
+// // ============================================
+// const CustomCursor = () => {
+//   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+//   const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
+//   const cursorRef = useRef(null);
+//   const dotRef = useRef(null);
+
+//   useEffect(() => {
+//     const handleMouseMove = (e:any) => {
+//       setMousePosition({ x: e.clientX, y: e.clientY });
+
+//       const target = e.target as HTMLElement;
+//       const isInteractive =
+//         target.tagName === 'BUTTON' ||
+//         target.tagName === 'A' ||
+//         target.classList.contains('interactive-element') ||
+//         target.closest('button') ||
+//         target.closest('a') ||
+//         target.closest('.interactive-element');
+
+//       setIsHoveringInteractive(!!isInteractive);
+//     };
+
+//     window.addEventListener('mousemove', handleMouseMove);
+//     return () => window.removeEventListener('mousemove', handleMouseMove);
+//   }, []);
+
+//   return (
+//     <>
+//       <motion.div
+//         ref={cursorRef}
+//         className={`fixed w-8 h-8 border-2 border-blue-600 rounded-full pointer-events-none z-50 ${
+//           isHoveringInteractive ? 'scale-150' : 'scale-100'
+//         }`}
+//         animate={{
+//           x: mousePosition.x - 16,
+//           y: mousePosition.y - 16,
+//         }}
+//         transition={{ type: 'spring', stiffness: 500, damping: 28 }}
+//       />
+//       <motion.div
+//         ref={dotRef}
+//         className="fixed w-2 h-2 bg-blue-600 rounded-full pointer-events-none z-50"
+//         animate={{
+//           x: mousePosition.x - 4,
+//           y: mousePosition.y - 4,
+//         }}
+//         transition={{ type: 'spring', stiffness: 800, damping: 35 }}
+//       />
+//     </>
+//   );
+// };
+
+// // ============================================
+// // TYPING HEADING COMPONENT
+// // ============================================
+// const TypingHeading = ({ text, className = '' }: { text: string; className?: string }) => {
+//   const ref = useRef<HTMLDivElement>(null);
+
+//   useEffect(() => {
+//     const element = ref.current;
+//     if (!element) return;
+
+//     // ScrollTrigger + Typing animation
+//     ScrollTrigger.create({
+//       trigger: element,
+//       start: "top 85%",
+//       onEnter: () => {
+//         gsap.set(element, { opacity: 0 });
+//         gsap.to(element, {
+//           opacity: 1,
+//           duration: 0.3,
+//           delay: 0.2,
+//           onStart: () => {
+//             animateTextTyping(element, 2.5);
+//           }
+//         });
+//       }
+//     });
+
+//     return () => {
+//       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+//     };
+//   }, [text]);
+
+//   return (
+//     <div ref={ref} className={className}>
+//       {text}
+//     </div>
+//   );
+// };
+
+// // ============================================
+// // HERO BANNER WITH CAROUSEL
+// // ============================================
+// const HeroBanner = () => {
+//   const [currentSlide, setCurrentSlide] = useState(0);
+  
+//   const slides = [
+//     {
+//       image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop',
+//       heading: 'Perfect Client Connections',
+//       subheading: 'Connect with your ideal clients effortlessly',
+//       buttonText: 'Get Started',
+//     },
+//     {
+//       image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+//       heading: 'Scale Your Business',
+//       subheading: 'Reach new markets and grow exponentially',
+//       buttonText: 'Learn More',
+//     },
+//     {
+//       image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop',
+//       heading: 'Transform Your Strategy',
+//       subheading: 'Data-driven solutions for modern businesses',
+//       buttonText: 'Explore Now',
+//     },
+//   ];
+
+//   useEffect(() => {
+//     const timer = setInterval(() => {
+//       setCurrentSlide((prev) => (prev + 1) % slides.length);
+//     }, 5000);
+//     return () => clearInterval(timer);
+//   }, []);
+
+//   return (
+//     <section className="relative w-full h-screen overflow-hidden">
+//       <AnimatePresence mode="wait">
+//         <motion.div
+//           key={currentSlide}
+//           initial={{ opacity: 0 }}
+//           animate={{ opacity: 1 }}
+//           exit={{ opacity: 0 }}
+//           transition={{ duration: 0.8 }}
+//           className="absolute inset-0"
+//         >
+//           <Image
+//             src={slides[currentSlide].image}
+//             alt="Hero slide"
+//             fill
+//             className="object-cover"
+//             priority
+//           />
+//           <div className="absolute inset-0 bg-black/40" />
+//         </motion.div>
+//       </AnimatePresence>
+
+//       <div className="relative z-10 h-full flex items-center justify-center text-center px-6">
+//         <motion.div
+//           key={currentSlide}
+//           initial={{ opacity: 0, y: 30 }}
+//           animate={{ opacity: 1, y: 0 }}
+//           exit={{ opacity: 0, y: -30 }}
+//           transition={{ duration: 0.8 }}
+//         >
+//           <TypingHeading
+//             text={slides[currentSlide].heading}
+//             className="text-5xl md:text-6xl lg:text-6xl font-bold text-white mb-6"
+//           />
+//           <p className="text-lg md:text-2xl text-gray-200 mb-8 max-w-sm mx-auto">
+//             {slides[currentSlide].subheading}
+//           </p>
+//           <button className="interactive-element px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105">
+//             {slides[currentSlide].buttonText}
+//           </button>
+//         </motion.div>
+//       </div>
+
+//       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+//         {slides.map((_, index) => (
+//           <motion.button
+//             key={index}
+//             onClick={() => setCurrentSlide(index)}
+//             className={`w-2 h-2 rounded-full transition-all ${
+//               index === currentSlide ? 'w-8 bg-white' : 'bg-white/50'
+//             }`}
+//             whileHover={{ scale: 1.2 }}
+//           />
+//         ))}
+//       </div>
+//     </section>
+//   );
+// };
+
+// // Rest of your components remain EXACTLY the same but with TypingHeading
+// const InfiniteLoopingServices = () => {
+//   const services = [
+//     'Web Development', 'Digital Marketing', 'Business Strategy', 'Brand Development',
+//     'Web Development', 'Digital Marketing', 'Business Strategy', 'Brand Development',
+//   ];
+
+//   return (
+//     <section className="py-4 md:py-6 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
+//       <div className="relative h-16 md:h-8">
+//         <div className="absolute inset-y-0 left-0 w-12 md:w-24 bg-gradient-to-r from-slate-900 to-transparent z-5" />
+//         <div className="absolute inset-y-0 right-0 w-12 md:w-24 bg-gradient-to-l from-slate-900 to-transparent z-5" />
+//         <motion.div
+//           className="flex whitespace-nowrap h-full items-center"
+//           animate={{ x: [0, -1920] }}
+//           transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" } }}
+//         >
+//           {services.map((service, index) => (
+//             <div key={index} className="inline-flex items-center mx-4 md:mx-8 h-full">
+//               <span className="text-lg md:text-xl font-bold text-white/90 px-2 md:px-4 py-2 whitespace-nowrap">
+//                 {service}
+//               </span>
+//             </div>
+//           ))}
+//         </motion.div>
+//       </div>
+//     </section>
+//   )
+// }
+
+// const AboutSection = () => {
+//   return (
+//     <section className="py-20 px-6 md:px-16 lg:px-24">
+//       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+//         <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+//           <TypingHeading text="About Globo Persona" className="text-4xl md:text-5xl font-bold text-gray-900 mb-6" />
+//           <p className="text-gray-700 text-lg leading-relaxed mb-6">
+//             Globo Persona is your trusted partner in building meaningful client connections. With over a decade of expertise in B2B and B2C solutions, we help businesses transform their outreach strategies and scale sustainably.
+//           </p>
+//           <p className="text-gray-700 text-lg leading-relaxed mb-8">
+//             Our innovative approach combines data-driven insights with creative excellence, ensuring every interaction with your clients is purposeful and impactful.
+//           </p>
+//           <button className="interactive-element px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all">
+//             Learn More
+//           </button>
+//         </motion.div>
+
+//         <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="relative h-96">
+//           <Image src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="About Globo Persona" fill className="object-cover rounded-lg" />
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// const ParallaxCard = ({ title, description, image, index, totalCards }: any) => {
+//   const ref = useRef(null);
+//   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start start'] });
+//   const y = useTransform(scrollYProgress, [0, 1], [100 * (totalCards - index - 1), 0]);
+
+//   return (
+//     <motion.div ref={ref} style={{ y }} className="sticky top-20 h-96 rounded-xl overflow-hidden border-t-8 border-blue-400 shadow-2xl">
+//       <div className="grid grid-cols-1 lg:grid-cols-2 h-full bg-white">
+//         <div className="p-8 lg:p-12 flex flex-col justify-center text-black">
+//           <TypingHeading text={title} className="text-3xl lg:text-4xl font-bold mb-4" />
+//           <p className="text-gray-700 text-lg leading-relaxed">{description}</p>
+//         </div>
+//         <div className="relative hidden lg:block">
+//           <Image src={image} alt={title} fill className="object-cover" />
+//         </div>
+//       </div>
+//     </motion.div>
+//   );
+// };
+
+// const ParallaxSection = () => {
+//   const cards = [
+//     { title: 'Web Development', description: 'Cutting-edge web solutions tailored to your business needs. From responsive designs to complex applications, we deliver excellence.', image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1600&q=80' },
+//     { title: 'Digital Marketing', description: 'Strategic marketing campaigns that drive engagement and conversion. Data-driven insights to maximize your ROI.', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop' },
+//     { title: 'Business Strategy', description: 'Comprehensive business strategies designed to scale. We analyze, strategize, and execute for sustainable growth.', image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1600&q=80' },
+//     { title: 'BDE (Business Development)', description: 'Expert business development services to expand your market reach. Building partnerships and driving revenue growth.', image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80' },
+//   ];
+
+//   return (
+//     <section className="bg-blue-900 py-20 px-6 md:px-16 lg:px-24">
+//       <div className="max-w-7xl mx-auto">
+//         <TypingHeading text="Our Services" className="text-4xl md:text-5xl font-bold text-white mb-20" />
+//         <div className="space-y-20">
+//           {cards.map((card: any, index: number) => (
+//             <ParallaxCard key={index} {...card} index={index} totalCards={cards.length} />
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// const TeamRoles = () => {
+//   const points = [
+//     { icon: Layers, title: 'Creators Of Digital Excellence', desc: 'We craft tailored digital solutions that elevate brands and deliver measurable impact.' },
+//     { icon: Lightbulb, title: 'Innovating The Digital Landscape', desc: 'Driven by creativity and technology, we help brands stand out in competitive markets.' },
+//     { icon: Database, title: 'Helping Brands Thrive Online', desc: 'We build scalable systems and strategies that create long-term business value.' },
+//     { icon: Target, title: 'Results Focused Approach', desc: 'Every decision we make is tied to performance, growth, and real outcomes.' },
+//   ];
+
+//   return (
+//     <section className="py-32 bg-white">
+//       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
+//         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+//           <span className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 mb-6">
+//             <span className="w-2 h-2 bg-blue-500 rounded-full" /> ABOUT AGENCY
+//           </span>
+//           <TypingHeading text="Crafting unique digital experiences that elevate your brand" className="text-4xl lg:text-5xl font-semibold text-black leading-tight mb-8" />
+//           <Button className="rounded-full px-6 py-6 text-base">
+//             More About <ArrowRight className="ml-2" size={16} />
+//           </Button>
+//         </motion.div>
+
+//         <div className="relative space-y-12">
+//           <div className="absolute left-5 top-0 h-full w-px bg-gray-200" />
+//           {points.map((item: any, index: number) => (
+//             <motion.div key={index} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }} className="relative flex gap-6 pl-16">
+//               <div className="absolute left-2 top-2 w-6 h-6 rounded-full bg-white border-2 border-blue-500 flex items-center justify-center">
+//                 <div className="w-2 h-2 bg-blue-500 rounded-full" />
+//               </div>
+//               <div>
+//                 <item.icon className="text-blue-600 mb-3" size={28} />
+//                 <TypingHeading text={item.title} className="text-lg font-semibold text-black mb-2" />
+//                 <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// const CTASection = () => {
+//   return (
+//     <section className="py-16 md:py-24 bg-white">
+//       <div className="container mx-auto px-4">
+//         <div className="max-w-5xl mx-auto">
+//           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="bg-gradient-to-r from-[#001F3F] to-blue-900 rounded-3xl p-8 md:p-12 text-white overflow-hidden relative">
+//             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full -translate-y-32 translate-x-32"></div>
+//             <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400/10 rounded-full translate-y-48 -translate-x-48"></div>
+//             <div className="relative z-10">
+//               <div className="max-w-3xl">
+//                 <TypingHeading text="Ready to Transform Your Business?" className="text-3xl md:text-4xl font-bold mb-6" />
+//                 <p className="text-gray-300 text-lg mb-8">
+//                   Join 1000+ successful businesses already leveraging our integrated B2B and B2C solutions. Whether you're looking to streamline operations, enhance customer experiences, or both - we have the expertise to help you succeed.
+//                 </p>
+//                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
+//                   <Button size="lg" className="bg-white text-[#001F3F] hover:bg-gray-100 font-semibold">
+//                     Start Free Trial <ChevronRight className="ml-2 h-4 w-4" />
+//                   </Button>
+//                   <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+//                     Schedule Demo
+//                   </Button>
+//                 </div>
+//               </div>
+//             </div>
+//           </motion.div>
+//         </div>
+//       </div>
+//     </section>
+//   )
+// }
+
+// export default function Home() {
+//   useEffect(() => {
+//     document.body.style.cursor = 'none';
+//     return () => {
+//       document.body.style.cursor = 'auto';
+//     };
+//   }, []);
+
+//   return (
+//     <main className="bg-white">
+//       <CustomCursor />
+//       <HeroBanner />
+//       <InfiniteLoopingServices />
+//       <AboutSection />
+//       <ParallaxSection />
+//       <TeamRoles />
+//       <CTASection />
+//     </main>
+//   );
+// }
+
+
+
+// 'use client';
+
+// import React, { useState, useEffect, useRef } from 'react';
+// import Image from 'next/image';
+// import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+// import { ChevronRight, Layers, Database, Lightbulb, Target, ArrowRight, Star, TrendingUp, Users, Award, CheckCircle, Quote} from 'lucide-react';
+// import { gsap } from 'gsap';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// gsap.registerPlugin(ScrollTrigger);
+
+// const animateTextTyping = (element: HTMLElement | null, duration: number = 2) => {
+//   if (!element) return;
+//   const text = element.textContent || '';
+//   element.textContent = '';
+//   let index = 0;
+//   const interval = (duration * 1000) / text.length;
+//   const type = () => {
+//     if (index < text.length) {
+//       element.textContent += text[index];
+//       index++;
+//       setTimeout(type, interval);
+//     }
+//   };
+//   type();
+// };
+
+// interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+//   size?: 'default' | 'sm' | 'lg' | 'icon';
+//   variant?: 'default' | 'outline' | 'secondary';
+// }
+
+// const Button = ({ children, className = '', size = 'default', variant = 'default', ...props }: ButtonProps) => {
+//   const sizeClasses: Record<string, string> = {
+//     default: 'h-10 px-6 py-2',
+//     sm: 'h-8 px-4 text-sm',
+//     lg: 'h-14 px-10 text-lg font-semibold',
+//     icon: 'h-10 w-10'
+//   }
+  
+//   const variantClasses: Record<string, string> = {
+//     default: 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl',
+//     outline: 'border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20',
+//     secondary: 'bg-gray-800 text-white hover:bg-gray-700',
+//   }
+  
+//   return (
+//     <button
+//       className={`inline-flex items-center justify-center whitespace-nowrap rounded-full font-medium transition-all duration-300 ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
+//       {...props}
+//     >
+//       {children}
+//     </button>
+//   )
+// }
+
+// const CustomCursor = () => {
+//   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+//   const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
+
+//   useEffect(() => {
+//     const handleMouseMove = (e:any) => {
+//       setMousePosition({ x: e.clientX, y: e.clientY });
+//       const target = e.target as HTMLElement;
+//       const isInteractive = target.tagName === 'BUTTON' || target.tagName === 'A' || target.classList.contains('interactive-element') || target.closest('button') || target.closest('a') || target.closest('.interactive-element');
+//       setIsHoveringInteractive(!!isInteractive);
+//     };
+//     window.addEventListener('mousemove', handleMouseMove);
+//     return () => window.removeEventListener('mousemove', handleMouseMove);
+//   }, []);
+
+//   return (
+//     <>
+//       <motion.div
+//         className={`fixed w-8 h-8 border-2 border-blue-600 rounded-full pointer-events-none z-50 ${isHoveringInteractive ? 'scale-150' : 'scale-100'}`}
+//         animate={{ x: mousePosition.x - 16, y: mousePosition.y - 16 }}
+//         transition={{ type: 'spring', stiffness: 500, damping: 28 }}
+//       />
+//       <motion.div
+//         className="fixed w-2 h-2 bg-blue-600 rounded-full pointer-events-none z-50"
+//         animate={{ x: mousePosition.x - 4, y: mousePosition.y - 4 }}
+//         transition={{ type: 'spring', stiffness: 800, damping: 35 }}
+//       />
+//     </>
+//   );
+// };
+
+// const TypingHeading = ({ text, className = '' }: { text: string; className?: string }) => {
+//   const ref = useRef<HTMLDivElement>(null);
+
+//   useEffect(() => {
+//     const element = ref.current;
+//     if (!element) return;
+//     ScrollTrigger.create({
+//       trigger: element,
+//       start: "top 85%",
+//       onEnter: () => {
+//         gsap.set(element, { opacity: 0 });
+//         gsap.to(element, {
+//           opacity: 1,
+//           duration: 0.3,
+//           delay: 0.2,
+//           onStart: () => { animateTextTyping(element, 2.5); }
+//         });
+//       }
+//     });
+//     return () => { ScrollTrigger.getAll().forEach((trigger) => trigger.kill()); };
+//   }, [text]);
+
+//   return <div ref={ref} className={className}>{text}</div>;
+// };
+
+// const HeroBanner = () => {
+//   const [currentSlide, setCurrentSlide] = useState(0);
+//   const slides = [
+//     { image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop', heading: 'Perfect Client Connections', subheading: 'We connect B2B & B2C businesses with their ideal clients through data-driven strategies and innovative technology', buttonText: 'Get Started', secondaryButton: 'Watch Demo' },
+//     { image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80', heading: 'Scale Your Business', subheading: 'Reach new markets and grow exponentially with our proven B2B/B2C solutions', buttonText: 'Learn More', secondaryButton: 'View Portfolio' },
+//     { image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop', heading: 'Transform Your Strategy', subheading: 'Data-driven solutions that deliver measurable results for modern businesses', buttonText: 'Explore Now', secondaryButton: 'Schedule Call' },
+//   ];
+
+//   useEffect(() => {
+//     const timer = setInterval(() => { setCurrentSlide((prev) => (prev + 1) % slides.length); }, 5000);
+//     return () => clearInterval(timer);
+//   }, []);
+
+//   return (
+//     <section className="relative w-full h-screen overflow-hidden">
+//       <AnimatePresence mode="wait">
+//         <motion.div key={currentSlide} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.8 }} className="absolute inset-0">
+//           <Image src={slides[currentSlide].image} alt="Hero slide" fill className="object-cover" priority />
+//           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
+//         </motion.div>
+//       </AnimatePresence>
+//       <div className="relative z-10 h-full flex items-center justify-center text-center px-6">
+//         <motion.div key={currentSlide} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -30 }} transition={{ duration: 0.8 }} className="max-w-4xl">
+//           <TypingHeading text={slides[currentSlide].heading} className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6" />
+//           <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">{slides[currentSlide].subheading}</p>
+//           <div className="flex flex-wrap justify-center gap-6 mb-8 text-white/90">
+//             <div className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-green-400" /><span className="text-sm font-medium">Trusted by 1000+ Companies</span></div>
+//             <div className="flex items-center gap-2"><Star className="w-5 h-5 text-yellow-400" /><span className="text-sm font-medium">4.9/5.0 Rating</span></div>
+//             <div className="flex items-center gap-2"><Award className="w-5 h-5 text-blue-400" /><span className="text-sm font-medium">10+ Years Experience</span></div>
+//           </div>
+//           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+//             <button className="interactive-element px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full font-semibold transition-all transform hover:scale-105 shadow-xl">{slides[currentSlide].buttonText}</button>
+//             <button className="interactive-element px-8 py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-2 border-white/30 rounded-full font-semibold transition-all">{slides[currentSlide].secondaryButton}</button>
+//           </div>
+//         </motion.div>
+//       </div>
+//       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
+//         {slides.map((_, index) => (
+//           <motion.button key={index} onClick={() => setCurrentSlide(index)} className={`w-2 h-2 rounded-full transition-all ${index === currentSlide ? 'w-8 bg-white' : 'bg-white/50'}`} whileHover={{ scale: 1.2 }} />
+//         ))}
+//       </div>
+//     </section>
+//   );
+// };
+
+// const InfiniteLoopingServices = () => {
+//   const services = ['Web Development', 'Digital Marketing', 'Business Strategy', 'Brand Development', 'Web Development', 'Digital Marketing', 'Business Strategy', 'Brand Development'];
+//   return (
+//     <section className="py-4 md:py-6 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
+//       <div className="relative h-16 md:h-8">
+//         <div className="absolute inset-y-0 left-0 w-12 md:w-24 bg-gradient-to-r from-slate-900 to-transparent z-5" />
+//         <div className="absolute inset-y-0 right-0 w-12 md:w-24 bg-gradient-to-l from-slate-900 to-transparent z-5" />
+//         <motion.div className="flex whitespace-nowrap h-full items-center" animate={{ x: [0, -1920] }} transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" } }}>
+//           {services.map((service, index) => (
+//             <div key={index} className="inline-flex items-center mx-4 md:mx-8 h-full">
+//               <span className="text-lg md:text-xl font-bold text-white/90 px-2 md:px-4 py-2 whitespace-nowrap">{service}</span>
+//             </div>
+//           ))}
+//         </motion.div>
+//       </div>
+//     </section>
+//   )
+// }
+
+// const StatsSection = () => {
+//   const [counts, setCounts] = useState({ 0: 0, 1: 0, 2: 0, 3: 0 });
+//   const sectionRef = useRef(null);
+//   const [hasAnimated, setHasAnimated] = useState(false);
+//   const stats = [
+//     { icon: Users, end: 1000, suffix: '+', label: 'Happy Clients', color: 'text-blue-600' },
+//     { icon: TrendingUp, end: 2500, suffix: '+', label: 'Projects Delivered', color: 'text-purple-600' },
+//     { icon: Award, end: 10, suffix: '+', label: 'Years Experience', color: 'text-green-600' },
+//     { icon: Star, end: 98, suffix: '%', label: 'Client Satisfaction', color: 'text-yellow-600' },
+//   ];
+
+//   useEffect(() => {
+//     const observer = new IntersectionObserver((entries) => {
+//       if (entries[0].isIntersecting && !hasAnimated) {
+//         setHasAnimated(true);
+//         stats.forEach((stat, index) => {
+//           let count = 0;
+//           const increment = stat.end / 50;
+//           const timer = setInterval(() => {
+//             count += increment;
+//             if (count >= stat.end) {
+//               count = stat.end;
+//               clearInterval(timer);
+//             }
+//             setCounts(prev => ({ ...prev, [index]: Math.floor(count) }));
+//           }, 30);
+//         });
+//       }
+//     }, { threshold: 0.3 });
+//     if (sectionRef.current) observer.observe(sectionRef.current);
+//     return () => observer.disconnect();
+//   }, [hasAnimated]);
+
+//   return (
+//     <section ref={sectionRef} className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+//       <div className="max-w-7xl mx-auto px-6">
+//         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+//           <TypingHeading text="Trusted by Businesses Worldwide" className="text-4xl md:text-5xl font-bold text-gray-900 mb-4" />
+//           <p className="text-gray-600 text-lg max-w-2xl mx-auto">Our numbers speak for themselves. We deliver results that matter.</p>
+//         </motion.div>
+//         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+//           {stats.map((stat, index) => (
+//             <motion.div key={index} initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} className="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+//               <stat.icon className={`w-12 h-12 mx-auto mb-4 ${stat.color}`} />
+//               <div className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2`}>{counts[index as keyof typeof counts]}{stat.suffix}</div>
+//               <div className="text-gray-600 font-medium">{stat.label}</div>
+//             </motion.div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// const AboutSection = () => {
+//   return (
+//     <section className="py-20 px-6 md:px-16 lg:px-24 bg-white">
+//       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+//         <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+//           <TypingHeading text="About Globo Persona" className="text-4xl md:text-5xl font-bold text-gray-900 mb-6" />
+//           <p className="text-gray-700 text-lg leading-relaxed mb-6">Globo Persona is your trusted partner in building meaningful client connections. With over a decade of expertise in B2B and B2C solutions, we help businesses transform their outreach strategies and scale sustainably.</p>
+//           <p className="text-gray-700 text-lg leading-relaxed mb-8">Our innovative approach combines data-driven insights with creative excellence, ensuring every interaction with your clients is purposeful and impactful.</p>
+//           <button className="interactive-element px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105">Learn More</button>
+//         </motion.div>
+//         <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="relative h-96 rounded-xl overflow-hidden shadow-2xl">
+//           <Image src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="About Globo Persona" fill className="object-cover" />
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// const HowItWorksSection = () => {
+//   const steps = [
+//     { number: '01', title: 'Discovery Call', description: 'We understand your business needs, goals, and challenges through a comprehensive consultation.', icon: '🎯' },
+//     { number: '02', title: 'Strategy Development', description: 'Our experts create a customized plan tailored specifically to your business objectives.', icon: '📊' },
+//     { number: '03', title: 'Execution', description: 'Our dedicated team brings your vision to life with precision and excellence.', icon: '⚡' },
+//     { number: '04', title: 'Growth & Support', description: 'We provide ongoing optimization and support to ensure continuous success and growth.', icon: '📈' }
+//   ];
+
+//   return (
+//     <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+//       <div className="max-w-7xl mx-auto px-6">
+//         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+//           <TypingHeading text="How It Works" className="text-4xl md:text-5xl font-bold text-gray-900 mb-4" />
+//           <p className="text-gray-600 text-lg max-w-2xl mx-auto">Our proven 4-step process ensures your success from start to finish</p>
+//         </motion.div>
+//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+//           {steps.map((step, index) => (
+//             <motion.div key={index} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} className="relative">
+//               <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-t-4 border-blue-600">
+//                 <div className="text-6xl mb-4">{step.icon}</div>
+//                 <div className="text-blue-600 font-bold text-5xl mb-4 opacity-20">{step.number}</div>
+//                 <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
+//                 <p className="text-gray-600 leading-relaxed">{step.description}</p>
+//               </div>
+//               {index < steps.length - 1 && (
+//                 <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-blue-200">
+//                   <div className="absolute right-0 top-1/2 -translate-y-1/2 w-0 h-0 border-t-4 border-t-transparent border-l-8 border-l-blue-200 border-b-4 border-b-transparent"></div>
+//                 </div>
+//               )}
+//             </motion.div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// const ParallaxCard = ({ title, description, image, index, totalCards }: any) => {
+//   const ref = useRef(null);
+//   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start start'] });
+//   const y = useTransform(scrollYProgress, [0, 1], [100 * (totalCards - index - 1), 0]);
+//   return (
+//     <motion.div ref={ref} style={{ y }} className="sticky top-20 h-96 rounded-xl overflow-hidden border-t-8 border-blue-400 shadow-2xl">
+//       <div className="grid grid-cols-1 lg:grid-cols-2 h-full bg-white">
+//         <div className="p-8 lg:p-12 flex flex-col justify-center text-black">
+//           <TypingHeading text={title} className="text-3xl lg:text-4xl font-bold mb-4" />
+//           <p className="text-gray-700 text-lg leading-relaxed">{description}</p>
+//         </div>
+//         <div className="relative hidden lg:block"><Image src={image} alt={title} fill className="object-cover" /></div>
+//       </div>
+//     </motion.div>
+//   );
+// };
+
+// const ParallaxSection = () => {
+//   const cards = [
+//     { title: 'Web Development', description: 'Cutting-edge web solutions tailored to your business needs. From responsive designs to complex applications, we deliver excellence.', image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1600&q=80' },
+//     { title: 'Digital Marketing', description: 'Strategic marketing campaigns that drive engagement and conversion. Data-driven insights to maximize your ROI.', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop' },
+//     { title: 'Business Strategy', description: 'Comprehensive business strategies designed to scale. We analyze, strategize, and execute for sustainable growth.', image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1600&q=80' },
+//     { title: 'BDE (Business Development)', description: 'Expert business development services to expand your market reach. Building partnerships and driving revenue growth.', image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80' },
+//   ];
+//   return (
+//     <section className="bg-gradient-to-b from-blue-900 to-slate-900 py-20 px-6 md:px-16 lg:px-24">
+//       <div className="max-w-7xl mx-auto">
+//         <TypingHeading text="Our Services" className="text-4xl md:text-5xl font-bold text-white mb-20 text-center" />
+//         <div className="space-y-20">{cards.map((card: any, index: number) => (<ParallaxCard key={index} {...card} index={index} totalCards={cards.length} />))}</div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// const TestimonialsSection = () => {
+//   const testimonials = [
+//     { name: 'Sarah Johnson', position: 'CEO', company: 'TechCorp Solutions', rating: 5, text: 'Working with Globo Persona transformed our digital presence completely. Our lead generation increased by 250% in just 3 months. The team is professional, responsive, and truly understands B2B needs.', image: 'https://i.pravatar.cc/150?img=1' },
+//     { name: 'Michael Chen', position: 'Marketing Director', company: 'Global Retail Inc', rating: 5, text: 'The best decision we made was partnering with Globo Persona. Their data-driven approach to digital marketing delivered exceptional ROI. Highly recommend for any business looking to scale.', image: 'https://i.pravatar.cc/150?img=13' },
+//     { name: 'Emma Williams', position: 'Founder', company: 'StartupHub', rating: 5, text: 'From web development to business strategy, Globo Persona handled everything flawlessly. They helped us grow from a startup to a market leader. Outstanding service and results!', image: 'https://i.pravatar.cc/150?img=5' }
+//   ];
+
+//   return (
+//     <section className="py-20 bg-white">
+//       <div className="max-w-7xl mx-auto px-6">
+//         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
+//           <TypingHeading text="What Our Clients Say" className="text-4xl md:text-5xl font-bold text-gray-900 mb-4" />
+//           <p className="text-gray-600 text-lg max-w-2xl mx-auto">Don't just take our word for it. Here's what our clients have to say about working with us.</p>
+//         </motion.div>
+//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+//           {testimonials.map((testimonial, index) => (
+//             <motion.div key={index} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+//               <Quote className="w-10 h-10 text-blue-600 mb-4" />
+//               <div className="flex gap-1 mb-4">{[...Array(testimonial.rating)].map((_, i) => (<Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />))}</div>
+//               <p className="text-gray-700 leading-relaxed mb-6 italic">"{testimonial.text}"</p>
+//               <div className="flex items-center gap-4">
+//                 <img src={testimonial.image} alt={testimonial.name} className="w-12 h-12 rounded-full object-cover" />
+//                 <div>
+//                   <div className="font-bold text-gray-900">{testimonial.name}</div>
+//                   <div className="text-sm text-gray-600">{testimonial.position}</div>
+//                   <div className="text-sm text-blue-600 font-medium">{testimonial.company}</div>
+//                 </div>
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+//         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-center mt-12">
+//           <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 px-6 py-3 rounded-full font-semibold">
+//             <CheckCircle className="w-5 h-5" /><span>4.9/5.0 Average Rating from 500+ Reviews</span>
+//           </div>
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// const TeamRoles = () => {
+//   const points = [
+//     { icon: Layers, title: 'Creators Of Digital Excellence', desc: 'We craft tailored digital solutions that elevate brands and deliver measurable impact.' },
+//     { icon: Lightbulb, title: 'Innovating The Digital Landscape', desc: 'Driven by creativity and technology, we help brands stand out in competitive markets.' },
+//     { icon: Database, title: 'Helping Brands Thrive Online', desc: 'We build scalable systems and strategies that create long-term business value.' },
+//     { icon: Target, title: 'Results Focused Approach', desc: 'Every decision we make is tied to performance, growth, and real outcomes.' },
+//   ];
+
+//   return (
+//     <section className="py-32 bg-white">
+//       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
+//         <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+//           <span className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 mb-6"><span className="w-2 h-2 bg-blue-500 rounded-full" /> ABOUT AGENCY</span>
+//           <TypingHeading text="Crafting unique digital experiences that elevate your brand" className="text-4xl lg:text-5xl font-semibold text-black leading-tight mb-8" />
+//           <Button className="rounded-full px-6 py-6 text-base">More About <ArrowRight className="ml-2" size={16} /></Button>
+//         </motion.div>
+//         <div className="relative space-y-12">
+//           <div className="absolute left-5 top-0 h-full w-px bg-gray-200" />
+//           {points.map((item: any, index: number) => (
+//             <motion.div key={index} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }} className="relative flex gap-6 pl-16">
+//               <div className="absolute left-2 top-2 w-6 h-6 rounded-full bg-white border-2 border-blue-500 flex items-center justify-center"><div className="w-2 h-2 bg-blue-500 rounded-full" /></div>
+//               <div>
+//                 <item.icon className="text-blue-600 mb-3" size={28} />
+//                 <TypingHeading text={item.title} className="text-lg font-semibold text-black mb-2" />
+//                 <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// const CTASection = () => {
+//   return (
+//     <section className="py-16 md:py-24 bg-white">
+//       <div className="container mx-auto px-4">
+//         <div className="max-w-5xl mx-auto">
+//           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="bg-gradient-to-r from-[#001F3F] to-blue-900 rounded-3xl p-8 md:p-12 text-white overflow-hidden relative">
+//             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full -translate-y-32 translate-x-32"></div>
+//             <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400/10 rounded-full translate-y-48 -translate-x-48"></div>
+//             <div className="relative z-10">
+//               <div className="max-w-3xl">
+//                 <TypingHeading text="Ready to Transform Your Business?" className="text-3xl md:text-4xl font-bold mb-6" />
+//                 <p className="text-gray-300 text-lg mb-8">
+//                   Join 1000+ successful businesses already leveraging our integrated B2B and B2C solutions. Whether you're looking to streamline operations, enhance customer experiences, or both - we have the expertise to help you succeed.
+//                 </p>
+//                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
+//                   <Button size="lg" className="bg-white text-[#001F3F] hover:bg-gray-100 font-semibold">
+//                     Start Free Trial <ChevronRight className="ml-2 h-4 w-4" />
+//                   </Button>
+//                   <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+//                     Schedule Demo
+//                   </Button>
+//                 </div>
+//               </div>
+//             </div>
+//           </motion.div>
+//         </div>
+//       </div>
+//     </section>
+//   )
+// }
+
+// export default function Home() {
+//   useEffect(() => {
+//     document.body.style.cursor = 'none';
+//     return () => {
+//       document.body.style.cursor = 'auto';
+//     };
+//   }, []);
+
+//   return (
+//     <main className="bg-white">
+//       <CustomCursor />
+//       <HeroBanner />
+//       <InfiniteLoopingServices />
+//       <StatsSection />
+//       <AboutSection />
+//       <HowItWorksSection />
+//       <ParallaxSection />
+//       <TestimonialsSection />
+//       <TeamRoles />
+//       <CTASection />
+//     </main>
+//   );
+// }
+
+
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Layers, Database, Lightbulb, Target, ArrowRight} from 'lucide-react';
+import {
+  ChevronRight,
+  Layers,
+  Database,
+  Lightbulb,
+  Target,
+  ArrowRight,
+  Star,
+  CheckCircle,
+  Quote
+} from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
-// Typing animation function
 const animateTextTyping = (element: HTMLElement | null, duration: number = 2) => {
   if (!element) return;
-
   const text = element.textContent || '';
   element.textContent = '';
-
   let index = 0;
   const interval = (duration * 1000) / text.length;
-
   const type = () => {
     if (index < text.length) {
       element.textContent += text[index];
@@ -9534,30 +10432,36 @@ const animateTextTyping = (element: HTMLElement | null, duration: number = 2) =>
       setTimeout(type, interval);
     }
   };
-
   type();
 };
 
-// ===== BUTTON COMPONENT =====
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'default' | 'sm' | 'lg' | 'icon';
   variant?: 'default' | 'outline' | 'secondary';
 }
 
-const Button = ({ children, className = '', size = 'default', variant = 'default', ...props }: ButtonProps) => {
+const Button = ({
+  children,
+  className = '',
+  size = 'default',
+  variant = 'default',
+  ...props
+}: ButtonProps) => {
   const sizeClasses: Record<string, string> = {
     default: 'h-10 px-6 py-2',
     sm: 'h-8 px-4 text-sm',
     lg: 'h-14 px-10 text-lg font-semibold',
     icon: 'h-10 w-10'
-  }
-  
+  };
+
   const variantClasses: Record<string, string> = {
-    default: 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl',
-    outline: 'border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20',
-    secondary: 'bg-gray-800 text-white hover:bg-gray-700',
-  }
-  
+    default:
+      'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg hover:shadow-xl',
+    outline:
+      'border-2 border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20',
+    secondary: 'bg-gray-800 text-white hover:bg-gray-700'
+  };
+
   return (
     <button
       className={`inline-flex items-center justify-center whitespace-nowrap rounded-full font-medium transition-all duration-300 ${sizeClasses[size]} ${variantClasses[variant]} ${className}`}
@@ -9565,22 +10469,16 @@ const Button = ({ children, className = '', size = 'default', variant = 'default
     >
       {children}
     </button>
-  )
-}
+  );
+};
 
-// ============================================
-// CUSTOM CURSOR COMPONENT
-// ============================================
 const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHoveringInteractive, setIsHoveringInteractive] = useState(false);
-  const cursorRef = useRef(null);
-  const dotRef = useRef(null);
 
   useEffect(() => {
-    const handleMouseMove = (e:any) => {
+    const handleMouseMove = (e: any) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
-
       const target = e.target as HTMLElement;
       const isInteractive =
         target.tagName === 'BUTTON' ||
@@ -9589,10 +10487,8 @@ const CustomCursor = () => {
         target.closest('button') ||
         target.closest('a') ||
         target.closest('.interactive-element');
-
       setIsHoveringInteractive(!!isInteractive);
     };
-
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
@@ -9600,43 +10496,30 @@ const CustomCursor = () => {
   return (
     <>
       <motion.div
-        ref={cursorRef}
         className={`fixed w-8 h-8 border-2 border-blue-600 rounded-full pointer-events-none z-50 ${
           isHoveringInteractive ? 'scale-150' : 'scale-100'
         }`}
-        animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
-        }}
+        animate={{ x: mousePosition.x - 16, y: mousePosition.y - 16 }}
         transition={{ type: 'spring', stiffness: 500, damping: 28 }}
       />
       <motion.div
-        ref={dotRef}
         className="fixed w-2 h-2 bg-blue-600 rounded-full pointer-events-none z-50"
-        animate={{
-          x: mousePosition.x - 4,
-          y: mousePosition.y - 4,
-        }}
+        animate={{ x: mousePosition.x - 4, y: mousePosition.y - 4 }}
         transition={{ type: 'spring', stiffness: 800, damping: 35 }}
       />
     </>
   );
 };
 
-// ============================================
-// TYPING HEADING COMPONENT
-// ============================================
 const TypingHeading = ({ text, className = '' }: { text: string; className?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
-
-    // ScrollTrigger + Typing animation
     ScrollTrigger.create({
       trigger: element,
-      start: "top 85%",
+      start: 'top 85%',
       onEnter: () => {
         gsap.set(element, { opacity: 0 });
         gsap.to(element, {
@@ -9649,7 +10532,6 @@ const TypingHeading = ({ text, className = '' }: { text: string; className?: str
         });
       }
     });
-
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
@@ -9662,31 +10544,36 @@ const TypingHeading = ({ text, className = '' }: { text: string; className?: str
   );
 };
 
-// ============================================
-// HERO BANNER WITH CAROUSEL
-// ============================================
 const HeroBanner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
   const slides = [
     {
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop',
+      image:
+        'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop',
       heading: 'Perfect Client Connections',
-      subheading: 'Connect with your ideal clients effortlessly',
+      subheading:
+        'We connect B2B & B2C businesses with their ideal clients through data-driven strategies and innovative technology',
       buttonText: 'Get Started',
+      secondaryButton: 'Watch Demo'
     },
     {
-      image: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
+      image:
+        'https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80',
       heading: 'Scale Your Business',
-      subheading: 'Reach new markets and grow exponentially',
+      subheading:
+        'Reach new markets and grow exponentially with our proven B2B/B2C solutions',
       buttonText: 'Learn More',
+      secondaryButton: 'View Portfolio'
     },
     {
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop',
+      image:
+        'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop',
       heading: 'Transform Your Strategy',
-      subheading: 'Data-driven solutions for modern businesses',
+      subheading:
+        'Data-driven solutions that deliver measurable results for modern businesses',
       buttonText: 'Explore Now',
-    },
+      secondaryButton: 'Schedule Call'
+    }
   ];
 
   useEffect(() => {
@@ -9694,7 +10581,7 @@ const HeroBanner = () => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
@@ -9714,7 +10601,7 @@ const HeroBanner = () => {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
         </motion.div>
       </AnimatePresence>
 
@@ -9725,17 +10612,37 @@ const HeroBanner = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
           transition={{ duration: 0.8 }}
+          className="max-w-4xl"
         >
           <TypingHeading
             text={slides[currentSlide].heading}
-            className="text-5xl md:text-6xl lg:text-6xl font-bold text-white mb-6"
+            className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
           />
-          <p className="text-lg md:text-2xl text-gray-200 mb-8 max-w-sm mx-auto">
+          <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto leading-relaxed">
             {slides[currentSlide].subheading}
           </p>
-          <button className="interactive-element px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105">
-            {slides[currentSlide].buttonText}
-          </button>
+          <div className="flex flex-wrap justify-center gap-6 mb-8 text-white/90">
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-green-400" />
+              <span className="text-sm font-medium">Trusted by 1000+ Companies</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-400" />
+              <span className="text-sm font-medium">4.9/5.0 Rating</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Quote className="w-5 h-5 text-blue-400" />
+              <span className="text-sm font-medium">10+ Years Experience</span>
+            </div>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="interactive-element px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full font-semibold transition-all transform hover:scale-105 shadow-xl">
+              {slides[currentSlide].buttonText}
+            </button>
+            <button className="interactive-element px-8 py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border-2 border-white/30 rounded-full font-semibold transition-all">
+              {slides[currentSlide].secondaryButton}
+            </button>
+          </div>
         </motion.div>
       </div>
 
@@ -9755,13 +10662,17 @@ const HeroBanner = () => {
   );
 };
 
-// Rest of your components remain EXACTLY the same but with TypingHeading
 const InfiniteLoopingServices = () => {
   const services = [
-    'Web Development', 'Digital Marketing', 'Business Strategy', 'Brand Development',
-    'Web Development', 'Digital Marketing', 'Business Strategy', 'Brand Development',
+    'Web Development',
+    'Digital Marketing',
+    'Business Strategy',
+    'Brand Development',
+    'Web Development',
+    'Digital Marketing',
+    'Business Strategy',
+    'Brand Development'
   ];
-
   return (
     <section className="py-4 md:py-6 bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
       <div className="relative h-16 md:h-8">
@@ -9770,7 +10681,9 @@ const InfiniteLoopingServices = () => {
         <motion.div
           className="flex whitespace-nowrap h-full items-center"
           animate={{ x: [0, -1920] }}
-          transition={{ x: { repeat: Infinity, repeatType: "loop", duration: 30, ease: "linear" } }}
+          transition={{
+            x: { repeat: Infinity, repeatType: 'loop', duration: 30, ease: 'linear' }
+          }}
         >
           {services.map((service, index) => (
             <div key={index} className="inline-flex items-center mx-4 md:mx-8 h-full">
@@ -9782,41 +10695,80 @@ const InfiniteLoopingServices = () => {
         </motion.div>
       </div>
     </section>
-  )
-}
+  );
+};
 
 const AboutSection = () => {
   return (
-    <section className="py-20 px-6 md:px-16 lg:px-24">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
-          <TypingHeading text="About Globo Persona" className="text-4xl md:text-5xl font-bold text-gray-900 mb-6" />
+    <section className="py-20 px-6 md:px-16 lg:px-24 bg-white">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <TypingHeading
+            text="About Globo Persona"
+            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+          />
           <p className="text-gray-700 text-lg leading-relaxed mb-6">
-            Globo Persona is your trusted partner in building meaningful client connections. With over a decade of expertise in B2B and B2C solutions, we help businesses transform their outreach strategies and scale sustainably.
+            Globo Persona is your trusted partner in building meaningful client connections.
+            With over a decade of expertise in B2B and B2C solutions, we help businesses
+            transform their outreach strategies and scale sustainably.
           </p>
           <p className="text-gray-700 text-lg leading-relaxed mb-8">
-            Our innovative approach combines data-driven insights with creative excellence, ensuring every interaction with your clients is purposeful and impactful.
+            Our innovative approach combines data-driven insights with creative excellence,
+            ensuring every interaction with your clients is purposeful and impactful.
           </p>
-          <button className="interactive-element px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all">
+          <button className="interactive-element px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all transform hover:scale-105">
             Learn More
           </button>
         </motion.div>
-
-        <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }} className="relative h-96">
-          <Image src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="About Globo Persona" fill className="object-cover rounded-lg" />
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="relative h-96 rounded-xl overflow-hidden shadow-2xl"
+        >
+          <Image
+            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+            alt="About Globo Persona"
+            fill
+            className="object-cover"
+          />
         </motion.div>
       </div>
     </section>
   );
 };
 
-const ParallaxCard = ({ title, description, image, index, totalCards }: any) => {
+const ParallaxCard = ({
+  title,
+  description,
+  image,
+  index,
+  totalCards
+}: {
+  title: string;
+  description: string;
+  image: string;
+  index: number;
+  totalCards: number;
+}) => {
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start start'] });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'start start']
+  });
   const y = useTransform(scrollYProgress, [0, 1], [100 * (totalCards - index - 1), 0]);
-
   return (
-    <motion.div ref={ref} style={{ y }} className="sticky top-20 h-96 rounded-xl overflow-hidden border-t-8 border-blue-400 shadow-2xl">
+    <motion.div
+      ref={ref}
+      style={{ y }}
+      className="sticky top-20 h-96 rounded-xl overflow-hidden border-t-8 border-blue-400 shadow-2xl"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 h-full bg-white">
         <div className="p-8 lg:p-12 flex flex-col justify-center text-black">
           <TypingHeading text={title} className="text-3xl lg:text-4xl font-bold mb-4" />
@@ -9832,18 +10784,41 @@ const ParallaxCard = ({ title, description, image, index, totalCards }: any) => 
 
 const ParallaxSection = () => {
   const cards = [
-    { title: 'Web Development', description: 'Cutting-edge web solutions tailored to your business needs. From responsive designs to complex applications, we deliver excellence.', image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1600&q=80' },
-    { title: 'Digital Marketing', description: 'Strategic marketing campaigns that drive engagement and conversion. Data-driven insights to maximize your ROI.', image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop' },
-    { title: 'Business Strategy', description: 'Comprehensive business strategies designed to scale. We analyze, strategize, and execute for sustainable growth.', image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1600&q=80' },
-    { title: 'BDE (Business Development)', description: 'Expert business development services to expand your market reach. Building partnerships and driving revenue growth.', image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80' },
+    {
+      title: 'Web Development',
+      description:
+        'Cutting-edge web solutions tailored to your business needs. From responsive designs to complex applications, we deliver excellence.',
+      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1600&q=80'
+    },
+    {
+      title: 'Digital Marketing',
+      description:
+        'Strategic marketing campaigns that drive engagement and conversion. Data-driven insights to maximize your ROI.',
+      image:
+        'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&h=1080&fit=crop'
+    },
+    {
+      title: 'Business Strategy',
+      description:
+        'Comprehensive business strategies designed to scale. We analyze, strategize, and execute for sustainable growth.',
+      image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1600&q=80'
+    },
+    {
+      title: 'BDE (Business Development)',
+      description:
+        'Expert business development services to expand your market reach. Building partnerships and driving revenue growth.',
+      image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80'
+    }
   ];
-
   return (
-    <section className="bg-blue-900 py-20 px-6 md:px-16 lg:px-24">
+    <section className="bg-gradient-to-b from-blue-900 to-slate-900 py-20 px-6 md:px-16 lg:px-24">
       <div className="max-w-7xl mx-auto">
-        <TypingHeading text="Our Services" className="text-4xl md:text-5xl font-bold text-white mb-20" />
+        <TypingHeading
+          text="Our Services"
+          className="text-4xl md:text-5xl font-bold text-white mb-20 text-center"
+        />
         <div className="space-y-20">
-          {cards.map((card: any, index: number) => (
+          {cards.map((card, index) => (
             <ParallaxCard key={index} {...card} index={index} totalCards={cards.length} />
           ))}
         </div>
@@ -9852,37 +10827,79 @@ const ParallaxSection = () => {
   );
 };
 
+
 const TeamRoles = () => {
   const points = [
-    { icon: Layers, title: 'Creators Of Digital Excellence', desc: 'We craft tailored digital solutions that elevate brands and deliver measurable impact.' },
-    { icon: Lightbulb, title: 'Innovating The Digital Landscape', desc: 'Driven by creativity and technology, we help brands stand out in competitive markets.' },
-    { icon: Database, title: 'Helping Brands Thrive Online', desc: 'We build scalable systems and strategies that create long-term business value.' },
-    { icon: Target, title: 'Results Focused Approach', desc: 'Every decision we make is tied to performance, growth, and real outcomes.' },
+    {
+      icon: Layers,
+      title: 'Creators Of Digital Excellence',
+      desc: 'We craft tailored digital solutions that elevate brands and deliver measurable impact.'
+    },
+    {
+      icon: Lightbulb,
+      title: 'Innovating The Digital Landscape',
+      desc: 'Driven by creativity and technology, we help brands stand out in competitive markets.'
+    },
+    {
+      icon: Database,
+      title: 'Helping Brands Thrive Online',
+      desc: 'We build scalable systems and strategies that create long-term business value.'
+    },
+    {
+      icon: Target,
+      title: 'Results Focused Approach',
+      desc: 'Every decision we make is tied to performance, growth, and real outcomes.'
+    }
   ];
 
   return (
     <section className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
-        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <span className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 mb-6">
-            <span className="w-2 h-2 bg-blue-500 rounded-full" /> ABOUT AGENCY
+            <span className="w-2 h-2 bg-blue-500 rounded-full" />
+            ABOUT AGENCY
           </span>
-          <TypingHeading text="Crafting unique digital experiences that elevate your brand" className="text-4xl lg:text-5xl font-semibold text-black leading-tight mb-8" />
+          <h2 className="text-4xl lg:text-5xl font-semibold text-black leading-tight mb-8">
+  Crafting{' '}
+  <span className="text-blue-600">
+    unique digital experiences
+  </span>{' '}
+  that elevate your{' '}
+  <span className="text-blue-600">
+    brand
+  </span>
+</h2>
+
           <Button className="rounded-full px-6 py-6 text-base">
             More About <ArrowRight className="ml-2" size={16} />
           </Button>
         </motion.div>
-
         <div className="relative space-y-12">
           <div className="absolute left-5 top-0 h-full w-px bg-gray-200" />
-          {points.map((item: any, index: number) => (
-            <motion.div key={index} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: index * 0.1 }} className="relative flex gap-6 pl-16">
+          {points.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative flex gap-6 pl-16"
+            >
               <div className="absolute left-2 top-2 w-6 h-6 rounded-full bg-white border-2 border-blue-500 flex items-center justify-center">
                 <div className="w-2 h-2 bg-blue-500 rounded-full" />
               </div>
               <div>
                 <item.icon className="text-blue-600 mb-3" size={28} />
-                <TypingHeading text={item.title} className="text-lg font-semibold text-black mb-2" />
+                <TypingHeading
+                  text={item.title}
+                  className="text-lg font-semibold text-black mb-2"
+                />
                 <p className="text-gray-600 leading-relaxed">{item.desc}</p>
               </div>
             </motion.div>
@@ -9893,25 +10910,144 @@ const TeamRoles = () => {
   );
 };
 
+const TestimonialsSection = () => {
+  const testimonials = [
+    {
+      name: 'Sarah Johnson',
+      position: 'CEO',
+      company: 'TechCorp Solutions',
+      rating: 5,
+      text: 'Working with Globo Persona transformed our digital presence completely. Our lead generation increased by 250% in just 3 months. The team is professional, responsive, and truly understands B2B needs.',
+      image: 'https://i.pravatar.cc/150?img=1'
+    },
+    {
+      name: 'Michael Chen',
+      position: 'Marketing Director',
+      company: 'Global Retail Inc',
+      rating: 5,
+      text: 'The best decision we made was partnering with Globo Persona. Their data-driven approach to digital marketing delivered exceptional ROI. Highly recommend for any business looking to scale.',
+      image: 'https://i.pravatar.cc/150?img=13'
+    },
+    {
+      name: 'Emma Williams',
+      position: 'Founder',
+      company: 'StartupHub',
+      rating: 5,
+      text: 'From web development to business strategy, Globo Persona handled everything flawlessly. They helped us grow from a startup to a market leader. Outstanding service and results!',
+      image: 'https://i.pravatar.cc/150?img=5'
+    }
+  ];
+
+  return (
+    <section className="py-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-950">
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <TypingHeading
+            text="What Our Clients Say"
+            className="text-4xl md:text-5xl font-bold text-white mb-4"
+          />
+          <p className="text-gray-200 text-lg max-w-2xl mx-auto">
+            Don&apos;t just take our word for it. Here&apos;s what our clients have to say about
+            working with us.
+          </p>
+        </motion.div>
+
+        {/* 3-card row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {testimonials.map((t, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 24, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="relative bg-white/10 backdrop-blur-xl border border-white/15 rounded-3xl p-7 shadow-[0_20px_70px_rgba(0,0,0,0.6)] hover:shadow-[0_25px_90px_rgba(0,0,0,0.8)] hover:-translate-y-2 transition-all duration-300"
+            >
+              {/* top accent line */}
+              <div className="absolute inset-x-6 top-0 h-[3px] bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 rounded-b-full" />
+
+              <Quote className="w-8 h-8 text-blue-300 mb-4" />
+              <div className="flex gap-1 mb-3">
+                {[...Array(t.rating)].map((_, i) => (
+                  <Star
+                    key={i}
+                    className="w-4 h-4 fill-yellow-400 text-yellow-400"
+                  />
+                ))}
+              </div>
+
+              <p className="text-gray-100 leading-relaxed mb-6 italic text-sm md:text-base">
+                &quot;{t.text}&quot;
+              </p>
+
+              <div className="flex items-center gap-4">
+                <img
+                  src={t.image}
+                  alt={t.name}
+                  className="w-12 h-12 rounded-full object-cover border-2 border-blue-400"
+                />
+                <div>
+                  <div className="font-semibold text-white">{t.name}</div>
+                  <div className="text-xs text-gray-300">{t.position}</div>
+                  <div className="text-xs text-blue-300 font-medium">
+                    {t.company}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+
+
 const CTASection = () => {
   return (
     <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="bg-gradient-to-r from-[#001F3F] to-blue-900 rounded-3xl p-8 md:p-12 text-white overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full -translate-y-32 translate-x-32"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400/10 rounded-full translate-y-48 -translate-x-48"></div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-gradient-to-r from-[#001F3F] to-blue-900 rounded-3xl p-8 md:p-12 text-white overflow-hidden relative"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full -translate-y-32 translate-x-32" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-400/10 rounded-full translate-y-48 -translate-x-48" />
             <div className="relative z-10">
               <div className="max-w-3xl">
-                <TypingHeading text="Ready to Transform Your Business?" className="text-3xl md:text-4xl font-bold mb-6" />
+                <TypingHeading
+                  text="Ready to Transform Your Business?"
+                  className="text-3xl md:text-4xl font-bold mb-6"
+                />
                 <p className="text-gray-300 text-lg mb-8">
-                  Join 1000+ successful businesses already leveraging our integrated B2B and B2C solutions. Whether you're looking to streamline operations, enhance customer experiences, or both - we have the expertise to help you succeed.
+                  Join 1000+ successful businesses already leveraging our integrated B2B
+                  and B2C solutions. Whether you&apos;re looking to streamline operations,
+                  enhance customer experiences, or both - we have the expertise to help
+                  you succeed.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                  <Button size="lg" className="bg-white text-[#001F3F] hover:bg-gray-100 font-semibold">
+                  <Button
+                    size="lg"
+                    className="bg-white text-[#001F3F] hover:bg-gray-100 font-semibold"
+                  >
                     Start Free Trial <ChevronRight className="ml-2 h-4 w-4" />
                   </Button>
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-white text-white hover:bg-white/10"
+                  >
                     Schedule Demo
                   </Button>
                 </div>
@@ -9921,8 +11057,8 @@ const CTASection = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default function Home() {
   useEffect(() => {
@@ -9937,9 +11073,13 @@ export default function Home() {
       <CustomCursor />
       <HeroBanner />
       <InfiniteLoopingServices />
+      {/* StatsSection removed */}
       <AboutSection />
+      {/* HowItWorksSection removed */}
       <ParallaxSection />
       <TeamRoles />
+      <TestimonialsSection />
+
       <CTASection />
     </main>
   );

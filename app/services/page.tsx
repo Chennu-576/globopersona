@@ -749,7 +749,7 @@ const Services = () => {
         {[0, 2, 4].map((i) => (
           <motion.div 
             key={i} 
-            className="space-y-6"
+            className="space-y-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -775,7 +775,7 @@ const Services = () => {
             </div>
 
             <h3 className="text-3xl font-bold text-gray-900">{portfolioProjects[i].company}</h3>
-            <div className="w-full h-[1px] bg-gray-300"></div>
+            <div className="w-full h-[2px] bg-gray-300"></div>
             <p className="text-gray-700">{portfolioProjects[i].description}</p>
           </motion.div>
         ))}
@@ -786,7 +786,7 @@ const Services = () => {
         {[1, 3, 5].map((i) => (
           <motion.div 
             key={i} 
-            className="space-y-6"
+            className="space-y-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: (i - 1) * 0.1 }}
@@ -811,8 +811,8 @@ const Services = () => {
               </motion.button>
             </div>
 
-            <h3 className="text-3xl font-bold text-gray-900">{portfolioProjects[i].company}</h3>
-            <div className="w-full h-[1px] bg-gray-300"></div>
+            <h3 className="text-3xl font-bold text-gray-900 mb-2">{portfolioProjects[i].company}</h3>
+            <div className="w-full h-[2px] bg-gray-300"></div>
             <p className="text-gray-700">{portfolioProjects[i].description}</p>
           </motion.div>
         ))}
@@ -885,7 +885,7 @@ const Services = () => {
             viewport={{ once: true }}
           >
             <div>
-              <h2 className="gsap-heading text-4xl md:text-5xl font-bold mb-8">
+              <h2 className="gsap-heading text-4xl md:text-4xl font-bold mb-8">
                 Why Choose Us?
               </h2>
               

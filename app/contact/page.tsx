@@ -649,6 +649,311 @@
 // }
 
 
+// "use client";
+
+// import { useEffect, useRef } from "react";
+// import { motion } from "framer-motion";
+// import { gsap } from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import Image from "next/image";
+// import { Button } from "@/components/ui/button";
+// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Input } from "@/components/ui/input";
+// import { Label } from "@/components/ui/label";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@/components/ui/select";
+
+// gsap.registerPlugin(ScrollTrigger);
+
+// const positions = [
+//   "Web Development", "BDE", "SEO", "Sales", "LG", "Marketing", "Frontend", "Backend", "Design"
+// ];
+
+// export default function ContactPage() {
+//   const headingRefs = useRef<(HTMLElement | null)[]>([]);
+
+//   useEffect(() => {
+//     headingRefs.current.forEach((heading, index) => {
+//       if (!heading) return;
+
+//       const words = heading.textContent?.split(" ") || [];
+//       heading.innerHTML = "";
+//       words.forEach((word) => {
+//         const span = document.createElement("span");
+//         span.textContent = word + " ";
+//         span.style.opacity = "0";
+//         span.style.display = "inline-block";
+//         heading.appendChild(span);
+//       });
+
+//       ScrollTrigger.create({
+//         trigger: heading,
+//         start: "top 85%",
+//         onEnter: () => {
+//           gsap.fromTo(
+//             heading.querySelectorAll("span"),
+//             { opacity: 0, scale: 0.8 },
+//             {
+//               opacity: 1,
+//               scale: 1,
+//               duration: 0.6,
+//               stagger: 0.1,
+//               ease: "back.out(1.7)",
+//             }
+//           );
+//         },
+//       });
+//     });
+//   }, []);
+
+//   return (
+//     <main className="min-h-screen">
+//       {/* Banner Section - Dark BG Image + Overlay */}
+//       <section className="relative mx-auto max-w-5xl px-6 py-24 md:py-32 overflow-hidden">
+//         <div className="absolute inset-0">
+//           <Image
+//             src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+//             alt="Contact GloboPersona"
+//             fill
+//             className="object-cover"
+//             priority
+//           />
+//           <div className="absolute inset-0 bg-gradient-to-r from-slate-900/70 via-blue-900/50 to-slate-900/70" />
+//         </div>
+        
+//         <div className="relative z-10 text-center text-white md:text-left">
+//           <motion.div 
+//             initial={{ opacity: 0, y: 50 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.8 }}
+//             className="max-w-3xl mx-auto md:mx-0 space-y-6"
+//           >
+//             <h1 
+//               ref={(el) => (headingRefs.current[0] = el)}
+//               className="text-4xl md:text-5xl font-bold leading-tight"
+//             >
+//               Get In Touch
+//             </h1>
+//             <p className="text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto md:mx-0">
+//               Ready to join our team or discuss opportunities? We're here to connect with you.
+//             </p>
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* Contact Cards + Form Section - White BG - Equal Height */}
+//       <section className="bg-white py-12 md:py-14">
+//         <div className="mx-auto max-w-6xl px-4">
+//           <div className="grid md:grid-cols-2 gap-12 items-start h-fit">
+//             {/* Left - Contact Cards with Fade In Animation */}
+//             <motion.div 
+//               initial={{ opacity: 0, x: -50 }}
+//               whileInView={{ opacity: 1, x: 0 }}
+//               viewport={{ once: true }}
+//               transition={{ duration: 0.8 }}
+//               className="space-y-6 pt-4"
+//             >
+//               <h2 
+//                 ref={(el) => (headingRefs.current[1] = el)}
+//                 className="text-3xl md:text-4xl font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent max-w-md"
+//               >
+//                 Contact Information
+//               </h2>
+              
+//               <div className="space-y-4">
+//                 {/* Email Card */}
+//                 <motion.div
+//                   initial={{ opacity: 0, y: 30 }}
+//                   whileInView={{ opacity: 1, y: 0 }}
+//                   viewport={{ once: true }}
+//                   transition={{ duration: 0.6, delay: 0.1 }}
+//                 >
+//                   <Card className="bg-white border-t-4 border-blue-500 hover:shadow-xl transition-all duration-300">
+//                     <CardHeader className="pb-4">
+//                       <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center mb-4">
+//                         <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.27 7.27c.883.883 2.317.883 3.2 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+//                         </svg>
+//                       </div>
+//                       <CardTitle className="text-2xl font-bold text-black">Email Us</CardTitle>
+//                     </CardHeader>
+//                     <CardContent className="pt-0">
+//                       <CardDescription className="text-lg font-semibold text-black">
+//                         careers@globopersona.com
+//                       </CardDescription>
+//                     </CardContent>
+//                   </Card>
+//                 </motion.div>
+
+//                 {/* Phone Card */}
+//                 <motion.div
+//                   initial={{ opacity: 0, y: 30 }}
+//                   whileInView={{ opacity: 1, y: 0 }}
+//                   viewport={{ once: true }}
+//                   transition={{ duration: 0.6, delay: 0.2 }}
+//                 >
+//                   <Card className="bg-white border-t-4 border-blue-500 hover:shadow-xl transition-all duration-300">
+//                     <CardHeader className="pb-4">
+//                       <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mb-4">
+//                         <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+//                         </svg>
+//                       </div>
+//                       <CardTitle className="text-2xl font-bold text-black">Call Us</CardTitle>
+//                     </CardHeader>
+//                     <CardContent className="pt-0">
+//                       <CardDescription className="text-lg font-semibold text-black">
+//                         +91 98765 43210
+//                       </CardDescription>
+//                     </CardContent>
+//                   </Card>
+//                 </motion.div>
+
+//                 {/* Address Card */}
+//                 <motion.div
+//                   initial={{ opacity: 0, y: 30 }}
+//                   whileInView={{ opacity: 1, y: 0 }}
+//                   viewport={{ once: true }}
+//                   transition={{ duration: 0.6, delay: 0.3 }}
+//                 >
+//                   <Card className="bg-white border-t-4 border-blue-500 hover:shadow-xl transition-all duration-300">
+//                     <CardHeader className="pb-4">
+//                       <div className="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center mb-4">
+//                         <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+//                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+//                         </svg>
+//                       </div>
+//                       <CardTitle className="text-2xl font-bold text-black">Visit Us</CardTitle>
+//                     </CardHeader>
+//                     <CardContent className="pt-0">
+//                       <CardDescription className="text-lg font-semibold text-black">
+//                         Lal Bahadur Nagar<br />
+//                         Hyderabad, Telangana 500074
+//                       </CardDescription>
+//                     </CardContent>
+//                   </Card>
+//                 </motion.div>
+//               </div>
+//             </motion.div>
+
+//             {/* Right - Blue Form - Tight Spacing */}
+//             <motion.div 
+//               initial={{ opacity: 0, x: 50 }}
+//               whileInView={{ opacity: 1, x: 0 }}
+//               viewport={{ once: true }}
+//               transition={{ duration: 0.8 }}
+//             >
+//               <h2 
+//                 ref={(el) => (headingRefs.current[2] = el)}
+//                 className="text-3xl md:text-4xl font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-6"
+//               >
+//                 Apply Now
+//               </h2>
+              
+//               <Card className="bg-gradient-to-br from-blue-600 to-blue-700 border-0 shadow-2xl">
+//                 <CardContent className="p-6 space-y-4">
+//                   <div className="space-y-3">
+//                     <div className="grid grid-cols-2 gap-3">
+//                       <div className="space-y-1.5">
+//                         <Label htmlFor="firstName" className="text-white font-semibold text-sm">First Name</Label>
+//                         <Input id="firstName" placeholder="John" className="bg-white/10 border-white/30 text-white placeholder-slate-200 h-10" />
+//                       </div>
+//                       <div className="space-y-1.5">
+//                         <Label htmlFor="lastName" className="text-white font-semibold text-sm">Last Name</Label>
+//                         <Input id="lastName" placeholder="Doe" className="bg-white/10 border-white/30 text-white placeholder-slate-200 h-10" />
+//                       </div>
+//                     </div>
+
+//                     <div className="space-y-1.5">
+//                       <Label htmlFor="email" className="text-white font-semibold text-sm">Email</Label>
+//                       <Input id="email" type="email" placeholder="john@example.com" className="bg-white/10 border-white/30 text-white placeholder-slate-200 h-10" />
+//                     </div>
+
+//                     <div className="space-y-1.5">
+//                       <Label htmlFor="phone" className="text-white font-semibold text-sm">Phone Number</Label>
+//                       <Input id="phone" type="tel" placeholder="+91 98765 43210" className="bg-white/10 border-white/30 text-white placeholder-slate-200 h-10" />
+//                     </div>
+
+//                     <div className="space-y-1.5">
+//                       <Label htmlFor="position" className="text-white font-semibold text-sm">Position Applying For</Label>
+//                       <Select>
+//                         <SelectTrigger id="position" className="bg-white/10 border-white/30 text-white h-10">
+//                           <SelectValue placeholder="Select a position" />
+//                         </SelectTrigger>
+//                         <SelectContent className="bg-white/90 border-white/50 text-slate-900">
+//                           {positions.map((position) => (
+//                             <SelectItem key={position} value={position.toLowerCase()}>
+//                               {position}
+//                             </SelectItem>
+//                           ))}
+//                         </SelectContent>
+//                       </Select>
+//                     </div>
+
+//                     <div className="space-y-1.5">
+//                       <Label htmlFor="resume" className="text-white font-semibold text-sm">Upload Resume (PDF)</Label>
+//                       <Input 
+//                         id="resume" 
+//                         type="file" 
+//                         accept=".pdf" 
+//                         className="bg-white/10 border-white/30 text-white file:mr-4 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-white file:text-blue-700 hover:file:bg-blue-50 h-10" 
+//                       />
+//                     </div>
+//                   </div>
+
+//                   <Button className="w-full bg-white text-blue-600 hover:bg-blue-50 h-11 text-lg font-bold shadow-xl border-2 border-white/50">
+//                     Submit Application
+//                   </Button>
+//                 </CardContent>
+//               </Card>
+//             </motion.div>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* Google Maps Section - 100% Width Full Section */}
+//       <section className="w-full bg-slate-900 py-20">
+//         <div className="mx-auto max-w-6xl px-6">
+//           <motion.div
+//             initial={{ opacity: 0, y: 50 }}
+//             whileInView={{ opacity: 1, y: 0 }}
+//             viewport={{ once: true }}
+//             transition={{ duration: 0.8 }}
+//             className="w-full text-center"
+//           >
+//             <h2 
+//               ref={(el) => (headingRefs.current[3] = el)}
+//               className="text-3xl md:text-4xl font-bold text-white mb-12 max-w-2xl mx-auto"
+//             >
+//               Find Us Here
+//             </h2>
+//             <div className="w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white/50">
+//               <iframe
+//                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3819.684617466999!2d78.567899!3d17.361899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb99f4c0c5d9b7%3A0x8e8e8e8e8e8e8e8e!2sLal%20Bahadur%20Nagar%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1735200000000"
+//                 width="100%"
+//                 height="500"
+//                 style={{ border: 0 }}
+//                 allowFullScreen
+//                 loading="lazy"
+//                 referrerPolicy="no-referrer-when-downgrade"
+//                 className="w-full h-[500px]"
+//               />
+//             </div>
+//           </motion.div>
+//         </div>
+//       </section>
+//     </main>
+//   );
+// }
+
+
+
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -677,43 +982,74 @@ const positions = [
 export default function ContactPage() {
   const headingRefs = useRef<(HTMLElement | null)[]>([]);
 
-  useEffect(() => {
-    headingRefs.current.forEach((heading, index) => {
-      if (!heading) return;
+  const createStableWordAnimation = (heading: HTMLElement | null, index: number) => {
+    if (!heading) return;
 
-      const words = heading.textContent?.split(" ") || [];
-      heading.innerHTML = "";
-      words.forEach((word) => {
-        const span = document.createElement("span");
-        span.textContent = word + " ";
-        span.style.opacity = "0";
-        span.style.display = "inline-block";
-        heading.appendChild(span);
-      });
+    const originalText = heading.textContent || "";
+    const words = originalText.split(" ");
+    heading.innerHTML = "";
 
-      ScrollTrigger.create({
-        trigger: heading,
-        start: "top 85%",
-        onEnter: () => {
-          gsap.fromTo(
-            heading.querySelectorAll("span"),
-            { opacity: 0, scale: 0.8 },
-            {
-              opacity: 1,
-              scale: 1,
-              duration: 0.6,
-              stagger: 0.1,
-              ease: "back.out(1.7)",
-            }
-          );
-        },
-      });
+    // Create spans with PERFECT stable spacing
+    words.forEach((word, wordIndex) => {
+      const span = document.createElement("span");
+      span.textContent = word;
+      
+      span.className = `word-${index}`;
+      span.style.display = "inline-block";
+      span.style.opacity = "0";
+      span.style.transform = "scale(0.8)";
+      
+      // PERFECT spacing - no margin issues
+      if (wordIndex < words.length - 1) {
+        span.style.marginRight = "0.3em";
+      }
+      
+      heading.appendChild(span);
     });
+
+    // SINGLE ScrollTrigger - NO onEnterBack to prevent disappear
+    ScrollTrigger.create({
+      trigger: heading,
+      start: "top 90%",
+      once: true, // 🔥 FIX: Only animate ONCE - NO disappear on scroll back
+      onEnter: () => {
+        gsap.fromTo(
+          `.word-${index}`,
+          {
+            opacity: 0,
+            scale: 0.8,
+            rotateX: 90 // Only 3D rotate, NO Y movement
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            rotateX: 0,
+            duration: 0.6,
+            stagger: 0.12,
+            ease: "back.out(1.7)",
+            force3D: true
+          }
+        );
+      }
+    });
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      headingRefs.current.forEach((heading, index) => {
+        createStableWordAnimation(heading, index);
+      });
+    }, 50);
+
+    return () => {
+      clearTimeout(timer);
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
   }, []);
 
   return (
     <main className="min-h-screen">
-      {/* Banner Section - Dark BG Image + Overlay */}
+      {/* Banner Section */}
       <section className="relative mx-auto max-w-5xl px-6 py-24 md:py-32 overflow-hidden">
         <div className="absolute inset-0">
           <Image
@@ -735,22 +1071,22 @@ export default function ContactPage() {
           >
             <h1 
               ref={(el) => (headingRefs.current[0] = el)}
-              className="text-4xl md:text-6xl font-bold leading-tight"
+              className="text-4xl md:text-5xl font-bold leading-tight tracking-tight"
             >
               Get In Touch
             </h1>
-            <p className="text-xl md:text-2xl text-slate-200 max-w-2xl mx-auto md:mx-0">
+            <p className="text-xl md:text-xl text-slate-200 max-w-xl mx-auto md:mx-0">
               Ready to join our team or discuss opportunities? We're here to connect with you.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Contact Cards + Form Section - White BG - Equal Height */}
+      {/* Contact Cards + Form Section */}
       <section className="bg-white py-12 md:py-14">
         <div className="mx-auto max-w-6xl px-4">
           <div className="grid md:grid-cols-2 gap-12 items-start h-fit">
-            {/* Left - Contact Cards with Fade In Animation */}
+            {/* Left - Contact Cards */}
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -760,19 +1096,13 @@ export default function ContactPage() {
             >
               <h2 
                 ref={(el) => (headingRefs.current[1] = el)}
-                className="text-3xl md:text-4xl font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent max-w-md"
+                className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent max-w-md tracking-tight"
               >
                 Contact Information
               </h2>
               
               <div className="space-y-4">
-                {/* Email Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                >
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}>
                   <Card className="bg-white border-t-4 border-blue-500 hover:shadow-xl transition-all duration-300">
                     <CardHeader className="pb-4">
                       <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center mb-4">
@@ -784,19 +1114,13 @@ export default function ContactPage() {
                     </CardHeader>
                     <CardContent className="pt-0">
                       <CardDescription className="text-lg font-semibold text-black">
-                        careers@globopersona.com
+                        <a href="mailto:careers@globopersona.com" className="hover:underline">careers@globopersona.com</a>
                       </CardDescription>
                     </CardContent>
                   </Card>
                 </motion.div>
 
-                {/* Phone Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.2 }}>
                   <Card className="bg-white border-t-4 border-blue-500 hover:shadow-xl transition-all duration-300">
                     <CardHeader className="pb-4">
                       <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mb-4">
@@ -807,20 +1131,12 @@ export default function ContactPage() {
                       <CardTitle className="text-2xl font-bold text-black">Call Us</CardTitle>
                     </CardHeader>
                     <CardContent className="pt-0">
-                      <CardDescription className="text-lg font-semibold text-black">
-                        +91 98765 43210
-                      </CardDescription>
+                      <CardDescription className="text-lg font-semibold text-black">+91 98765 43210</CardDescription>
                     </CardContent>
                   </Card>
                 </motion.div>
 
-                {/* Address Card */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                >
+                <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }}>
                   <Card className="bg-white border-t-4 border-blue-500 hover:shadow-xl transition-all duration-300">
                     <CardHeader className="pb-4">
                       <div className="w-12 h-12 bg-indigo-100 rounded-2xl flex items-center justify-center mb-4">
@@ -833,8 +1149,7 @@ export default function ContactPage() {
                     </CardHeader>
                     <CardContent className="pt-0">
                       <CardDescription className="text-lg font-semibold text-black">
-                        Lal Bahadur Nagar<br />
-                        Hyderabad, Telangana 500074
+                        Lal Bahadur Nagar<br />Hyderabad, Telangana 500074
                       </CardDescription>
                     </CardContent>
                   </Card>
@@ -842,7 +1157,7 @@ export default function ContactPage() {
               </div>
             </motion.div>
 
-            {/* Right - Blue Form - Tight Spacing */}
+            {/* Right - Form */}
             <motion.div 
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -851,7 +1166,7 @@ export default function ContactPage() {
             >
               <h2 
                 ref={(el) => (headingRefs.current[2] = el)}
-                className="text-3xl md:text-4xl font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-6"
+                className="text-3xl md:text-4xl font-bold text-white bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-6 tracking-tight"
               >
                 Apply Now
               </h2>
@@ -869,17 +1184,14 @@ export default function ContactPage() {
                         <Input id="lastName" placeholder="Doe" className="bg-white/10 border-white/30 text-white placeholder-slate-200 h-10" />
                       </div>
                     </div>
-
                     <div className="space-y-1.5">
                       <Label htmlFor="email" className="text-white font-semibold text-sm">Email</Label>
                       <Input id="email" type="email" placeholder="john@example.com" className="bg-white/10 border-white/30 text-white placeholder-slate-200 h-10" />
                     </div>
-
                     <div className="space-y-1.5">
                       <Label htmlFor="phone" className="text-white font-semibold text-sm">Phone Number</Label>
                       <Input id="phone" type="tel" placeholder="+91 98765 43210" className="bg-white/10 border-white/30 text-white placeholder-slate-200 h-10" />
                     </div>
-
                     <div className="space-y-1.5">
                       <Label htmlFor="position" className="text-white font-semibold text-sm">Position Applying For</Label>
                       <Select>
@@ -888,14 +1200,11 @@ export default function ContactPage() {
                         </SelectTrigger>
                         <SelectContent className="bg-white/90 border-white/50 text-slate-900">
                           {positions.map((position) => (
-                            <SelectItem key={position} value={position.toLowerCase()}>
-                              {position}
-                            </SelectItem>
+                            <SelectItem key={position} value={position.toLowerCase()}>{position}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
                     </div>
-
                     <div className="space-y-1.5">
                       <Label htmlFor="resume" className="text-white font-semibold text-sm">Upload Resume (PDF)</Label>
                       <Input 
@@ -906,7 +1215,6 @@ export default function ContactPage() {
                       />
                     </div>
                   </div>
-
                   <Button className="w-full bg-white text-blue-600 hover:bg-blue-50 h-11 text-lg font-bold shadow-xl border-2 border-white/50">
                     Submit Application
                   </Button>
@@ -917,19 +1225,13 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Google Maps Section - 100% Width Full Section */}
+      {/* Google Maps Section */}
       <section className="w-full bg-slate-900 py-20">
         <div className="mx-auto max-w-6xl px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="w-full text-center"
-          >
+          <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="w-full text-center">
             <h2 
               ref={(el) => (headingRefs.current[3] = el)}
-              className="text-3xl md:text-4xl font-bold text-white mb-12 max-w-2xl mx-auto"
+              className="text-3xl md:text-4xl font-bold text-white mb-12 max-w-2xl mx-auto tracking-tight"
             >
               Find Us Here
             </h2>
@@ -951,6 +1253,3 @@ export default function ContactPage() {
     </main>
   );
 }
-
-
-

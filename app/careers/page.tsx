@@ -2158,15 +2158,254 @@
 
 
 // app/careers/page.tsx
+// "use client";
+
+// import { useEffect, useRef } from "react";
+// import { motion } from "framer-motion";
+// import gsap from "gsap";
+// import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+// import { Button } from "@/components/ui/button";
+// import { Badge } from "@/components/ui/badge";
+// import Image from "next/image";
+
+// const benefits = [
+//   { title: "Competitive Salary", description: "Performance-based increments and bonuses." },
+//   { title: "Remote Friendly", description: "Flexible work options to match your lifestyle." },
+//   { title: "Learning Budget", description: "Yearly allowance for courses and conferences." },
+//   { title: "Health & Wellness", description: "Comprehensive medical coverage and programs." },
+// ];
+
+// const jobs = [
+//   {
+//     id: 1,
+//     title: "Frontend Engineer",
+//     location: "Remote · India",
+//     type: "Full-time",
+//     level: "Mid-level",
+//     tags: ["React", "Next.js", "Tailwind"],
+//   },
+//   {
+//     id: 2,
+//     title: "AI Content Strategist",
+//     location: "Remote · Global",
+//     type: "Contract",
+//     level: "Senior",
+//     tags: ["GenAI", "SEO", "Content"],
+//   },
+//   {
+//     id: 3,
+//     title: "Full-Stack Developer",
+//     location: "Hybrid · Hyderabad",
+//     type: "Full-time",
+//     level: "Junior",
+//     tags: ["Next.js", "Node.js", "PostgreSQL"],
+//   },
+// ];
+
+// export default function CareerPage() {
+//   const headingRef = useRef<HTMLSpanElement | null>(null);
+
+//   useEffect(() => {
+//     if (!headingRef.current) return;
+
+//     const words = ["Build.", "Grow.", "Lead.", "With GloboPersona."];
+//     const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.6 });
+
+//     tl.set(headingRef.current, { textContent: "" });
+
+//     words.forEach((word) => {
+//       tl.to(headingRef.current, {
+//         duration: 0.6,
+//         textContent: word,
+//         ease: "none",
+//       }).to(headingRef.current, {
+//         duration: 0.2,
+//         opacity: 0,
+//         y: 4,
+//       });
+//     });
+//   }, []);
+
+//   return (
+//     <main className="min-h-screen bg-gradient-to-b from-[#020617] to-[#0a0f1e]">
+//       {/* Banner - Dark Navy */}
+//       <section className="mx-auto flex max-w-6xl flex-col gap-12 px-6 py-20 md:flex-row md:items-center">
+//   <div className="flex-1 space-y-6">
+//     <h1 className="text-3xl font-semibold leading-tight sm:text-4xl md:text-6xl">
+//       <span className="block text-sky-400">Careers at GloboPersona</span>
+//       <span
+//         ref={headingRef}
+//         className="mt-3 inline-block min-h-[1.2em] border-b border-dotted border-sky-500 pb-1 align-middle"
+//       />
+//     </h1>
+ 
+//     <p className="max-w-xl text-sm text-slate-300 sm:text-base">
+//       Join a team that ships fast, experiments boldly, and designs digital experiences.
+//     </p>
+//   </div>
+//   <motion.div 
+//     initial={{ opacity: 0, x: 50 }} 
+//     whileInView={{ opacity: 1, x: 0 }} 
+//     transition={{ duration: 0.8 }} 
+//     viewport={{ once: true }} 
+//     className="flex-1 relative h-96 rounded-2xl overflow-hidden md:h-[400px]"
+//   >
+//     <Image 
+//       src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
+//       alt="Team working together at GloboPersona" 
+//       fill 
+//       className="object-cover"
+//       priority
+//     />
+//   </motion.div>
+// </section>
+
+//       {/* Why work with us - Light BG + Highlighted cards */}
+//       <section className="bg-gradient-to-r from-slate-50/90 to-blue-50/80">
+//         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-16 md:flex-row">
+//           <div className="md:w-1/3 space-y-4">
+//             <h2 className="text-4xl font-bold text-slate-900">Why work with us</h2>
+//             <p className="text-lg text-slate-600">
+//               Craft meaningful products, grow with mentors, and enjoy a culture that respects focus time.
+//             </p>
+//           </div>
+//           <motion.div
+//             className="grid flex-1 gap-6 sm:grid-cols-2"
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             transition={{ staggerChildren: 0.1 }}
+//           >
+//             {benefits.map((benefit, index) => (
+//               <motion.div
+//                 key={benefit.title}
+//                 variants={{
+//                   hidden: { opacity: 0, y: 30, scale: 0.95 },
+//                   visible: { opacity: 1, y: 0, scale: 1 },
+//                 }}
+//                 whileHover={{ scale: 1.02, y: -5 }}
+//                 transition={{ duration: 0.4 }}
+//               >
+//                 <Card className="h-full border-0 bg-white/70 shadow-xl backdrop-blur-sm hover:shadow-2xl hover:ring-2 hover:ring-blue-200/50">
+//                   <CardContent className="p-8">
+//                     <div className="mb-4 h-12 w-12 rounded-2xl bg-gradient-to-r from-blue-500 to-sky-500" />
+//                     <CardTitle className="mb-3 text-xl font-bold text-slate-900">{benefit.title}</CardTitle>
+//                     <CardDescription className="text-base text-slate-600">{benefit.description}</CardDescription>
+//                   </CardContent>
+//                 </Card>
+//               </motion.div>
+//             ))}
+//           </motion.div>
+//         </div>
+//       </section>
+
+//       {/* Current openings - Custom BG + White cards with black text */}
+//       <section className="bg-gradient-to-b from-indigo-900/20 via-slate-900/50 to-slate-950 border-t border-slate-800/50">
+//         <div className="mx-auto max-w-6xl px-6 py-20">
+//           <div className="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+//             <div>
+//               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">Open roles</p>
+//               <h2 className="mt-2 text-4xl font-bold text-white">Join the Globo Persona team.</h2>
+//             </div>
+//             <p className="text-sm text-slate-300">
+//               Don't see a perfect fit? Send a general application with your portfolio.
+//             </p>
+//           </div>
+
+//           <div className="space-y-6">
+//             {jobs.map((job, index) => (
+//               <motion.div
+//                 key={job.id}
+//                 initial={{ opacity: 0, y: 20 }}
+//                 whileInView={{ opacity: 1, y: 0 }}
+//                 viewport={{ once: true }}
+//                 transition={{ duration: 0.4, delay: index * 0.1 }}
+//               >
+//                 <Card className="group flex flex-col border-blue-500/20 bg-white shadow-2xl hover:border-blue-400/60 hover:shadow-3xl sm:flex-row sm:items-center sm:justify-between">
+//                   <CardHeader className="space-y-3 p-6 sm:basis-2/3">
+//                     <div className="flex items-center gap-3">
+//                       <Badge className="bg-emerald-500/90 text-xs font-bold text-emerald-950 shadow-md">Hiring</Badge>
+//                       <span className="text-sm font-medium text-slate-700">{job.type}</span>
+//                     </div>
+//                     <CardTitle className="text-xl font-bold text-slate-900 group-hover:text-blue-700">
+//                       {job.title}
+//                     </CardTitle>
+//                     <div className="flex flex-wrap items-center gap-3 text-sm text-slate-600">
+//                       <span>{job.location}</span>
+//                       <span className="h-1 w-1 rounded-full bg-slate-400" />
+//                       <span>{job.level}</span>
+//                     </div>
+//                     <div className="flex flex-wrap gap-2">
+//                       {job.tags.map((tag) => (
+//                         <Badge
+//                           key={tag}
+//                           variant="secondary"
+//                           className="border-slate-300 bg-slate-100/80 text-xs font-medium text-slate-700 hover:bg-slate-200"
+//                         >
+//                           {tag}
+//                         </Badge>
+//                       ))}
+//                     </div>
+//                   </CardHeader>
+//                   <CardFooter className="flex items-center justify-end gap-3 border-t border-slate-200/50 p-6 sm:basis-1/3 sm:border-l sm:border-t-0 sm:px-8 sm:py-8">
+//                     {/* <Button
+//                       variant="outline"
+//                       className="border-slate-300 bg-white/80 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 hover:shadow-md"
+//                     >
+//                       View details
+//                     </Button> */}
+//                     <Button className="border-2 border-blue-600 bg-blue-600 px-6 py-2 text-sm font-bold text-white shadow-lg hover:border-blue-700 hover:bg-blue-700 hover:shadow-xl">
+//                       Apply now
+//                     </Button>
+//                   </CardFooter>
+//                 </Card>
+//               </motion.div>
+//             ))}
+//           </div>
+
+//           {/* General application */}
+//           <motion.div
+//             className="mt-16 rounded-2xl border-2 border-dashed border-blue-400/50 bg-white/20 backdrop-blur-xl p-8 text-white shadow-2xl"
+//             initial={{ opacity: 0, scale: 0.95 }}
+//             whileInView={{ opacity: 1, scale: 1 }}
+//             viewport={{ once: true }}
+//           >
+//             <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+//               <div>
+//                 <p className="text-lg font-bold text-white">No perfect role? Pitch your own.</p>
+//                 <p className="text-sm text-slate-200">
+//                   Share what you'd like to build at Globo Persona and how you think you can help.
+//                 </p>
+//               </div>
+//               <Button
+//                 variant="outline"
+//                 size="lg"
+//                 className="border-2 border-white/60 bg-white/10 backdrop-blur-sm text-sm font-bold text-white hover:border-white hover:bg-white/20"
+//               >
+//                 Send general application
+//               </Button>
+//             </div>
+//           </motion.div>
+//         </div>
+//       </section>
+//     </main>
+//   );
+// }
+
+
+
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
+import { TextPlugin } from "gsap/TextPlugin";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+
+gsap.registerPlugin(TextPlugin);
 
 const benefits = [
   { title: "Competitive Salary", description: "Performance-based increments and bonuses." },
@@ -2202,69 +2441,114 @@ const jobs = [
   },
 ];
 
+type HeadingKey = "banner" | "whyWork" | "openRoles" | "noRole";
+
+interface HeadingTexts {
+  [key: string]: string[];
+  banner: string[];
+  whyWork: string[];
+  openRoles: string[];
+  noRole: string[];
+}
+
+const headingTexts: HeadingTexts = {
+  banner: ["Build.", "Grow.", "Lead."],
+  whyWork: ["Why work", "with us"],
+  openRoles: ["Join the", "Globo Persona", "team"],
+  noRole: ["No perfect", "role?"]
+};
+
+const headingKeys: HeadingKey[] = ["banner", "whyWork", "openRoles", "noRole"];
+
 export default function CareerPage() {
-  const headingRef = useRef<HTMLSpanElement | null>(null);
+  const headingRefs = useRef<(HTMLElement | null)[]>([]);
+
+  const setRef = useCallback((index: number) => (el: HTMLElement | null) => {
+    headingRefs.current[index] = el;
+  }, []);
 
   useEffect(() => {
-    if (!headingRef.current) return;
+    headingRefs.current.forEach((ref, index) => {
+      if (!ref) return;
 
-    const words = ["Build.", "Grow.", "Lead.", "With GloboPersona."];
-    const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.6 });
+      const texts = headingTexts[headingKeys[index]];
+      const tl = gsap.timeline({ 
+        repeat: -1, 
+        repeatDelay: 1.5,
+        defaults: { ease: "none" }
+      });
 
-    tl.set(headingRef.current, { textContent: "" });
-
-    words.forEach((word) => {
-      tl.to(headingRef.current, {
-        duration: 0.6,
-        textContent: word,
-        ease: "none",
-      }).to(headingRef.current, {
-        duration: 0.2,
-        opacity: 0,
-        y: 4,
+      // Clean typing - no fade out
+      texts.forEach((text: string, i: number) => {
+        tl.to(ref, {
+          duration: 0.6 + (text.length * 0.04),
+          text: text,
+        });
+        
+        // Pause between words (except last one)
+        if (i < texts.length - 1) {
+          tl.to(ref, {
+            duration: 1.0,
+            text: ""
+          });
+        }
       });
     });
+
+    // Cleanup on unmount
+    return () => {
+      headingRefs.current.forEach(ref => {
+        if (ref) {
+          gsap.killTweensOf(ref);
+        }
+      });
+    };
   }, []);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#020617] to-[#0a0f1e]">
       {/* Banner - Dark Navy */}
       <section className="mx-auto flex max-w-6xl flex-col gap-12 px-6 py-20 md:flex-row md:items-center">
-  <div className="flex-1 space-y-6">
-    <h1 className="text-3xl font-semibold leading-tight sm:text-4xl md:text-6xl">
-      <span className="block text-sky-400">Careers at GloboPersona</span>
-      <span
-        ref={headingRef}
-        className="mt-3 inline-block min-h-[1.2em] border-b border-dotted border-sky-500 pb-1 align-middle"
-      />
-    </h1>
- 
-    <p className="max-w-xl text-sm text-slate-300 sm:text-base">
-      Join a team that ships fast, experiments boldly, and designs digital experiences.
-    </p>
-  </div>
-  <motion.div 
-    initial={{ opacity: 0, x: 50 }} 
-    whileInView={{ opacity: 1, x: 0 }} 
-    transition={{ duration: 0.8 }} 
-    viewport={{ once: true }} 
-    className="flex-1 relative h-96 rounded-2xl overflow-hidden md:h-[400px]"
-  >
-    <Image 
-      src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
-      alt="Team working together at GloboPersona" 
-      fill 
-      className="object-cover"
-      priority
-    />
-  </motion.div>
-</section>
+        <div className="flex-1 space-y-6">
+          <h1 className="text-3xl font-semibold leading-tight sm:text-4xl md:text-6xl">
+            <span className="block text-sky-400">Careers at GloboPersona</span>
+            <span
+              ref={setRef(0)}
+              className="mt-3 inline-block min-h-[1.5em] border-b border-dotted border-sky-500 pb-1 align-middle bg-gradient-to-r from-sky-400 to-blue-500 bg-clip-text text-transparent font-semibold"
+            />
+          </h1>
+
+          <p className="max-w-xl text-sm text-slate-300 sm:text-base">
+            Join a team that ships fast, experiments boldly, and designs digital experiences.
+          </p>
+        </div>
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }} 
+          whileInView={{ opacity: 1, x: 0 }} 
+          transition={{ duration: 0.8 }} 
+          viewport={{ once: true }} 
+          className="flex-1 relative h-96 rounded-2xl overflow-hidden md:h-[400px]"
+        >
+          <Image 
+            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" 
+            alt="Team working together at GloboPersona" 
+            fill 
+            className="object-cover"
+            priority
+          />
+        </motion.div>
+      </section>
 
       {/* Why work with us - Light BG + Highlighted cards */}
       <section className="bg-gradient-to-r from-slate-50/90 to-blue-50/80">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-16 md:flex-row">
           <div className="md:w-1/3 space-y-4">
-            <h2 className="text-4xl font-bold text-slate-900">Why work with us</h2>
+            <h2 
+              ref={setRef(1)}
+              className="text-4xl font-bold text-slate-900 min-h-[100px] leading-tight bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 bg-clip-text text-transparent"
+            >
+              Why work with us
+            </h2>
             <p className="text-lg text-slate-600">
               Craft meaningful products, grow with mentors, and enjoy a culture that respects focus time.
             </p>
@@ -2305,7 +2589,12 @@ export default function CareerPage() {
           <div className="mb-12 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">Open roles</p>
-              <h2 className="mt-2 text-4xl font-bold text-white">Join the Globo Persona team.</h2>
+              <h2 
+                ref={setRef(2)}
+                className="mt-2 text-4xl font-bold text-white min-h-[120px] leading-tight"
+              >
+                Join the Globo Persona team.
+              </h2>
             </div>
             <p className="text-sm text-slate-300">
               Don't see a perfect fit? Send a general application with your portfolio.
@@ -2348,12 +2637,6 @@ export default function CareerPage() {
                     </div>
                   </CardHeader>
                   <CardFooter className="flex items-center justify-end gap-3 border-t border-slate-200/50 p-6 sm:basis-1/3 sm:border-l sm:border-t-0 sm:px-8 sm:py-8">
-                    {/* <Button
-                      variant="outline"
-                      className="border-slate-300 bg-white/80 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50 hover:shadow-md"
-                    >
-                      View details
-                    </Button> */}
                     <Button className="border-2 border-blue-600 bg-blue-600 px-6 py-2 text-sm font-bold text-white shadow-lg hover:border-blue-700 hover:bg-blue-700 hover:shadow-xl">
                       Apply now
                     </Button>
@@ -2372,7 +2655,12 @@ export default function CareerPage() {
           >
             <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
               <div>
-                <p className="text-lg font-bold text-white">No perfect role? Pitch your own.</p>
+                <p 
+                  ref={setRef(3)}
+                  className="text-lg font-bold text-white min-h-[80px] leading-tight"
+                >
+                  No perfect role? Pitch your own.
+                </p>
                 <p className="text-sm text-slate-200">
                   Share what you'd like to build at Globo Persona and how you think you can help.
                 </p>
